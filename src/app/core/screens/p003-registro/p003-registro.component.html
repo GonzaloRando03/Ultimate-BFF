@@ -1,0 +1,45 @@
+<div class="container">
+  <form [formGroup]="registroForm">
+    <div class="loginForm">
+      <h1>Registrate</h1>
+      <app-input-text
+        [placeholder]="'Nombre'"
+        [control]="'nombre'"
+        [group]="registroForm"
+      >
+        <mat-icon>edit</mat-icon>
+      </app-input-text>
+      <app-input-text
+        [placeholder]="'Apellidos'"
+        [control]="'apellidos'"
+        [group]="registroForm"
+      >
+        <mat-icon>edit</mat-icon>
+      </app-input-text>
+      <app-input-text
+        [placeholder]="'E-mail'"
+        [control]="'email'"
+        [group]="registroForm"
+      >
+        <mat-icon>mail</mat-icon>
+      </app-input-text>
+      <app-input-password
+        [placeholder]="'Contraseña'"
+        [control]="'password'"
+        [group]="registroForm"
+      ></app-input-password>
+      <app-input-password
+        [placeholder]="'Repite tu contraseña'"
+        [control]="'password2'"
+        [group]="registroForm"
+      ></app-input-password>
+      <div class="flexRight">
+        <button (click)="registro()" class="loginButton">Crear cuenta</button>
+      </div>
+      <p>
+        ¿Ya tienes cuenta? <a routerLink="/login">Inicia Sesión</a> en
+        UltimateBFF
+      </p>
+    </div>
+  </form>
+</div>

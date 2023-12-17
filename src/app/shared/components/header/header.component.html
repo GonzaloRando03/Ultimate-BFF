@@ -1,0 +1,9 @@
+<header>
+  <div>
+    <img src="assets/img/UBFFlogo.png" alt="UltimateBFF" />
+    <span>Ultimate BFF</span>
+  </div>
+
+  <mat-icon *ngIf="!login" routerLink="/login">person</mat-icon>
+  <mat-icon *ngIf="login" (click)="logout()">logout</mat-icon>
+</header>

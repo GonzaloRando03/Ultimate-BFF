@@ -1,1 +1,218 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-color: #fafafa;
+  --bg-color-secundario: #fafafa;
+  --negro: #191a1c;
+  --negro50: #3e444e;
+  --gris-claro: #ebebeb;
+  --color-primario: #131d47;
+  --color-primario-hover: #3820e2;
+  --color-secundario: #424242;
+  --color-secundario-hover: #424242;
+  --color-accent: #006992;
+  --color-accent-hover: #27476e;
+  --color-error: #ff3535;
+  --color-info: #2196f3;
+  --color-success: #4caf50;
+  --color-warning: #ffc107;
+}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap");
+
+/********************************************
+Estilos de leaflet */
+@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");
+#map {
+  width: 100%;
+  height: 60vh;
+}
+.leaflet-control-attribution,
+.leaflet-control {
+  display: none;
+}
+#mapEscritorio .leaflet-div-icon {
+  width: 0;
+  height: 0;
+  border: 0;
+  padding: 0;
+}
+/*********************************************/
+
+body {
+  margin: 0;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color-secundario);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+button {
+  background-color: var(--bg-color);
+  all: unset;
+  cursor: pointer;
+  border: 1px solid gray;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+input[type="file"],
+input[type="time"],
+textarea,
+select {
+  all: unset;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) sepia(100%) saturate(10000%) hue-rotate(180deg);
+}
+
+input[type="radio"] {
+  accent-color: var(--color-primario);
+  margin-right: 5px;
+}
+
+input[type="date"]::-webkit-clear-button {
+  font-size: 18px;
+  height: 30px;
+  position: relative;
+  right: 5px;
+  margin-right: 4px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.inicioInput {
+  border: 1px solid transparent;
+  transition: 0.5s;
+}
+
+.inicioInput:focus-within {
+  border: 1px solid var(--color-primario);
+}
+
+.inicioInput:focus-within mat-icon {
+  color: var(--color-primario);
+}
+
+.focus {
+  border: 1px solid transparent;
+  transition: 0.5s;
+}
+
+.focus:focus-within {
+  border: 1px solid var(--color-primario);
+}
+
+.focus:focus-within mat-icon {
+  color: var(--color-primario);
+}
+
+h1 {
+  color: var(--negro);
+  font-weight: 500;
+  font-size: 2.5pc;
+  line-height: 2.7pc;
+}
+
+/* .checkBox {
+  display: none;
+}
+
+.checkBoxLabel {
+  width: 20px;
+  height: 20px;
+  display: block;
+  background: url(./assets/img/check_off.svg) no-repeat 0 0;
+}
+
+.checkBox:checked ~ .checkBoxLabel {
+  background: url(./assets/img/check_on.svg) no-repeat 0 0;
+} */
+
+.checkSwitch {
+  display: none;
+}
+
+.checkSwitch:checked ~ .checkSwitchLabel::after {
+  translate: 22px 1px;
+}
+
+.checkSwitchLabel {
+  display: block;
+  background-color: var(--color-accent);
+  border-radius: 100px;
+  width: 40px;
+  height: 20px;
+  margin: 10px;
+}
+
+.checkSwitchLabel::after {
+  position: absolute;
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #3820e2;
+  translate: 0px 1px;
+  transition: 0.2s;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: var(--color-accent);
+}
+
+.fondoNegro {
+  animation-name: desvanecer;
+  animation-duration: 0.5s;
+  display: block;
+  position: fixed;
+  z-index: 990;
+  top: 0;
+  background-color: black;
+  width: 100%;
+  height: 100vh;
+  opacity: 0.5;
+}
+
+button {
+  border-radius: 100px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: var(--color-accent);
+  margin-bottom: 2vh;
+}
+
+@keyframes desvanecer {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.5;
+  }
+}

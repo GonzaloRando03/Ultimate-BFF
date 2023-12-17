@@ -1,0 +1,20 @@
+<div>
+  <ul *ngIf="!login">
+    <a routerLink="/login">
+      <li>
+        <mat-icon>dataset</mat-icon><b>Inicia Sesión y crea nuevos proyectos</b>
+      </li>
+    </a>
+  </ul>
+
+  <ul *ngIf="login">
+    <li><mat-icon>dataset</mat-icon><b>Proyectos Recientes</b></li>
+    <ul>
+      <li>Proyecto1</li>
+      <li>Proyecto2</li>
+    </ul>
+    <li><mat-icon>add</mat-icon><b>Nuevo proyecto</b></li>
+  </ul>
+  <p class="usuario" *ngIf="login"> <mat-icon>person</mat-icon>:  {{ user?.nombre }} {{ user?.apellidos }}</p>
+  <p *ngIf="!login"> Sesión no iniciada</p>
+</div>

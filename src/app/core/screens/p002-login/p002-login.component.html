@@ -1,0 +1,31 @@
+<div class="container">
+  <form [formGroup]="loginForm">
+    <div class="loginForm">
+      <h1>Inicia Sesión</h1>
+      <app-input-text
+        [placeholder]="'E-mail'"
+        [control]="'email'"
+        [group]="loginForm"
+      >
+        <mat-icon>mail</mat-icon>
+      </app-input-text>
+      <app-input-password
+        [placeholder]="'Contraseña'"
+        [control]="'password'"
+        [group]="loginForm"
+      ></app-input-password>
+      <div class="flexRight" (click)="loginEmail()">
+        <button class="loginButton">Iniciar Sesión</button>
+      </div>
+      <div class="sesionGoogle" (click)="loginGoogle()">
+        <img src="assets/img/google.png" alt="Google" />
+        <p>Inicia sesión con Google</p>
+      </div>
+      <p>
+        ¿Aún no tienes cuenta? <a routerLink="/registro">Registrate</a> en
+        UltimateBFF
+      </p>
+      <a routerLink="/recuperacion">He olvidado mi contraseña</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,39 @@
+header {
+  height: 4rem;
+  width: 95%;
+  padding: 0 2.5%;
+  background-color: var(--color-primario);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+}
+
+header div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+header img {
+  width: 3.5rem;
+}
+
+header mat-icon {
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+}
+
+header mat-icon:hover {
+  color: rgb(196, 226, 255);
+}
