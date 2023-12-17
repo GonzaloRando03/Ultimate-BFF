@@ -3,3 +3,110 @@
   margin-left: 15%;
   padding-top: 5rem;
 }
+
+.toast{
+  position: fixed;
+  width: 30rem;
+  padding: 10px;
+  background-color: white;
+  z-index: 100;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 14px;
+  animation: sideIn 0.4s ease-in-out;
+}
+
+.toast p{
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.toast mat-icon{
+  margin-right: 10px;
+  font-size: 30px;
+  height: 30px;
+  width: 30px;
+  padding: 5px;
+}
+
+.toast.info{
+  border: 3px solid var(--color-info);
+}
+
+.toast.info mat-icon{
+  background-color: var(--color-info);
+  color: white;
+  border-radius: 100px;
+}
+
+.toast.info b {
+  color: var(--color-info);
+}
+
+.toast.error{
+  border: 3px solid var(--color-error);
+}
+
+.toast.error mat-icon{
+  background-color: var(--color-error);
+  color: white;
+  border-radius: 100px;
+}
+
+.toast.error b {
+  color: var(--color-error);
+}
+
+.toast.success{
+  border: 3px solid var(--color-success);
+}
+
+.toast.success mat-icon{
+  background-color: var(--color-success);
+  color: white;
+  border-radius: 100px;
+}
+
+.toast.success b {
+  color: var(--color-success);
+}
+
+.toast.warning{
+  border: 3px solid var(--color-warning);
+}
+
+.toast.warning mat-icon{
+  background-color: var(--color-warning);
+  color: white;
+  border-radius: 100px;
+}
+
+.toast.warning b {
+  color: var(--color-warning);
+}
+
+@keyframes sideIn {
+  from {
+    translate: 35rem;
+  }
+  to {
+    translate: 0rem;
+  }
+}
+
+/* Aplicar la animación de entrada a un elemento con la clase "entrada" */
+.entrada {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Definir la animación de salida */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
