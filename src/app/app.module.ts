@@ -14,6 +14,7 @@ import { InputTextComponent } from './shared/components/input-text/input-text.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputPasswordComponent } from './shared/components/input-password/input-password.component';
 import { P003RegistroComponent } from './core/screens/p003-registro/p003-registro.component';
+import { P004DashboardComponent } from './core/screens/p004-dashboard/p004-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { P003RegistroComponent } from './core/screens/p003-registro/p003-registr
     InputTextComponent,
     InputPasswordComponent,
     P003RegistroComponent,
+    P004DashboardComponent,
   ],
   imports: [
     BrowserModule,
