@@ -3,16 +3,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: 95vh;
 }
 
 .loginForm {
   width: 23rem;
   padding: 1rem;
   height: 31rem;
-  border: 1px solid var(--gris-claro);
   border-radius: 24px;
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-primario);
+  -webkit-box-shadow: 6px 7px 21px -10px var(--color-primario);
+  -moz-box-shadow: 6px 7px 21px -10px var(--color-primario);
+  box-shadow: 6px 7px 21px -10px var(--color-primario);
+  color: var(--gris-claro);
 }
 
 .flexRight {
@@ -26,13 +29,13 @@
 
 h1 {
   font-weight: 600;
-  color: var(--color-accent);
+  color: white;
   margin-bottom: 3rem;
 }
 
 .sesionGoogle {
-  border: 1px solid rgb(168, 168, 168);
-  border-radius: 100px;
+  border: 1px solid var(--color-primario);
+  border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   padding: 10px 15px;
   display: flex;
@@ -41,6 +44,7 @@ h1 {
   color: grey;
   margin-bottom: 2vh;
   cursor: pointer;
+  transition: .3s;
 }
 
 .sesionGoogle img {
@@ -50,5 +54,9 @@ h1 {
 
 .sesionGoogle p {
   margin: 0px;
-  color: black;
+  color: var(--gris-claro);
+}
+
+.sesionGoogle:hover{
+  box-shadow: 1px 1px 7px var(--color-primario);
 }

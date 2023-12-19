@@ -1,11 +1,11 @@
 :root {
-  --bg-color: #fafafa;
-  --bg-color-secundario: #fafafa;
+  --bg-color: hsl(250, 24%, 9%);
+  --bg-color-secundario: hsl(248, 21%, 14%);
   --negro: #191a1c;
   --negro50: #3e444e;
-  --gris-claro: #ebebeb;
-  --color-primario: #131d47;
-  --color-primario-hover: #3820e2;
+  --gris-claro: #c9c9c9;
+  --color-primario: hsl(220, 72%, 45%);
+  --color-primario-hover: hsl(220, 80%, 55%);
   --color-secundario: #424242;
   --color-secundario-hover: #424242;
   --color-accent: #006992;
@@ -17,24 +17,6 @@
 }
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap");
 
-/********************************************
-Estilos de leaflet */
-@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");
-#map {
-  width: 100%;
-  height: 60vh;
-}
-.leaflet-control-attribution,
-.leaflet-control {
-  display: none;
-}
-#mapEscritorio .leaflet-div-icon {
-  width: 0;
-  height: 0;
-  border: 0;
-  padding: 0;
-}
-/*********************************************/
 
 body {
   margin: 0;
@@ -43,7 +25,21 @@ body {
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg-color-secundario);
+  background-color: var(--bg-color);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #363636; /* Color del thumb (la barra móvil) */
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bg-color); /* Color del track (la barra en sí) */
 }
 
 code {
@@ -179,7 +175,7 @@ a:visited,
 a:hover,
 a:active {
   text-decoration: none;
-  color: var(--color-accent);
+  color: var(--color-primario-hover);
 }
 
 .fondoNegro {
@@ -196,15 +192,19 @@ a:active {
 }
 
 button {
-  border-radius: 100px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border: 1px solid var(--color-primario);
   padding: 10px 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  background-color: var(--color-accent);
+  color: var(--color-primario-hover);
   margin-bottom: 2vh;
+  transition: .3s;
+}
+
+button:hover{
+  box-shadow: 1px 1px 7px var(--color-primario);
 }
 
 @keyframes desvanecer {

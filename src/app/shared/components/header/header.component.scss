@@ -2,7 +2,7 @@ header {
   height: 4rem;
   width: 95%;
   padding: 0 2.5%;
-  background-color: var(--color-primario);
+  background-color: var(--bg-color);
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: space-between;
@@ -11,6 +11,14 @@ header {
   position: fixed;
   top: 0;
   z-index: 5;
+}
+
+header.header2{
+  position: relative;
+  width: 70%;
+  padding: 0 15%;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 header div {
