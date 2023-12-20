@@ -1,9 +1,10 @@
 :root {
-  --bg-color: hsl(250, 24%, 9%);
+  --bg-color: hsl(251, 24%, 9%);
   --bg-color-secundario: hsl(248, 21%, 14%);
+  --bg-color-element: hsl(251, 24%, 13%);
   --negro: #191a1c;
   --negro50: #3e444e;
-  --gris-claro: #c9c9c9;
+  --gris-claro: #e0e0e0;
   --color-primario: hsl(220, 72%, 45%);
   --color-primario-hover: hsl(220, 80%, 55%);
   --color-secundario: #424242;
@@ -26,6 +27,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-color);
+  background: url(assets/img/background.svg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: white;
 }
 
@@ -205,6 +211,10 @@ button {
 
 button:hover{
   box-shadow: 1px 1px 7px var(--color-primario);
+}
+
+.pointer{
+  cursor: pointer;
 }
 
 @keyframes desvanecer {

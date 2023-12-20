@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './core/services/user.service';
 import { getUsuarioStorage } from './shared/utils/storage';
+import { Toast, ToastService } from './core/services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,27 @@ import { getUsuarioStorage } from './shared/utils/storage';
 })
 export class AppComponent implements OnInit{
   title = 'UltimateBFF';
+  toast:Toast | null = null
+  salidaToast:boolean = false
 
-  constructor(private userService:UserService){}
+  constructor(private userService:UserService, private toastService:ToastService){}
 
   ngOnInit(): void {
     const usuario = getUsuarioStorage()
     this.userService.setUser(usuario)
+
+    this.initToast()
+  }
+
+  initToast(){
+    this.toastService.getToast().subscribe(data => {
+      this.toast = data
+      setTimeout(()=>{
+        this.salidaToast = true
+      }, 4710)
+      setTimeout(()=>{
+        this.salidaToast = false
+      }, 1000)
+    })
   }
 }

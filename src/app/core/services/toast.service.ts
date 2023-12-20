@@ -50,7 +50,7 @@ export class ToastService {
   }
 }
 
-interface Toast {
+export interface Toast {
   type: 'error' | 'info' | 'warning' | 'success';
   title: string;
   text: string;

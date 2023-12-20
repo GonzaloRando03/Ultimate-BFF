@@ -11,10 +11,11 @@
   padding: 1rem;
   height: 31rem;
   border-radius: 24px;
+  background-color: var(--bg-color-element);
   border: 1px solid var(--color-primario);
-  -webkit-box-shadow: 6px 7px 21px -10px var(--color-primario);
+  /* -webkit-box-shadow: 6px 7px 21px -10px var(--color-primario);
   -moz-box-shadow: 6px 7px 21px -10px var(--color-primario);
-  box-shadow: 6px 7px 21px -10px var(--color-primario);
+  box-shadow: 6px 7px 21px -10px var(--color-primario); */
   color: var(--gris-claro);
 }
 

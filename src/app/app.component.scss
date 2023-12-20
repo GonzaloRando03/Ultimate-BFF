@@ -1,16 +1,24 @@
 
 .toast{
   position: fixed;
-  width: 30rem;
+  max-width: 30rem;
   padding: 10px;
-  background-color: white;
+  padding-right: 30px;
+  background-color: var(--bg-color-secundario);
   z-index: 100;
   top: 20px;
   right: 20px;
   display: flex;
   align-items: center;
   border-radius: 14px;
+}
+
+.toast.entradaToast{
   animation: sideIn 0.4s ease-in-out;
+}
+
+.toast.salidaToast{
+  animation: fadeOut 0.4s ease-in-out;
 }
 
 .toast p{
@@ -45,8 +53,7 @@
 }
 
 .toast.error mat-icon{
-  background-color: var(--color-error);
-  color: white;
+  color: var(--color-error);
   border-radius: 100px;
 }
 
@@ -59,8 +66,7 @@
 }
 
 .toast.success mat-icon{
-  background-color: var(--color-success);
-  color: white;
+  color: var(--color-success);
   border-radius: 100px;
 }
 
@@ -73,8 +79,7 @@
 }
 
 .toast.warning mat-icon{
-  background-color: var(--color-warning);
-  color: white;
+  color: var(--color-warning);
   border-radius: 100px;
 }
 

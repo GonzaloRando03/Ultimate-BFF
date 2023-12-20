@@ -3,10 +3,50 @@
 </div>
 
 <!-- HTML PARA LOS TOAST -->
-<!-- <div class="toast error">
+<div 
+  class="toast success" 
+  *ngIf="toast?.type === 'success'"
+  [ngClass]="salidaToast? 'salidaToast': 'entradaToast'"
+>
   <mat-icon>person</mat-icon>
   <div>
-    <b>hola buenas</b>
-    <p>maasdñlfkjasd fñlkjasdñfl kjsadñlkj asñldk </p>
+    <b>{{toast?.title}}</b>
+    <p>{{toast?.text}}</p>
   </div>
-</div> -->
+</div>
+
+<div 
+  class="toast error" 
+  *ngIf="toast?.type === 'error'"
+  [ngClass]="salidaToast? 'salidaToast': 'entradaToast'"
+>
+  <mat-icon>person</mat-icon>
+  <div>
+    <b>{{toast?.title}}</b>
+    <p>{{toast?.text}}</p>
+  </div>
+</div>
+
+<div 
+  class="toast warning" 
+  *ngIf="toast?.type === 'warning'"
+  [ngClass]="salidaToast? 'salidaToast': 'entradaToast'"
+>
+  <mat-icon>person</mat-icon>
+  <div>
+    <b>{{toast?.title}}</b>
+    <p>{{toast?.text}}</p>
+  </div>
+</div>
+
+<div 
+  class="toast info" 
+  *ngIf="toast?.type === 'info'"
+  [ngClass]="salidaToast? 'salidaToast': 'entradaToast'"
+>
+  <mat-icon>person</mat-icon>
+  <div>
+    <b>{{toast?.title}}</b>
+    <p>{{toast?.text}}</p>
+  </div>
+</div>

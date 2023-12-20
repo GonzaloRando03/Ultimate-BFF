@@ -14,13 +14,18 @@ export class HeaderComponent implements OnInit{
   @Input() header1:boolean = true
 
   constructor(private userService:UserService, private location: Location){
+    
+  }
+
+  ngOnInit(): void {
+    const usuario = this.userService.getUserValue()
+    this.user = usuario
+    this.login = this.login = this.user !== null
     this.userService.getUser().subscribe(data => {
       this.user = data
       this.login = this.user !== null
     })
   }
-
-  ngOnInit(): void {}
 
   async logout(){
     await this.userService.desloguearUsuario()
