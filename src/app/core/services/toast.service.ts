@@ -12,7 +12,6 @@ export class ToastService {
 
   error(title: string, text: string) {
     this.setToast({ type: 'error', title, text });
-    console.log(text)
     setTimeout(() => {
       this.setToast(null);
     }, 5000);
@@ -34,7 +33,6 @@ export class ToastService {
 
   success(title: string, text: string) {
     this.setToast({ type: 'success', title, text });
-    console.log(text)
     setTimeout(() => {
       this.setToast(null);
     }, 5000);

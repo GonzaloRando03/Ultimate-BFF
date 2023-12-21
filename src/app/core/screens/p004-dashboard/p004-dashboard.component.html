@@ -2,5 +2,85 @@
 <section>
     <div class="usuarioAcciones">
         <h2>Tu información</h2>
+        <form [formGroup]="userForm">
+            <label for="nombre">Nombre</label>
+            <app-input-text
+                [placeholder]="'Nombre'"
+                [control]="'nombre'"
+                [group]="userForm"
+            ><mat-icon>edit</mat-icon>
+            </app-input-text>
+
+            <label for="nombre">Apellidos</label>
+            <app-input-text
+                [placeholder]="'Apellidos'"
+                [control]="'apellidos'"
+                [group]="userForm"
+            ><mat-icon>edit</mat-icon>
+            </app-input-text>
+
+            <label for="email">E-mail</label>
+            <p>{{user?.mail}}</p>
+            <div class="flexRight">
+                <button (click)="actualizarUsuario()">ACTUALIZAR INFORMACIÓN</button>
+            </div>
+            <div class="accionesContainer">
+                <div class="sombraLuz"></div>
+                <h2>Acciones</h2>
+                <button>
+                    <mat-icon>add</mat-icon> 
+                    NUEVO PROYECTO
+                </button>
+                <button (click)="logout()">
+                    <mat-icon>logout</mat-icon> 
+                    CERRAR SESIÓN
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="proyectos">
+        <h2>Tus proyectos</h2>
+
+        <div class="proyectosContainer">
+            <div class="proyectoOne">
+                <div class="tituloProyecto">
+                    <h4>Nombre proyecto</h4>
+                    <span>· · ·</span>
+                </div>
+                <div class="datosProyecto">
+                    <span><mat-icon>calendar_month</mat-icon>: 10 Dic 2023</span>
+                    <span><mat-icon>person</mat-icon>: 10 </span>
+                    <span>Genéricos: 10</span>
+                    <span>Pantallas: 13</span>
+                </div>
+            </div>
+
+            <div class="proyectoOne">
+                <div class="tituloProyecto">
+                    <h4>Nombre proyecto</h4>
+                    <span>· · ·</span>
+                </div>
+                <div class="datosProyecto">
+                    <span><mat-icon>calendar_month</mat-icon>: 10 Dic 2023</span>
+                    <span><mat-icon>person</mat-icon>: 10 </span>
+                    <span>Genéricos: 10</span>
+                    <span>Pantallas: 13</span>
+                </div>
+            </div>
+
+            <div class="proyectoOne">
+                <div class="tituloProyecto">
+                    <h4>Nombre proyecto</h4>
+                    <span>· · ·</span>
+                </div>
+                <div class="datosProyecto">
+                    <span><mat-icon>calendar_month</mat-icon>: 10 Dic 2023</span>
+                    <span><mat-icon>person</mat-icon>: 10 </span>
+                    <span>Genéricos: 10</span>
+                    <span>Pantallas: 13</span>
+                </div>
+            </div>
+        </div>
     </div>
 </section>

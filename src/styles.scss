@@ -11,10 +11,12 @@
   --color-secundario-hover: #424242;
   --color-accent: #006992;
   --color-accent-hover: #27476e;
-  --color-error: #ff3535;
+  --rojo-neon: rgb(228, 35, 35);
+  --color-error: #d3311c;
   --color-info: #2196f3;
   --color-success: #4caf50;
   --color-warning: #ffc107;
+  --texto-oscuro:rgb(165, 165, 165);
 }
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap");
 
@@ -215,6 +217,11 @@ button:hover{
 
 .pointer{
   cursor: pointer;
+}
+
+.flexRight{
+  display: flex;
+  justify-content: right;
 }
 
 @keyframes desvanecer {

@@ -37,7 +37,6 @@ export class UserService {
   setUser(u: Usuario | null): void {
     this.user = u;
     this.user$.next(this.user);
-    console.log(this.user);
   }
 
   getUser(): Observable<Usuario | null> {
@@ -233,5 +232,28 @@ export class UserService {
       .catch((error) => {
         this.toast.error('Error', 'Error al desloguear al usuario');
       });
+  }
+
+  async editarUsuario(nombre:string, apellidos:string){
+    try {
+      const usuarioEditado = await this.userDatabase.editarUsuario(
+        this.user?.uid!,
+        nombre,
+        apellidos
+      ) 
+
+      if (usuarioEditado === null){
+        this.toast.error('Ha ocurrido un error', 'Error al actualizar la información del usuario usuario');
+        return
+      }
+  
+      this.setUser(usuarioEditado)
+      guardarUsuarioStorage(usuarioEditado)
+
+      this.toast.success('Información actualizada', 'La información de tu usuario se ha actualizado correctamente')
+
+    } catch (error) {
+      this.toast.error('Ha ocurrido un error', 'Error al actualizar la información del usuario usuario');
+    }
   }
 }

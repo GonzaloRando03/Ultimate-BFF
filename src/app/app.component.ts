@@ -25,6 +25,7 @@ export class AppComponent implements OnInit{
   initToast(){
     this.toastService.getToast().subscribe(data => {
       this.toast = data
+      this.salidaToast = false
       setTimeout(()=>{
         this.salidaToast = true
       }, 4710)
