@@ -18,7 +18,6 @@ export interface EndpointPantalla {
     url:string
     nombre:string
     idProyecto:string
-    consultaDB:string
     response: EndpointResponse
     idEndpointGenerico: string
 }

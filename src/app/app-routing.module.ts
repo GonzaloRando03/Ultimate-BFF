@@ -6,12 +6,14 @@ import { P003RegistroComponent } from './core/screens/p003-registro/p003-registr
 import { P004DashboardComponent } from './core/screens/p004-dashboard/p004-dashboard.component';
 import { CanActivateUser } from './shared/security/CanActivateUser';
 import { CanActivateNoUser } from './shared/security/CanActivateNoUser';
+import { P005ProyectoComponent } from './core/screens/p005-proyecto/p005-proyecto.component';
 
 const routes: Routes = [
   { path: '', component: P001HomeComponent },
   { path: 'login', component: P002LoginComponent, canActivate: [CanActivateNoUser] },
-  { path: 'registro', component: P003RegistroComponent, canActivate: [CanActivateNoUser]},
+  { path: 'registro', component: P003RegistroComponent, canActivate: [CanActivateNoUser] },
   { path: 'dashboard', component: P004DashboardComponent, canActivate: [CanActivateUser] },
+  { path: 'proyecto/:id', component: P005ProyectoComponent, canActivate: [CanActivateUser] },
   { path: '**', component: P001HomeComponent },
 ];
 

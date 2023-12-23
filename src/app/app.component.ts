@@ -15,11 +15,12 @@ export class AppComponent implements OnInit{
 
   constructor(private userService:UserService, private toastService:ToastService){}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const usuario = getUsuarioStorage()
     this.userService.setUser(usuario)
 
     this.initToast()
+    await this.userService.inicializarUsuario()
   }
 
   initToast(){

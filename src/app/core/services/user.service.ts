@@ -18,6 +18,7 @@ import { ERRORES_FIREBASE } from '../constants/firebaseErrors';
 import { UserDatabaseService } from 'src/app/server/user/user-database.service';
 import { ToastService } from './toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProyectoService } from './proyecto.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,8 @@ export class UserService {
   constructor(
     private userDatabase: UserDatabaseService,
     private toast: ToastService,
-    private router: Router
+    private router: Router,
+    private proyectoService:ProyectoService
   ) {
     this.user = getUsuarioStorage();
   }
@@ -255,5 +257,9 @@ export class UserService {
     } catch (error) {
       this.toast.error('Ha ocurrido un error', 'Error al actualizar la información del usuario usuario');
     }
+  }
+
+  async inicializarUsuario(){
+    await this.proyectoService.obtenerProyectosUsuario(this.user?.uid!)
   }
 }

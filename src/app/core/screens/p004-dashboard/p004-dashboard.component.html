@@ -27,7 +27,7 @@
             <div class="accionesContainer">
                 <div class="sombraLuz"></div>
                 <h2>Acciones</h2>
-                <button>
+                <button (click)="setMostrarNuevoProyecto(true)">
                     <mat-icon>add</mat-icon> 
                     NUEVO PROYECTO
                 </button>
@@ -39,52 +39,51 @@
         </form>
     </div>
 
-    <div class="proyectos">
+    <div class="proyectos" *ngIf="proyectos.length > 0">
         <h2>Tus proyectos</h2>
 
         <div class="proyectosContainer">
-            <div class="proyectoOne">
+            <div class="proyectoOne" 
+                *ngFor="let p of proyectos"
+                [routerLink]="'/proyecto/' + p.id"
+            >
                 <div class="tituloProyecto">
-                    <h4>Nombre proyecto</h4>
+                    <h4>{{p.nombre}}</h4>
                     <span>· · ·</span>
                 </div>
                 <div class="datosProyecto">
-                    <span><mat-icon>calendar_month</mat-icon>: 10 Dic 2023</span>
-                    <span><mat-icon>person</mat-icon>: 10 </span>
-                    <span>Genéricos: 10</span>
-                    <span>Pantallas: 13</span>
-                </div>
-            </div>
-
-            <div class="proyectoOne">
-                <div class="tituloProyecto">
-                    <h4>Nombre proyecto</h4>
-                    <span>· · ·</span>
-                </div>
-                <div class="datosProyecto">
-                    <span><mat-icon>calendar_month</mat-icon>: 10 Dic 2023</span>
-                    <span><mat-icon>person</mat-icon>: 10 </span>
-                    <span>Genéricos: 10</span>
-                    <span>Pantallas: 13</span>
-                </div>
-            </div>
-
-            <div class="proyectoOne">
-                <div class="tituloProyecto">
-                    <h4>Nombre proyecto</h4>
-                    <span>· · ·</span>
-                </div>
-                <div class="datosProyecto">
-                    <span><mat-icon>calendar_month</mat-icon>: 10 Dic 2023</span>
-                    <span><mat-icon>person</mat-icon>: 10 </span>
-                    <span>Genéricos: 10</span>
-                    <span>Pantallas: 13</span>
+                    <span><mat-icon>calendar_month</mat-icon>: {{p.fechaCreacion.toString() | date}}</span>
+                    <span><mat-icon>person</mat-icon>: {{p.usuarios.length}} </span>
+                    <span>Genéricos: {{p.numeroGenericos}}</span>
+                    <span>Pantallas: {{p.numeroPantallas}}</span>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="noProjects" *ngIf="proyectos.length === 0">
+        <h2>Aún no tienes proyectos</h2>
+    </div>
 </section>
 
-<app-modal [titulo]="'Nuevo Proyecto'" (cerrarModal)="cerrarNuevoProyecto()">
-    ñkjasñdlfñlasdkñasldkñaslkdjfñlaksjdfñlkajsdf
+<app-modal 
+    *ngIf="mostrarNuevoProyecto" 
+    [titulo]="'Nuevo Proyecto'" 
+    (cerrarModal)="setMostrarNuevoProyecto(false)"
+>
+    <form [formGroup]="nuevoProyectoForm" class="nuevoProyectoForm">
+        <label for="nombre">Nombre</label>
+        <app-input-text
+            [placeholder]="'Nombre del proyecto'"
+            [control]="'nombre'"
+            [group]="nuevoProyectoForm"
+        ><mat-icon>edit</mat-icon>
+        </app-input-text>
+        <div class="flexRight">
+            <button (click)="crearProyecto()">
+                <mat-icon>add</mat-icon> 
+                CREAR PROYECTO
+            </button>
+        </div>
+    </form>
 </app-modal>

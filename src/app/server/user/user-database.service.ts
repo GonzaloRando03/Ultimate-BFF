@@ -15,18 +15,20 @@ import { Usuario } from 'src/app/core/models/usuario.model';
   providedIn: 'root',
 })
 export class UserDatabaseService {
+  usuariosCollection = 'Usuarios'
+
   constructor(private firestore: Firestore) {}
 
   async crearUsuario(usuario: Usuario) {
     try {
-      await addDoc(collection(this.firestore, 'Usuarios'), usuario);
+      await addDoc(collection(this.firestore, this.usuariosCollection), usuario);
     } catch (error) {}
   }
 
   async obtenerUsuario(uid: string) {
     try {
       const querySnapshot = await getDocs(
-        query(collection(this.firestore, 'Usuarios'), where('uid', '==', uid))
+        query(collection(this.firestore, this.usuariosCollection), where('uid', '==', uid))
       );
 
       if (querySnapshot.docs.length === 0) {
@@ -42,7 +44,7 @@ export class UserDatabaseService {
   async editarUsuario(uid:string, nombre:string, apellidos:string){
     try {
       const querySnapshot = await getDocs(
-        query(collection(this.firestore, 'Usuarios'), where('uid', '==', uid))
+        query(collection(this.firestore, this.usuariosCollection), where('uid', '==', uid))
       );
   
       if (querySnapshot.docs.length === 0) {
@@ -51,7 +53,7 @@ export class UserDatabaseService {
   
       const usuarioRef = querySnapshot.docs[0]
   
-      await updateDoc(doc(this.firestore, 'Usuarios', usuarioRef.id), {
+      await updateDoc(doc(this.firestore, this.usuariosCollection, usuarioRef.id), {
         nombre: nombre,
         apellidos: apellidos,
       });
