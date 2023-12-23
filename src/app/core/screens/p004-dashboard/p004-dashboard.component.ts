@@ -47,4 +47,8 @@ export class P004DashboardComponent implements OnInit{
       this.userForm.get('apellidos')!.value
     )
   }
+
+  cerrarNuevoProyecto(){
+    console.log('cerrao')
+  }
 }
