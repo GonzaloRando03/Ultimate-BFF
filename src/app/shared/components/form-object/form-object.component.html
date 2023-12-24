@@ -1,0 +1,36 @@
+<form [formGroup]="group">
+    <div formArrayName="body">
+        <div *ngFor="let b of bodyFormArray.controls; let i = index">
+            <div class="inputOneContainer">
+                <app-input-text
+                    [placeholder]="'Campo'"
+                    [control]="'nombre'"
+                    [group]="obtenerFormGroupBody(i)"
+                ><mat-icon>edit</mat-icon>
+                </app-input-text>
+                
+                <div class="selectContainer">
+                    <label>Tipo :</label>
+                    <app-input-select
+                        [group]="obtenerFormGroupBody(i)"
+                        [control]="'type'"
+                        [values]="objectValues"
+                    ></app-input-select>
+                </div>
+
+                <button (click)="eliminarBody(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+            <app-form-object 
+                *ngIf="comprobarObject(i)" 
+                [group]="group" 
+                [init]="true">
+            </app-form-object>
+        </div>
+        <button (click)="aniadirBody()">
+            <mat-icon>add</mat-icon>
+            AÑADIR CAMPO
+        </button>
+    </div>
+</form>

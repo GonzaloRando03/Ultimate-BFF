@@ -1,0 +1,13 @@
+mat-form-field{
+    color: var(--color-primario-hover);
+    display: flex;
+} 
+
+mat-select{
+    height: 1rem;
+    padding-top: 1rem;
+}
+
+::ng-deep .resultados{
+    background-color: var(--bg-color-element) !important;
+}

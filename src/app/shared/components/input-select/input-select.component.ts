@@ -9,5 +9,11 @@ import { FormGroup } from '@angular/forms';
 export class InputSelectComponent {
   @Input() control: string = '';
   @Input() group!: FormGroup;
-  @Input() placeholder: string = '';
+  @Input() values: SelectValue[] = [];
+
+}
+
+export interface SelectValue {
+  name:string
+  value:any
 }

@@ -1,0 +1,26 @@
+form{
+    margin-left: .5rem;
+    border-left: 1px dashed var(--color-primario-hover);
+    padding-left: 1rem;
+    padding-top: 1rem;
+}
+
+.inputOneContainer{
+    display: flex;
+    align-items: center;
+}
+
+.selectContainer{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 1rem;
+    translate: 0 -10px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.selectContainer label{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
