@@ -21,6 +21,9 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { DropDownComponent } from './shared/components/drop-down/drop-down.component';
 import { P006CrearGenericoComponent } from './core/screens/p006-crear-generico/p006-crear-generico.component';
 import { InputSelectComponent } from './shared/components/input-select/input-select.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { FormObjectComponent } from './shared/components/form-object/form-object.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { InputSelectComponent } from './shared/components/input-select/input-sel
     DropDownComponent,
     P006CrearGenericoComponent,
     InputSelectComponent,
+    FormObjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,8 +50,10 @@ import { InputSelectComponent } from './shared/components/input-select/input-sel
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore(initializeApp(firebaseConfig))),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -19,3 +19,14 @@ section{
 .subHeader mat-icon:hover{
     color: var(--color-primario-hover);
 }
+
+.methodContainer{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 1rem;
+}
+
+.methodContainer label{
+    margin-top: 10px;
+    margin-right: 10px;
+}

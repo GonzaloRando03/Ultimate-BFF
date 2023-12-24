@@ -1,0 +1,72 @@
+export const METHODS = [
+    {
+        name:'POST',
+        value:'POST'
+    },
+    {
+        name:'GET',
+        value:'GET'
+    },
+    {
+        name:'PUT',
+        value:'PUT'
+    },
+    {
+        name:'DELETE',
+        value:'DELETE'
+    },
+    {
+        name:'HEAD',
+        value:'HEAD'
+    },
+    {
+        name:'PATCH',
+        value:'PATCH'
+    },
+]
+
+export const OBJECT_TYPES = [
+    {
+        name:'String',
+        value:'String'
+    },
+    {
+        name:'Number',
+        value:'Number'
+    },
+    {
+        name:'Boolean',
+        value:'Boolean'
+    },
+    {
+        name:'Object',
+        value:'Object'
+    },
+    {
+        name:'Array',
+        value:'Array'
+    },
+    {
+        name:'Null',
+        value:'Null'
+    },
+]
+
+export const PARAM_TYPES = [
+    {
+        name:'String',
+        value:'String'
+    },
+    {
+        name:'Number',
+        value:'Number'
+    },
+    {
+        name:'Boolean',
+        value:'Boolean'
+    },
+    {
+        name:'Null',
+        value:'Null'
+    },
+]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { METHODS } from '../../constants/selectValues';
 
 @Component({
   selector: 'app-p006-crear-generico',
@@ -10,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class P006CrearGenericoComponent implements OnInit{
   idProyecto:string = ''
   genericoForm:FormGroup
+  methodsValues = METHODS
 
   constructor(
     private aRouter:ActivatedRoute,
@@ -31,23 +33,5 @@ export class P006CrearGenericoComponent implements OnInit{
     this.idProyecto = this.aRouter.snapshot.params['id']
   }
 
-  get bodyFormArray(): FormArray {
-    return this.genericoForm.get('body') as FormArray
-  }
 
-  aniadirBody() {
-    const body = this.fb.group({
-      prueba: new FormControl('')
-    })
-
-    this.bodyFormArray.push(body)
-  }
-
-  eliminarBody(i:number) {
-    this.bodyFormArray.controls.splice(i, 1)
-  }
-
-  obtenerFormGroupBody(i:number){
-    return this.bodyFormArray.at(i) as FormGroup
-  }
 }

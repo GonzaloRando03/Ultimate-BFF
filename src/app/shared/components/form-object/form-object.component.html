@@ -24,7 +24,7 @@
             </div>
             <app-form-object 
                 *ngIf="comprobarObject(i)" 
-                [group]="group" 
+                [group]="obtenerFormGroupBody(i)" 
                 [init]="true">
             </app-form-object>
         </div>

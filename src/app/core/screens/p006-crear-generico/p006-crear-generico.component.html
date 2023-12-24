@@ -22,14 +22,21 @@
         ><mat-icon>edit</mat-icon>
         </app-input-text>
 
-        <div class="bodyContainer">
-            <label>Body</label>
+        <div class="methodContainer">
+            <label>Método :</label>
+            <app-input-select
+                [group]="genericoForm"
+                [control]="'descipcion'"
+                [values]="methodsValues"
+            ></app-input-select>
         </div>
 
-        <app-input-select
-            [group]="genericoForm"
-            [control]="'descipcion'"
-        ></app-input-select>
+        <div class="bodyContainer">
+            <label>Body</label>
+            <app-form-object
+                [group]="genericoForm">
+            </app-form-object>
+        </div>
     </form>
 </section>
 
