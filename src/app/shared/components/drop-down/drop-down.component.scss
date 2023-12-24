@@ -1,0 +1,71 @@
+details {
+    box-sizing: border-box;
+    transition: max-height 300ms ease-out;
+    max-height: 5.5rem; /* Set a max-height value just enough to show the summary content */
+    overflow: hidden; /* Hide the rest of the content */
+  }
+
+  summary {
+    display: block; /* This hides the summary's ::marker pseudo-element */
+  }
+
+  input {
+    display: none; /* Hide the checkbox element */
+  }
+
+  /* <label> element to check the checkbox */
+  label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    background: var(--bg-color-element);
+    border-radius: 14px;
+    border: 1px solid var(--color-primario-hover);
+    color: #fff;
+    height: 5rem; /* This height value must be equal to max-height value of <details> element  */
+  }
+
+  label:hover {
+    cursor: pointer;
+  }
+
+  label::before {
+    content: "⏵";
+    font-size: 1.5rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    transition: rotate 200ms 400ms ease-out;
+    color: var(--color-primario-hover);
+  }
+
+  div.content {
+    padding: 0 10px;
+  }
+
+  /* Here you can choose two approaches to animate <details> element:
+    1) Use adjacent sibling combinator (+)
+    2) Use :has() pseudo-class, but this might not work in Firefox.
+  */
+
+  input:checked + details,
+  details:has(input:checked) {
+    max-height: 800px; /* Set a max-height value enough to show all the content */
+    border-bottom: none;
+  }
+
+  input:checked + details label::before,
+  details:has(input:checked) label::before {
+    rotate: 90deg;
+    transition: rotate 200ms ease-out;
+  }
+
+  .content p {
+    padding: 1rem;
+    background-color: var(--bg-color-element);
+    border: 1px solid var(--negro50);
+    border-radius: 14px;
+    margin-left: 10%;
+  }

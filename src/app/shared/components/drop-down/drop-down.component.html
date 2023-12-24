@@ -1,0 +1,10 @@
+<input type="checkbox" name="detail-one" id="detail-one" />
+<details open>
+  <summary>
+    <label for="detail-one"><h3>{{titulo}}</h3></label>
+  </summary>
+  <div class="content">
+    <p *ngFor="let e of elements">{{e.titulo}}</p>
+  </div>
+</details>
+
