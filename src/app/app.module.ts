@@ -17,6 +17,8 @@ import { P003RegistroComponent } from './core/screens/p003-registro/p003-registr
 import { P004DashboardComponent } from './core/screens/p004-dashboard/p004-dashboard.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { P005ProyectoComponent } from './core/screens/p005-proyecto/p005-proyecto.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
+import { DropDownComponent } from './shared/components/drop-down/drop-down.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { P005ProyectoComponent } from './core/screens/p005-proyecto/p005-proyect
     P004DashboardComponent,
     ModalComponent,
     P005ProyectoComponent,
+    LoaderComponent,
+    DropDownComponent,
   ],
   imports: [
     BrowserModule,

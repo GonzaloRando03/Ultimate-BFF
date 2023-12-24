@@ -57,4 +57,10 @@ export class ProyectoService {
     }
     this.setProyectos(proyectos)
   }
+
+  async obtenerProyectoPorId(projectId:string){
+    const proyecto = await this.proyectoDatabase.obtenerProyecto(projectId)
+
+    return proyecto
+  }
 }

@@ -1,1 +1,43 @@
-<p>p005-proyecto works!</p>
+<app-header></app-header>
+<section *ngIf="proyecto !== null">
+    <div class="subHeader">
+        <mat-icon routerLink="/dashboard">arrow_back</mat-icon>
+        <h3>{{proyecto.nombre}}</h3>
+    </div>
+
+    <div class="proyectoBody">
+        <div class="botoneraTop">
+            <button>
+                <mat-icon>person</mat-icon> 
+                PARTICIPANTES
+            </button>
+            <button>
+                <mat-icon>dns</mat-icon> 
+                NUEVO EP.GENÉRICO
+            </button>
+            <button>
+                <mat-icon>desktop_windows</mat-icon> 
+                NUEVO EP.PANTALLA
+            </button>
+            <button>
+                <mat-icon>preview</mat-icon> 
+                NUEVO C.VISUAL
+            </button>
+            <button>
+                <mat-icon>download</mat-icon> 
+                EXPORTAR PDF
+            </button>
+        </div>
+
+        <div class="contentContainer">
+            <app-drop-down
+                [titulo]="'Endpoints de Pantallas'"
+                [elements]="getPantallaDropDown()"
+            ></app-drop-down>
+        </div>
+    </div>
+</section>
+
+<div class="loaderContainer" *ngIf="proyecto === null">
+    <app-loader></app-loader>
+</div>
