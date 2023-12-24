@@ -70,3 +70,26 @@ export const PARAM_TYPES = [
         value:'Null'
     },
 ]
+
+export const ARRAY_TYPES = [
+    {
+        name:'String',
+        value:'String'
+    },
+    {
+        name:'Number',
+        value:'Number'
+    },
+    {
+        name:'Boolean',
+        value:'Boolean'
+    },
+    {
+        name:'Null',
+        value:'Null'
+    },
+    {
+        name:'Object',
+        value:'Object'
+    },
+]

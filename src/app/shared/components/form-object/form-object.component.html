@@ -18,7 +18,16 @@
                     ></app-input-select>
                 </div>
 
-                <button (click)="eliminarBody(i)">
+                <div class="selectContainer" *ngIf="comprobarArray(i)">
+                    <label>Tipo del Array :</label>
+                    <app-input-select
+                        [group]="obtenerFormGroupBody(i)"
+                        [control]="'arrayValue'"
+                        [values]="arrayValues"
+                    ></app-input-select>
+                </div>
+
+                <button class="delete" (click)="eliminarBody(i)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>
@@ -28,7 +37,7 @@
                 [init]="true">
             </app-form-object>
         </div>
-        <button (click)="aniadirBody()">
+        <button (click)="aniadirBody()" class="new">
             <mat-icon>add</mat-icon>
             AÑADIR CAMPO
         </button>

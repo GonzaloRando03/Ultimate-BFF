@@ -6,22 +6,6 @@
     </div>
 
     <form [formGroup]="genericoForm">
-        <label for="nombre">Nombre del Endpoint</label>
-        <app-input-text
-            [placeholder]="'Nombre'"
-            [control]="'nombre'"
-            [group]="genericoForm"
-        ><mat-icon>edit</mat-icon>
-        </app-input-text>
-
-        <label for="url">URL del Endpoint</label>
-        <app-input-text
-            [placeholder]="'URL'"
-            [control]="'url'"
-            [group]="genericoForm"
-        ><mat-icon>edit</mat-icon>
-        </app-input-text>
-
         <div class="methodContainer">
             <label>Método :</label>
             <app-input-select
@@ -29,6 +13,26 @@
                 [control]="'descipcion'"
                 [values]="methodsValues"
             ></app-input-select>
+        </div>
+
+        <div class="inputTextContainer">
+            <label for="nombre">Nombre del Endpoint</label>
+            <app-input-text
+                [placeholder]="'Nombre'"
+                [control]="'nombre'"
+                [group]="genericoForm"
+            ><mat-icon>edit</mat-icon>
+            </app-input-text>
+        </div>
+
+        <div class="inputTextContainer">
+            <label for="url">URL del Endpoint</label>
+            <app-input-text
+                [placeholder]="'URL'"
+                [control]="'url'"
+                [group]="genericoForm"
+            ><mat-icon>edit</mat-icon>
+            </app-input-text>
         </div>
 
         <div class="bodyContainer">

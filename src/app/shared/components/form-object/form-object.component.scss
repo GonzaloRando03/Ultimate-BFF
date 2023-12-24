@@ -24,3 +24,20 @@ form{
     margin-right: 10px;
 }
 
+.delete{
+    color: var(--rojo-neon);
+    border-color: var(--rojo-neon);
+}
+
+.delete:hover {
+    box-shadow: 1px 1px 7px var(--rojo-neon);
+}
+
+.new{
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.new:hover {
+    box-shadow: 1px 1px 7px var(--color-success);
+}
