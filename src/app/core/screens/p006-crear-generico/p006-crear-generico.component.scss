@@ -1,0 +1,21 @@
+section{
+    margin-top: 4rem;
+    width: 80%;
+    padding: 0 10%;
+}
+
+.subHeader{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.subHeader mat-icon{
+    margin-right: 1.5rem;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.subHeader mat-icon:hover{
+    color: var(--color-primario-hover);
+}

@@ -19,6 +19,8 @@ import { ModalComponent } from './shared/components/modal/modal.component';
 import { P005ProyectoComponent } from './core/screens/p005-proyecto/p005-proyecto.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { DropDownComponent } from './shared/components/drop-down/drop-down.component';
+import { P006CrearGenericoComponent } from './core/screens/p006-crear-generico/p006-crear-generico.component';
+import { InputSelectComponent } from './shared/components/input-select/input-select.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { DropDownComponent } from './shared/components/drop-down/drop-down.compo
     P005ProyectoComponent,
     LoaderComponent,
     DropDownComponent,
+    P006CrearGenericoComponent,
+    InputSelectComponent,
   ],
   imports: [
     BrowserModule,

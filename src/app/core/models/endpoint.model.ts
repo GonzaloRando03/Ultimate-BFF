@@ -8,6 +8,7 @@ export interface EndpointGenerico {
     idProyecto:string
     consultaDB:string
     response: EndpointResponse
+    descripcion?:string
 }
 
 export interface EndpointPantalla {
@@ -20,6 +21,7 @@ export interface EndpointPantalla {
     idProyecto:string
     response: EndpointResponse
     idEndpointGenerico: string
+    descripcion?:string
 }
 
 export type RequestBody = ObjectCell[]

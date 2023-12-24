@@ -11,7 +11,7 @@
                 <mat-icon>person</mat-icon> 
                 PARTICIPANTES
             </button>
-            <button>
+            <button [routerLink]="'/nuevoGenerico/' + idProyecto">
                 <mat-icon>dns</mat-icon> 
                 NUEVO EP.GENÉRICO
             </button>
@@ -33,6 +33,13 @@
             <app-drop-down
                 [titulo]="'Endpoints de Pantallas'"
                 [elements]="getPantallaDropDown()"
+                [id]="'endpointPantallaDropDown'"
+            ></app-drop-down>
+
+            <app-drop-down
+                [titulo]="'Endpoints Genéricos'"
+                [elements]="getGenericoDropDown()"
+                [id]="'endpointGenericoDropDown'"
             ></app-drop-down>
         </div>
     </div>

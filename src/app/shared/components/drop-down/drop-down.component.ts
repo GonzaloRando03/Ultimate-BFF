@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class DropDownComponent {
   @Input() titulo:string = ''
+  @Input() id:string = ''
   @Input() elements:DropDownElement[] = []
 }
 

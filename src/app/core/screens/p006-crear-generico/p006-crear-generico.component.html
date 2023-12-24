@@ -1,0 +1,35 @@
+<app-header></app-header>
+<section>
+    <div class="subHeader">
+        <mat-icon [routerLink]="'/proyecto/'+ idProyecto">arrow_back</mat-icon>
+        <h3>Nuevo Endpoint Genérico</h3>
+    </div>
+
+    <form [formGroup]="genericoForm">
+        <label for="nombre">Nombre del Endpoint</label>
+        <app-input-text
+            [placeholder]="'Nombre'"
+            [control]="'nombre'"
+            [group]="genericoForm"
+        ><mat-icon>edit</mat-icon>
+        </app-input-text>
+
+        <label for="url">URL del Endpoint</label>
+        <app-input-text
+            [placeholder]="'URL'"
+            [control]="'url'"
+            [group]="genericoForm"
+        ><mat-icon>edit</mat-icon>
+        </app-input-text>
+
+        <div class="bodyContainer">
+            <label>Body</label>
+        </div>
+
+        <app-input-select
+            [group]="genericoForm"
+            [control]="'descipcion'"
+        ></app-input-select>
+    </form>
+</section>
+
