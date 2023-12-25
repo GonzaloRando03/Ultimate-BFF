@@ -34,3 +34,26 @@ section{
 .inputTextContainer{
     width: 50%;
 }
+
+.bodyContainer span, .paramsContainer span {
+    color: var(--texto-oscuro);
+}
+
+.paramsContainer, .bodyContainer{
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.bodyContainer.noMargin{
+    margin-bottom: 2rem;
+}
+
+.flexRight mat-icon{
+    margin-right: 1rem;
+}
+
+.flexRight button{
+    background-color: var(--bg-color);
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+}

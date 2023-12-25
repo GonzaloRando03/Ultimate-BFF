@@ -1,0 +1,11 @@
+<form [formGroup]="group">
+    <div class="inputText">
+      <textarea 
+        [id]="control"
+        [formControlName]="control"
+        [placeholder]="placeholder">
+      </textarea>
+      <ng-content></ng-content>
+    </div>
+</form>
+  

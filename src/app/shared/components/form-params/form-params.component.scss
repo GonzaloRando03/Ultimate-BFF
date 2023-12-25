@@ -1,0 +1,43 @@
+form{
+    margin-left: .5rem;
+    border-left: 1px dashed var(--color-primario-hover);
+    padding-left: 1rem;
+    padding-top: 1rem;
+}
+
+.inputOneContainer{
+    display: flex;
+    align-items: center;
+}
+
+.selectContainer{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 1rem;
+    translate: 0 -10px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.selectContainer label{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.delete{
+    color: var(--rojo-neon);
+    border-color: var(--rojo-neon);
+}
+
+.delete:hover {
+    box-shadow: 1px 1px 7px var(--rojo-neon);
+}
+
+.new{
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.new:hover {
+    box-shadow: 1px 1px 7px var(--color-success);
+}

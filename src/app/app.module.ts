@@ -24,6 +24,8 @@ import { InputSelectComponent } from './shared/components/input-select/input-sel
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { FormObjectComponent } from './shared/components/form-object/form-object.component';
+import { InputTextareaComponent } from './shared/components/input-textarea/input-textarea.component';
+import { FormParamsComponent } from './shared/components/form-params/form-params.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { FormObjectComponent } from './shared/components/form-object/form-object
     P006CrearGenericoComponent,
     InputSelectComponent,
     FormObjectComponent,
+    InputTextareaComponent,
+    FormParamsComponent,
   ],
   imports: [
     BrowserModule,

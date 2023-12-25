@@ -18,25 +18,10 @@
                     ></app-input-select>
                 </div>
 
-                <div class="selectContainer" *ngIf="comprobarArray(i)">
-                    <label>Tipo del Array :</label>
-                    <app-input-select
-                        [group]="obtenerFormGroupBody(i)"
-                        [control]="'arrayValue'"
-                        [values]="arrayValues"
-                    ></app-input-select>
-                </div>
-
                 <button class="delete" (click)="eliminarBody(i)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>
-            <app-form-object 
-                *ngIf="comprobarObject(i)" 
-                [group]="obtenerFormGroupBody(i)" 
-                [fArrayName]="fArrayName"
-                [init]="true">
-            </app-form-object>
         </div>
         <button (click)="aniadirBody()" class="new">
             <mat-icon>add</mat-icon>

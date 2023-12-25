@@ -35,11 +35,54 @@
             </app-input-text>
         </div>
 
+        <label for="descipcion">Descripción del Endpoint</label>
+        <app-input-textarea
+            [placeholder]="'Descripción del Endpoint'"
+            [control]="'descipcion'"
+            [group]="genericoForm"
+        ><mat-icon>edit</mat-icon>
+        </app-input-textarea>
+
+        <div class="paramsContainer">
+            <label>Request Params</label><br>
+            <span *ngIf="obtenerFormArray('params').controls.length === 0">Añade los params de tu endpoint</span>
+            <app-form-params
+                [group]="genericoForm"
+                [fArrayName]="'params'">
+            </app-form-params>
+        </div>
+
         <div class="bodyContainer">
-            <label>Body</label>
+            <label>Request Body</label><br>
+            <span *ngIf="obtenerFormArray('body').controls.length === 0">Añade campos al body de tu endpoint</span>
             <app-form-object
-                [group]="genericoForm">
+                [group]="genericoForm"
+                [fArrayName]="'body'">
             </app-form-object>
+        </div>
+
+        <div class="bodyContainer noMargin">
+            <label>Response</label><br>
+            <span *ngIf="obtenerFormArray('response').controls.length === 0">Añade campos la respuesta de tu endpoint</span>
+            <app-form-object
+                [group]="genericoForm"
+                [fArrayName]="'response'">
+            </app-form-object>
+        </div>
+
+        <label for="consulta">Consulta de Base de Datos</label>
+        <app-input-textarea
+            [placeholder]="'Consulta DB'"
+            [control]="'consulta'"
+            [group]="genericoForm"
+        ><mat-icon>edit</mat-icon>
+        </app-input-textarea>
+
+        <div class="flexRight">
+            <button>
+                <mat-icon>upload</mat-icon>
+                AÑADIR ENDPOINT GENÉRICO
+            </button>
         </div>
     </form>
 </section>
