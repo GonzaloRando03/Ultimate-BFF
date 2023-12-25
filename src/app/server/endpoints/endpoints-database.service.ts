@@ -89,4 +89,10 @@ export class EndpointsDatabaseService {
       return 0;
     }
   }
+
+  async crearEndpointGenerico(endpoint: EndpointGenerico) {
+    try {
+      await addDoc(collection(this.firestore, this.genericosCollection), endpoint);
+    } catch (error) {}
+  }
 }

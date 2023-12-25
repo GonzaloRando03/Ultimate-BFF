@@ -7,16 +7,16 @@
 
     <form [formGroup]="genericoForm">
         <div class="methodContainer">
-            <label>Método :</label>
+            <label>Método * :</label>
             <app-input-select
                 [group]="genericoForm"
-                [control]="'descipcion'"
+                [control]="'metodo'"
                 [values]="methodsValues"
             ></app-input-select>
         </div>
 
         <div class="inputTextContainer">
-            <label for="nombre">Nombre del Endpoint</label>
+            <label for="nombre">Nombre del Endpoint *</label>
             <app-input-text
                 [placeholder]="'Nombre'"
                 [control]="'nombre'"
@@ -26,7 +26,7 @@
         </div>
 
         <div class="inputTextContainer">
-            <label for="url">URL del Endpoint</label>
+            <label for="url">Ruta del Endpoint *</label>
             <app-input-text
                 [placeholder]="'URL'"
                 [control]="'url'"
@@ -62,7 +62,7 @@
         </div>
 
         <div class="bodyContainer noMargin">
-            <label>Response</label><br>
+            <label>Response *</label><br>
             <span *ngIf="obtenerFormArray('response').controls.length === 0">Añade campos la respuesta de tu endpoint</span>
             <app-form-object
                 [group]="genericoForm"
@@ -79,7 +79,7 @@
         </app-input-textarea>
 
         <div class="flexRight">
-            <button>
+            <button (click)="aniadirEndpointGenerico()">
                 <mat-icon>upload</mat-icon>
                 AÑADIR ENDPOINT GENÉRICO
             </button>

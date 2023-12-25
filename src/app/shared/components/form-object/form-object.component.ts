@@ -65,6 +65,7 @@ export class FormObjectComponent implements OnInit{
 
 export function obtenerObjetoFormGroup(formGroup:FormGroup, formArrayName:string){
   const bodyFormArray = formGroup.get(formArrayName) as FormArray
+
   const objectsCells:ObjectCell[] = bodyFormArray.controls.map(c => {
     const objectCell:ObjectCell = {
       type: c.get('type')!.value,
@@ -72,19 +73,18 @@ export function obtenerObjetoFormGroup(formGroup:FormGroup, formArrayName:string
     }
 
     if (objectCell.type === 'Object'){     
-      objectCell.content = obtenerObjetoFormGroup(c.get(formArrayName) as FormGroup, formArrayName)
+      objectCell.content = obtenerObjetoFormGroup(c as FormGroup, formArrayName)
       return objectCell
     } 
 
     if (objectCell.type === 'Array'){
       const arrayValue = c.get('arrayValue')!.value
       objectCell.content = arrayValue === 'Object'
-        ? obtenerObjetoFormGroup(c.get(formArrayName) as FormGroup, formArrayName)
+        ? obtenerObjetoFormGroup(c as FormGroup, formArrayName)
         : arrayValue
 
       return objectCell
     }
-
 
     return objectCell
   })
