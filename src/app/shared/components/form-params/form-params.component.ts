@@ -44,16 +44,3 @@ export class FormParamsComponent {
   }
 
 }
-
-export function obtenerParamsFormGroup(formGroup:FormGroup, formArrayName:string){
-  const bodyFormArray = formGroup.get(formArrayName) as FormArray
-  const objectsCells:RequestParam[] = bodyFormArray.controls.map(c => {
-    const objectCell:RequestParam = {
-      type: c.get('type')!.value,
-      nombre:  c.get('nombre')!.value
-    }
-    return objectCell
-  })
-
-  return objectsCells
-}

@@ -61,33 +61,3 @@ export class FormObjectComponent implements OnInit{
     return value === 'Array'
   }
 }
-
-
-export function obtenerObjetoFormGroup(formGroup:FormGroup, formArrayName:string){
-  const bodyFormArray = formGroup.get(formArrayName) as FormArray
-
-  const objectsCells:ObjectCell[] = bodyFormArray.controls.map(c => {
-    const objectCell:ObjectCell = {
-      type: c.get('type')!.value,
-      nombre:  c.get('nombre')!.value
-    }
-
-    if (objectCell.type === 'Object'){     
-      objectCell.content = obtenerObjetoFormGroup(c as FormGroup, formArrayName)
-      return objectCell
-    } 
-
-    if (objectCell.type === 'Array'){
-      const arrayValue = c.get('arrayValue')!.value
-      objectCell.content = arrayValue === 'Object'
-        ? obtenerObjetoFormGroup(c as FormGroup, formArrayName)
-        : arrayValue
-
-      return objectCell
-    }
-
-    return objectCell
-  })
-
-  return objectsCells
-}

@@ -4,12 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { METHODS } from '../../constants/selectValues';
 import { ToastService } from '../../services/toast.service';
 import { EndpointGenerico } from '../../models/endpoint.model';
-import { obtenerObjetoFormGroup } from 'src/app/shared/components/form-object/form-object.component';
-import { obtenerParamsFormGroup } from 'src/app/shared/components/form-params/form-params.component';
 import { EndpointsService } from '../../services/endpoints.service';
 import { UserService } from '../../services/user.service';
 import { Usuario } from '../../models/usuario.model';
 import { ProyectoService } from '../../services/proyecto.service';
+import { obtenerObjetoFormGroup, obtenerParamsFormGroup } from 'src/app/shared/utils/codeFormater';
 
 @Component({
   selector: 'app-p006-crear-generico',

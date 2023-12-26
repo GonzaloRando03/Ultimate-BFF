@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { EndpointsService } from '../../services/endpoints.service';
 import { EndpointGenerico } from '../../models/endpoint.model';
 import { ToastService } from '../../services/toast.service';
+import { getObjectFromObjectCell, getObjectFromParams } from 'src/app/shared/utils/codeFormater';
 
 @Component({
   selector: 'app-p009-ver-generico',
@@ -48,7 +49,13 @@ export class P009VerGenericoComponent implements OnInit{
     this.loading = false
   }
 
-  getCode(obj:any){
-    return JSON.stringify(obj, null, 2);
+  getObjectCode(obj:any){
+    const objectFormated = getObjectFromObjectCell(obj)
+    return JSON.stringify(objectFormated, null, 2);
+  }
+
+  getParamCode(obj:any){
+    const objectFormated = getObjectFromParams(obj)
+    return JSON.stringify(objectFormated, null, 2);
   }
 }

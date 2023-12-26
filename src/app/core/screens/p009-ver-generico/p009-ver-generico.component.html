@@ -6,16 +6,51 @@
     </div>
 
     <div class="endpointContainer">
+        <div class="botonera">
+            <button>
+                <mat-icon>edit</mat-icon>
+                EDITAR ENDPOINT
+            </button>
+            <button>
+                <mat-icon>delete</mat-icon>
+                ELIMINAR ENDPOINT
+            </button>
+        </div>
+
         <p><b>Método: </b> {{endpoint.metodo}}</p>
         <p><b>Ruta del endpoint: </b> {{endpoint.url}}</p>
         <div *ngIf="endpoint.descripcion">
             <b>Descripción </b> 
             <p>{{endpoint.descripcion}}</p>
         </div>
-        <app-code
-            [codigo]="getCode(endpoint.requestBody)"
-            [lenguaje]="'json'"
-        ></app-code>
+        <div *ngIf="endpoint.requestParams">
+            <b>Request Params</b>
+            <app-code
+                [codigo]="getParamCode(endpoint.requestParams)"
+                [lenguaje]="'json'"
+            ></app-code>
+        </div>
+        <div *ngIf="endpoint.requestBody">
+            <b>Request Body</b>
+            <app-code
+                [codigo]="getObjectCode(endpoint.requestBody)"
+                [lenguaje]="'json'"
+            ></app-code>
+        </div>
+        <div>
+            <b>Response</b>
+            <app-code
+                [codigo]="getObjectCode(endpoint.response)"
+                [lenguaje]="'json'"
+            ></app-code>
+        </div>
+        <div *ngIf="endpoint.consultaDB">
+            <b>Consulta de DB</b>
+            <app-code
+                [codigo]="endpoint.consultaDB"
+                [lenguaje]="'javascript'"
+            ></app-code>
+        </div>
     </div>
 </section>
 

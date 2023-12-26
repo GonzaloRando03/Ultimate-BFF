@@ -26,6 +26,7 @@
   translate: 0 -6rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .fondoDegradado h1 {
@@ -35,6 +36,16 @@
   width: 50%;
   text-align: left;
   line-height: 5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.fondoDegradado img {
+  width: 50%;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
 }
 
 .textoHome {
