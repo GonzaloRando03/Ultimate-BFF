@@ -22,6 +22,30 @@ export class EndpointsDatabaseService {
 
   constructor(private firestore: Firestore) {}
 
+  async obtenerGenericoPorId(id:string){
+    try {
+      const querySnapshot = await getDoc(doc(this.firestore, this.genericosCollection, id));
+      return {
+        ...querySnapshot.data(), 
+        id:querySnapshot.id
+      } as EndpointGenerico;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async obtenerPantallaPorId(id:string){
+    try {
+      const querySnapshot = await getDoc(doc(this.firestore, this.pantallasCollection, id));
+      return {
+        ...querySnapshot.data(), 
+        id:querySnapshot.id
+      } as EndpointPantalla;
+    } catch (error) {
+      return null;
+    }
+  }
+
   async obtenerGenericosProyecto(idProyecto: string) {
     try {
       const querySnapshot = await getDocs(

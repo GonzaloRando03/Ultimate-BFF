@@ -66,9 +66,9 @@ export class P005ProyectoComponent implements OnInit{
   getGenericoDropDown(){
     return this.genericos.map(g => {
       return {
-        titulo: g.nombre,
+        titulo: g.metodo + ' - ' +g.nombre,
         hasLink:  true,
-        link: 'generico/' + g.id
+        link: '/generico/' + g.id
       }
     })
   }
@@ -76,9 +76,9 @@ export class P005ProyectoComponent implements OnInit{
   getPantallaDropDown(){
     return this.pantallas.map(p => {
       return {
-        titulo: p.nombre,
+        titulo: p.metodo + ' - ' + p.nombre,
         hasLink:  true,
-        link: 'pantalla/' + p.id
+        link: '/pantalla/' + p.id
       }
     })
   }

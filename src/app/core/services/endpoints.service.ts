@@ -23,4 +23,12 @@ export class EndpointsService {
   async crearEndpointGenerico(endpoint:EndpointGenerico){
     await this.endpointDatabase.crearEndpointGenerico(endpoint)
   }
+
+  async obtenerEndpointGenericoPorId(id:string){
+    return await this.endpointDatabase.obtenerGenericoPorId(id)
+  }
+
+  async obtenerEndpointPantallaPorId(id:string){
+    return await this.endpointDatabase.obtenerPantallaPorId(id)
+  }
 }

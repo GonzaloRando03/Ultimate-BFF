@@ -5,7 +5,11 @@
         <label [for]="id"><h3>{{titulo}}</h3></label>
     </summary>
     <div class="content">
-        <p *ngFor="let e of elements"><span>{{e.titulo}}</span></p>
+        <div *ngFor="let e of elements">
+            <p *ngIf="e.link" [routerLink]="e.link"><span>{{e.titulo}}</span></p>
+            <p *ngIf="!e.link"><span>{{e.titulo}}</span></p>
+        </div>
+       
         <span *ngIf="elements.length === 0">Sin elementos...</span>
     </div>
     </details>

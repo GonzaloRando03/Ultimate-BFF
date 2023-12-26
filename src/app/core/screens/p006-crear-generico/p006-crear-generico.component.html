@@ -1,5 +1,5 @@
 <app-header></app-header>
-<section>
+<section *ngIf="!loading">
     <div class="subHeader">
         <mat-icon [routerLink]="'/proyecto/'+ idProyecto">arrow_back</mat-icon>
         <h3>Nuevo Endpoint Genérico</h3>
@@ -85,5 +85,10 @@
             </button>
         </div>
     </form>
+</section>
+
+<section class="loaderContainer" *ngIf="loading">
+    <app-loader></app-loader>
+    <h2>Publicando endpoint ...</h2>
 </section>
 

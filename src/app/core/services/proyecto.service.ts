@@ -63,4 +63,9 @@ export class ProyectoService {
 
     return proyecto
   }
+
+  async getPermisosProyecto(uid:string, projectId:string){
+    const proyecto = await this.proyectoDatabase.obtenerProyecto(projectId)
+    return proyecto!.usuarios.includes(uid)
+  }
 }

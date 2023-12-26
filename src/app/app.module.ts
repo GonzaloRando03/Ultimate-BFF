@@ -26,6 +26,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormObjectComponent } from './shared/components/form-object/form-object.component';
 import { InputTextareaComponent } from './shared/components/input-textarea/input-textarea.component';
 import { FormParamsComponent } from './shared/components/form-params/form-params.component';
+import { P007CrearPantallaComponent } from './core/screens/p007-crear-pantalla/p007-crear-pantalla.component';
+import { P008CrearVisualComponent } from './core/screens/p008-crear-visual/p008-crear-visual.component';
+import { P009VerGenericoComponent } from './core/screens/p009-ver-generico/p009-ver-generico.component';
+import { P010VerPantallaComponent } from './core/screens/p010-ver-pantalla/p010-ver-pantalla.component';
+import { P011VerVisualComponent } from './core/screens/p011-ver-visual/p011-ver-visual.component';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import hljs  from 'highlight.js';
+import { CodeComponent } from './shared/components/code/code.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +55,12 @@ import { FormParamsComponent } from './shared/components/form-params/form-params
     FormObjectComponent,
     InputTextareaComponent,
     FormParamsComponent,
+    P007CrearPantallaComponent,
+    P008CrearVisualComponent,
+    P009VerGenericoComponent,
+    P010VerPantallaComponent,
+    P011VerVisualComponent,
+    CodeComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,8 +72,22 @@ import { FormParamsComponent } from './shared/components/form-params/form-params
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore(initializeApp(firebaseConfig))),
     BrowserAnimationsModule,
+    HighlightModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          javascript: () => import('highlight.js/lib/languages/javascript'),
+          json: () => import('highlight.js/lib/languages/json'),
+        },
+        themePath: "assets/styles/obsidian.css"
+      },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
