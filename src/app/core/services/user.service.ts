@@ -262,4 +262,8 @@ export class UserService {
   async inicializarUsuario(){
     await this.proyectoService.obtenerProyectosUsuario(this.user?.uid!)
   }
+
+  async obtenerUsuarioPorId(id:string){
+    return await this.userDatabase.obtenerUsuario(id) as Usuario;
+  }
 }

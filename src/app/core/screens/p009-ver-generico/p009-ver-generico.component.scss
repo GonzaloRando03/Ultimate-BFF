@@ -64,12 +64,12 @@ p {
     box-shadow: 1px 1px 7px var(--color-success);
 }
 
-.botonera button:last-child{
+.botonera button:last-child, .delete{
     color: var(--rojo-neon);
     border-color: var(--rojo-neon);
 }
 
-.botonera button:last-child:hover{
+.botonera button:last-child:hover, .delete:hover{
     box-shadow: 1px 1px 7px var(--rojo-neon);
 }
 

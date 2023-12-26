@@ -1,0 +1,67 @@
+section{
+    margin-top: 4rem;
+    width: 80%;
+    padding: 0 10%;
+}
+
+.subHeader{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.subHeader mat-icon{
+    margin-right: 1.5rem;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.subHeader mat-icon:hover{
+    color: var(--color-primario-hover);
+}
+
+.methodContainer{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 1rem;
+}
+
+.methodContainer label{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.inputTextContainer{
+    width: 50%;
+}
+
+.bodyContainer span, .paramsContainer span {
+    color: var(--texto-oscuro);
+}
+
+.paramsContainer, .bodyContainer{
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.bodyContainer.noMargin{
+    margin-bottom: 2rem;
+}
+
+.flexRight mat-icon{
+    margin-right: 1rem;
+}
+
+.flexRight button{
+    background-color: var(--bg-color);
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+}
+
+.loaderContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}

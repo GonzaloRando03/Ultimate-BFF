@@ -13,6 +13,7 @@ import {
 } from '@angular/fire/firestore';
 import { Proyecto } from 'src/app/core/models/proyecto.model';
 import { EndpointsDatabaseService } from '../endpoints/endpoints-database.service';
+import { UserDatabaseService } from '../user/user-database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class ProjectDatabaseService {
 
   constructor(
     private firestore: Firestore, 
-    private endpointDatabase: EndpointsDatabaseService
+    private endpointDatabase: EndpointsDatabaseService,
+    private userDatabase:UserDatabaseService
   ) {}
 
   async crearProyecto(proyecto: Proyecto) {
@@ -76,5 +78,12 @@ export class ProjectDatabaseService {
     } catch (error) {
       return null;
     }
+  }
+
+  async aniadirUsuarioProyecto(idProyecto:string, mail:string){
+    const proyecto = await this.obtenerProyecto(idProyecto)
+    const usuario = await this.userDatabase.obtenerUsuarioPorMail(mail)
+    proyecto?.usuarios.push(usuario?.uid!)
+    await updateDoc(doc(this.firestore, this.proyectosCollection, idProyecto), {...proyecto});
   }
 }

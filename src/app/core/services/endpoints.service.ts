@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EndpointsDatabaseService } from 'src/app/server/endpoints/endpoints-database.service';
-import { EndpointGenerico } from '../models/endpoint.model';
+import { EndpointGenerico, EndpointPantalla } from '../models/endpoint.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +24,31 @@ export class EndpointsService {
     await this.endpointDatabase.crearEndpointGenerico(endpoint)
   }
 
+  async crearEndpointPantalla(endpoint:EndpointPantalla){
+    await this.endpointDatabase.crearEndpointPantalla(endpoint)
+  }
+
   async obtenerEndpointGenericoPorId(id:string){
     return await this.endpointDatabase.obtenerGenericoPorId(id)
   }
 
   async obtenerEndpointPantallaPorId(id:string){
     return await this.endpointDatabase.obtenerPantallaPorId(id)
+  }
+
+  async actualizarGenerico(id:string, endpoint:EndpointGenerico){
+    await this.endpointDatabase.actualizarEndpointGenerico(id, endpoint)
+  }
+
+  async actualizarPantalla(id:string, endpoint:EndpointPantalla){
+    await this.endpointDatabase.actualizarEndpointPantalla(id, endpoint)
+  }
+
+  async eliminarEndpointGenerico(id:string){
+    await this.endpointDatabase.eliminarEndpointGenerico(id)
+  }
+
+  async eliminarEndpointPantalla(id:string){
+    await this.endpointDatabase.eliminarEndpointPantalla(id)
   }
 }

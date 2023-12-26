@@ -11,6 +11,7 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
+import { deleteDoc } from 'firebase/firestore';
 import { EndpointGenerico, EndpointPantalla } from 'src/app/core/models/endpoint.model';
 
 @Injectable({
@@ -118,5 +119,27 @@ export class EndpointsDatabaseService {
     try {
       await addDoc(collection(this.firestore, this.genericosCollection), endpoint);
     } catch (error) {}
+  }
+
+  async crearEndpointPantalla(endpoint: EndpointPantalla) {
+    try {
+      await addDoc(collection(this.firestore, this.pantallasCollection), endpoint);
+    } catch (error) {}
+  }
+
+  async actualizarEndpointGenerico(id:string, endpoint:EndpointGenerico){
+    await updateDoc(doc(this.firestore, this.genericosCollection, id), {...endpoint});
+  }
+
+  async actualizarEndpointPantalla(id:string, endpoint:EndpointPantalla){
+    await updateDoc(doc(this.firestore, this.pantallasCollection, id), {...endpoint});
+  }
+
+  async eliminarEndpointGenerico(id:string){
+    await deleteDoc(doc(this.firestore, this.genericosCollection, id));
+  }
+
+  async eliminarEndpointPantalla(id:string){
+    await deleteDoc(doc(this.firestore, this.pantallasCollection, id));
   }
 }

@@ -19,6 +19,7 @@ export class P009VerGenericoComponent implements OnInit{
   loading:boolean = true
   usuario:Usuario | null = null
   endpoint!:EndpointGenerico
+  mostrarEliminar:boolean = false
 
   constructor(
     private aRouter:ActivatedRoute,
@@ -57,5 +58,16 @@ export class P009VerGenericoComponent implements OnInit{
   getParamCode(obj:any){
     const objectFormated = getObjectFromParams(obj)
     return JSON.stringify(objectFormated, null, 2);
+  }
+
+  async eliminarEndpoint(){
+    try {
+      await this.endpointService.eliminarEndpointGenerico(this.idEndpoint)
+      this.router.navigate(['/proyecto/' + this.idProyecto])
+      this.toast.success('Endpoint eliminado', 'El endpoint se ha eliminado con éxito')
+      
+    } catch (error) {
+      this.toast.error('Error inesperado', 'Ha ocurrido un error al eliminar el endpoint')
+    }
   }
 }

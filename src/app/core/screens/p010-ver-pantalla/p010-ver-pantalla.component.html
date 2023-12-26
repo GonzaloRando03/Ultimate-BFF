@@ -1,1 +1,67 @@
-<p>p010-ver-pantalla works!</p>
+<app-header></app-header>
+<section *ngIf="!loading">
+    <div class="subHeader">
+        <mat-icon [routerLink]="'/proyecto/'+ idProyecto">arrow_back</mat-icon>
+        <h2>Pantalla : {{endpoint.nombre}}</h2>
+    </div>
+
+    <div class="endpointContainer">
+        <div class="botonera">
+            <button [routerLink]="'/editarPantalla/' + idEndpoint">
+                <mat-icon>edit</mat-icon>
+                EDITAR ENDPOINT
+            </button>
+            <button (click)="mostrarEliminar = true">
+                <mat-icon>delete</mat-icon>
+                ELIMINAR ENDPOINT
+            </button>
+        </div>
+
+        <p><b>Método: </b> {{endpoint.metodo}}</p>
+        <p><b>Endpoint Genérico: </b> {{generico.nombre}}</p>
+        <p><b>Ruta del endpoint: </b> {{endpoint.url}}</p>
+        <div *ngIf="endpoint.descripcion">
+            <b>Descripción </b> 
+            <p>{{endpoint.descripcion}}</p>
+        </div>
+        <div *ngIf="endpoint.requestParams">
+            <b>Request Params</b>
+            <app-code
+                [codigo]="getParamCode(endpoint.requestParams)"
+                [lenguaje]="'json'"
+            ></app-code>
+        </div>
+        <div *ngIf="endpoint.requestBody">
+            <b>Request Body</b>
+            <app-code
+                [codigo]="getObjectCode(endpoint.requestBody)"
+                [lenguaje]="'json'"
+            ></app-code>
+        </div>
+        <div>
+            <b>Response</b>
+            <app-code
+                [codigo]="getObjectCode(endpoint.response)"
+                [lenguaje]="'json'"
+            ></app-code>
+        </div>
+    </div>
+</section>
+
+<section class="loaderContainer" *ngIf="loading">
+    <app-loader></app-loader>
+</section>
+
+<app-modal
+    *ngIf="mostrarEliminar"
+    [titulo]="'Eliminar Endpoint'" 
+    (cerrarModal)="mostrarEliminar = false"
+>
+    <h4>¿Estás seguro que quieres eliminar el endpoint?</h4>
+    <div class="flexRight">
+        <button class="delete" (click)="eliminarEndpoint()">
+            <mat-icon>delete</mat-icon>
+            ELIMINAR ENDPOINT
+        </button>
+    </div>
+</app-modal>

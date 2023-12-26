@@ -1,1 +1,96 @@
-<p>p007-crear-pantalla works!</p>
+<app-header></app-header>
+<section *ngIf="!loading">
+    <div class="subHeader">
+        <mat-icon [routerLink]="'/proyecto/'+ idProyecto">arrow_back</mat-icon>
+        <h3 *ngIf="!editar">Nuevo Endpoint de Pantalla</h3>
+        <h3 *ngIf="editar">Editar Pantalla {{endpoint.nombre}}</h3>
+    </div>
+
+    <form [formGroup]="pantallaForm">
+        <div class="methodContainer">
+            <label>Método * :</label>
+            <app-input-select
+                [group]="pantallaForm"
+                [control]="'metodo'"
+                [values]="methodsValues"
+            ></app-input-select>
+        </div>
+
+        <div class="methodContainer">
+            <label>Endpoint Genérico * :</label>
+            <app-input-select
+                [group]="pantallaForm"
+                [control]="'generico'"
+                [values]="genericosValues"
+            ></app-input-select>
+        </div>
+
+        <div class="inputTextContainer">
+            <label for="nombre">Nombre del Endpoint *</label>
+            <app-input-text
+                [placeholder]="'Nombre'"
+                [control]="'nombre'"
+                [group]="pantallaForm"
+            ><mat-icon>edit</mat-icon>
+            </app-input-text>
+        </div>
+
+        <div class="inputTextContainer">
+            <label for="url">Ruta del Endpoint *</label>
+            <app-input-text
+                [placeholder]="'URL'"
+                [control]="'url'"
+                [group]="pantallaForm"
+            ><mat-icon>edit</mat-icon>
+            </app-input-text>
+        </div>
+
+        <label for="descipcion">Descripción del Endpoint</label>
+        <app-input-textarea
+            [placeholder]="'Descripción del Endpoint'"
+            [control]="'descipcion'"
+            [group]="pantallaForm"
+        ><mat-icon>edit</mat-icon>
+        </app-input-textarea>
+
+        <div class="paramsContainer">
+            <label>Request Params</label><br>
+            <span *ngIf="obtenerFormArray('params').controls.length === 0">Añade los params de tu endpoint</span>
+            <app-form-params
+                [group]="pantallaForm"
+                [fArrayName]="'params'">
+            </app-form-params>
+        </div>
+
+        <div class="bodyContainer">
+            <label>Request Body</label><br>
+            <span *ngIf="obtenerFormArray('body').controls.length === 0">Añade campos al body de tu endpoint</span>
+            <app-form-object
+                [group]="pantallaForm"
+                [fArrayName]="'body'">
+            </app-form-object>
+        </div>
+
+        <div class="bodyContainer noMargin">
+            <label>Response *</label><br>
+            <span *ngIf="obtenerFormArray('response').controls.length === 0">Añade campos la respuesta de tu endpoint</span>
+            <app-form-object
+                [group]="pantallaForm"
+                [fArrayName]="'response'">
+            </app-form-object>
+        </div>
+
+        <div class="flexRight">
+            <button (click)="aniadirEndpointPantalla()">
+                <mat-icon>upload</mat-icon>
+                {{editar? 'ACTUALIZAR ENDPOINT DE PANTALLA' : 'AÑADIR ENDPOINT DE PANTALLA'}}
+            </button>
+        </div>
+    </form>
+</section>
+
+<section class="loaderContainer" *ngIf="loading">
+    <app-loader></app-loader>
+    <h2 *ngIf="!editar">Publicando endpoint ...</h2>
+</section>
+

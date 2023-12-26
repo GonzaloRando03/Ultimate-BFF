@@ -1,0 +1,75 @@
+section{
+    margin-top: 4rem;
+    width: 80%;
+    padding: 0 10%;
+}
+
+.endpointContainer{
+    width: 90%;
+    padding: 0 5%;
+}
+
+.subHeader{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.subHeader mat-icon{
+    margin-right: 1.5rem;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.subHeader mat-icon:hover{
+    color: var(--color-primario-hover);
+}
+
+.loaderContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}
+
+b {
+    font-size: 1.1rem;
+    margin-right: .5rem;
+    color: white;
+}
+
+p {
+    margin: 0px;
+    margin-bottom: 2rem;
+    color: var(--texto-oscuro);
+}
+
+.botonera{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.botonera button mat-icon{
+    margin-right: 10px;
+}
+
+.botonera button:first-child {
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.botonera button:first-child:hover {
+    box-shadow: 1px 1px 7px var(--color-success);
+}
+
+.botonera button:last-child, .delete{
+    color: var(--rojo-neon);
+    border-color: var(--rojo-neon);
+}
+
+.botonera button:last-child:hover, .delete:hover{
+    box-shadow: 1px 1px 7px var(--rojo-neon);
+}
+

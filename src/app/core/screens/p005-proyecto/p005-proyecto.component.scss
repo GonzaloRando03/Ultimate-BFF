@@ -57,3 +57,25 @@ section{
     justify-content: center;
     align-items: center;
 }
+
+.participantesContainer {
+    max-height: 70vh;
+    width: 30rem;
+    overflow-y: scroll;
+}
+
+.participante{
+    border-bottom: 1px solid var(--color-primario-hover);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.participante p{
+    margin: 0px;
+    margin-bottom: 5px;
+}
+
+.participante span {
+    cursor: pointer;
+    color: var(--color-error);
+}

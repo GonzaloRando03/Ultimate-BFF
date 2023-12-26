@@ -68,4 +68,8 @@ export class ProyectoService {
     const proyecto = await this.proyectoDatabase.obtenerProyecto(projectId)
     return proyecto!.usuarios.includes(uid)
   }
+
+  async aniadirUsuario(idProyecto:string, mail:string){
+    await this.proyectoDatabase.aniadirUsuarioProyecto(idProyecto, mail)
+  }
 }

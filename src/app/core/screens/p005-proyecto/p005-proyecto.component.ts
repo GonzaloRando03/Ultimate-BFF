@@ -7,6 +7,7 @@ import { UserService } from '../../services/user.service';
 import { Usuario } from '../../models/usuario.model';
 import { EndpointsService } from '../../services/endpoints.service';
 import { EndpointGenerico, EndpointPantalla } from '../../models/endpoint.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-p005-proyecto',
@@ -19,15 +20,22 @@ export class P005ProyectoComponent implements OnInit{
   usuario!:Usuario 
   genericos:EndpointGenerico[] = []
   pantallas:EndpointPantalla[] = []
+  mostrarParticipantes:boolean = false
+  participantes:Usuario[] = []
+  participantesForm:FormGroup
 
   constructor(
     private aRouter:ActivatedRoute,
     private proyectoService:ProyectoService,
     private toast:ToastService,
     private usuarioService:UserService,
-    private endpointService:EndpointsService
+    private endpointService:EndpointsService,
+    private fb:FormBuilder
   ){
     this.usuario = this.usuarioService.getUserValue() as Usuario
+    this.participantesForm = this.fb.group({
+      mail: ['', Validators.required]
+    })
   }
 
   async ngOnInit(): Promise<void> {
@@ -38,6 +46,12 @@ export class P005ProyectoComponent implements OnInit{
       this.getProyecto(),
       this.getEndpoints()
     ])
+
+    const usuariosPromise = this.proyecto.usuarios.map(u => 
+      this.usuarioService.obtenerUsuarioPorId(u)
+    )
+
+    this.participantes = await Promise.all(usuariosPromise)
   }
 
   async getProyecto(){
@@ -81,5 +95,17 @@ export class P005ProyectoComponent implements OnInit{
         link: '/pantalla/' + p.id
       }
     })
+  }
+
+  async aniadirUsuario(){
+    try {
+      if (!this.participantesForm.valid){
+        this.toast.info('Email no introducido', 'No has introducido un Email')
+        return
+      }
+      await this.proyectoService.aniadirUsuario(this.idProyecto, this.participantesForm.get('mail')!.value)
+    } catch (error) {
+      this.toast.error('Error inesperado', 'Ha ocurrido un error al añadir al usuario')
+    }
   }
 }

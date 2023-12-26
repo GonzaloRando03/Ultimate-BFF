@@ -41,6 +41,22 @@ export class UserDatabaseService {
     }
   }
 
+  async obtenerUsuarioPorMail(mail: string) {
+    try {
+      const querySnapshot = await getDocs(
+        query(collection(this.firestore, this.usuariosCollection), where('mail', '==', mail))
+      );
+
+      if (querySnapshot.docs.length === 0) {
+        throw new Error('No existe el usuario');
+      }
+
+      return querySnapshot.docs[0].data() as Usuario;
+    } catch (error) {
+      return null;
+    }
+  }
+
   async editarUsuario(uid:string, nombre:string, apellidos:string){
     try {
       const querySnapshot = await getDocs(

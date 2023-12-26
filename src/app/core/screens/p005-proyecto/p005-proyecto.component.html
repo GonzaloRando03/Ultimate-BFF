@@ -7,7 +7,7 @@
 
     <div class="proyectoBody">
         <div class="botoneraTop">
-            <button>
+            <button (click)="mostrarParticipantes = true">
                 <mat-icon>person</mat-icon> 
                 PARTICIPANTES
             </button>
@@ -15,7 +15,7 @@
                 <mat-icon>dns</mat-icon> 
                 NUEVO EP.GENÉRICO
             </button>
-            <button>
+            <button [routerLink]="'/nuevaPantalla/' + idProyecto">
                 <mat-icon>desktop_windows</mat-icon> 
                 NUEVO EP.PANTALLA
             </button>
@@ -48,3 +48,29 @@
 <div class="loaderContainer" *ngIf="proyecto === null">
     <app-loader></app-loader>
 </div>
+
+<app-modal
+    *ngIf="mostrarParticipantes"
+    [titulo]="'Participantes de ' + proyecto?.nombre" 
+    (cerrarModal)="mostrarParticipantes = false"
+>
+    <form [formGroup]="participantesForm" class="participantesContainer">
+        <div *ngFor="let p of participantes" class="participante">
+            <p><b>Nombre: </b> {{p.nombre}} {{p.apellidos}}</p>
+            <p><b>Email: </b> {{p.mail}}</p>
+            <span>Eliminar del Proyecto</span>
+        </div>    
+        <app-input-text
+            [placeholder]="'Email nuevo Usuario'"
+            [control]="'mail'"
+            [group]="participantesForm"
+        ><mat-icon>mail</mat-icon>
+        </app-input-text>
+        <div class="flexRight">
+            <button (click)="aniadirUsuario()">
+                <mat-icon>add</mat-icon>
+                AÑADIR PARTICIPANTE
+            </button>
+        </div>
+    </form>
+</app-modal>

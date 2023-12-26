@@ -2,7 +2,8 @@
 <section *ngIf="!loading">
     <div class="subHeader">
         <mat-icon [routerLink]="'/proyecto/'+ idProyecto">arrow_back</mat-icon>
-        <h3>Nuevo Endpoint Genérico</h3>
+        <h3 *ngIf="!editar">Nuevo Endpoint Genérico</h3>
+        <h3 *ngIf="editar">Editar Genérico {{endpoint.nombre}}</h3>
     </div>
 
     <form [formGroup]="genericoForm">
@@ -81,7 +82,7 @@
         <div class="flexRight">
             <button (click)="aniadirEndpointGenerico()">
                 <mat-icon>upload</mat-icon>
-                AÑADIR ENDPOINT GENÉRICO
+                {{editar? 'ACTUALIZAR ENDPOINT GENÉRICO' : 'AÑADIR ENDPOINT GENÉRICO'}}
             </button>
         </div>
     </form>
@@ -89,6 +90,6 @@
 
 <section class="loaderContainer" *ngIf="loading">
     <app-loader></app-loader>
-    <h2>Publicando endpoint ...</h2>
+    <h2 *ngIf="!editar">Publicando endpoint ...</h2>
 </section>
 
