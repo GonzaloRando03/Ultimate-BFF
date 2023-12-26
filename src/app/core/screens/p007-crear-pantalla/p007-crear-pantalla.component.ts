@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { METHODS } from '../../constants/selectValues';
-import { EndpointPantalla, ObjectCell } from '../../models/endpoint.model';
+import { EndpointGenerico, EndpointPantalla, ObjectCell } from '../../models/endpoint.model';
 import { Usuario } from '../../models/usuario.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../services/toast.service';
@@ -138,11 +138,12 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
     }
   }
 
-  rellenarFormulario(){
+  async rellenarFormulario(){
     this.pantallaForm.get('metodo')!.setValue(this.endpoint.metodo)
     this.pantallaForm.get('nombre')!.setValue(this.endpoint.nombre)
     this.pantallaForm.get('url')!.setValue(this.endpoint.url)
-    this.pantallaForm.get('descipcion')!.setValue(this.endpoint.descripcion)
+    this.pantallaForm.get('descipcion')!.setValue(this.endpoint.descripcion)    
+    this.pantallaForm.get('generico')!.setValue(this.endpoint.idEndpointGenerico)
 
     const paramsFormArray = this.pantallaForm.get('params') as FormArray
 

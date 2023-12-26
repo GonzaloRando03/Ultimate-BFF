@@ -224,6 +224,7 @@ export class UserService {
       .then(() => {
         eliminarUsuarioStorage();
         this.setUser(null);
+        this.proyectoService.setProyectos([])
         this.toast.success(
           'Usuario deslogueado',
           'Usuario deslogueado con éxito'

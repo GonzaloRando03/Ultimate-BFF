@@ -54,12 +54,15 @@
     [titulo]="'Participantes de ' + proyecto?.nombre" 
     (cerrarModal)="mostrarParticipantes = false"
 >
-    <form [formGroup]="participantesForm" class="participantesContainer">
+    <div class="participantesContainer">
         <div *ngFor="let p of participantes" class="participante">
             <p><b>Nombre: </b> {{p.nombre}} {{p.apellidos}}</p>
             <p><b>Email: </b> {{p.mail}}</p>
             <span>Eliminar del Proyecto</span>
         </div>    
+    </div>
+    <form [formGroup]="participantesForm">
+        <h4>Añadir participante</h4>
         <app-input-text
             [placeholder]="'Email nuevo Usuario'"
             [control]="'mail'"

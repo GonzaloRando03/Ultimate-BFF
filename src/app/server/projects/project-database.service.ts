@@ -14,6 +14,7 @@ import {
 import { Proyecto } from 'src/app/core/models/proyecto.model';
 import { EndpointsDatabaseService } from '../endpoints/endpoints-database.service';
 import { UserDatabaseService } from '../user/user-database.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,8 @@ export class ProjectDatabaseService {
   constructor(
     private firestore: Firestore, 
     private endpointDatabase: EndpointsDatabaseService,
-    private userDatabase:UserDatabaseService
+    private userDatabase:UserDatabaseService,
+    private toast:ToastService
   ) {}
 
   async crearProyecto(proyecto: Proyecto) {
@@ -83,6 +85,17 @@ export class ProjectDatabaseService {
   async aniadirUsuarioProyecto(idProyecto:string, mail:string){
     const proyecto = await this.obtenerProyecto(idProyecto)
     const usuario = await this.userDatabase.obtenerUsuarioPorMail(mail)
+
+    if (usuario === null){
+      this.toast.error('El usuario no existe', 'No existe ningún usuario con el correo ' + mail)
+      return
+    }
+
+    if (proyecto?.usuarios.includes(usuario.uid)){
+      this.toast.info('Usuario ya añadido', 'El usuario ya está en el proyecto ' + proyecto.nombre)
+      return
+    }
+
     proyecto?.usuarios.push(usuario?.uid!)
     await updateDoc(doc(this.firestore, this.proyectosCollection, idProyecto), {...proyecto});
   }

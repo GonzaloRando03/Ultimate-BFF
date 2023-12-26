@@ -40,14 +40,16 @@ export class P005ProyectoComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     this.idProyecto = this.aRouter.snapshot.params['id']
-    this.proyecto = await this.proyectoService.obtenerProyectoPorId(this.idProyecto) as Proyecto
+    await this.cargarProyecto()
+  }
 
+  async cargarProyecto() {
     await Promise.all([
       this.getProyecto(),
       this.getEndpoints()
     ])
 
-    const usuariosPromise = this.proyecto.usuarios.map(u => 
+    const usuariosPromise = this.proyecto!.usuarios.map(u => 
       this.usuarioService.obtenerUsuarioPorId(u)
     )
 
@@ -104,6 +106,10 @@ export class P005ProyectoComponent implements OnInit{
         return
       }
       await this.proyectoService.aniadirUsuario(this.idProyecto, this.participantesForm.get('mail')!.value)
+      this.toast.success('Usuario añadido', 'El usuario se ha añadido con éxito')
+      this.participantesForm.get('mail')!.setValue('')
+      await this.cargarProyecto()
+
     } catch (error) {
       this.toast.error('Error inesperado', 'Ha ocurrido un error al añadir al usuario')
     }
