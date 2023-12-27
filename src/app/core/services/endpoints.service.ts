@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EndpointsDatabaseService } from 'src/app/server/endpoints/endpoints-database.service';
-import { EndpointGenerico, EndpointPantalla } from '../models/endpoint.model';
+import { ComponenteVisual, EndpointGenerico, EndpointPantalla } from '../models/endpoint.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,14 @@ export class EndpointsService {
     return genericos
   }
 
-
   async obtenerPantallasProyecto(idProyecto: string) {
     const pantallas = await this.endpointDatabase.obtenerPantallasProyecto(idProyecto)
     return pantallas
+  }
+
+  async obtenerVisualesProyecto(idProyecto: string) {
+    const visuales = await this.endpointDatabase.obtenerVisualesProyecto(idProyecto)
+    return visuales
   }
 
   async crearEndpointGenerico(endpoint:EndpointGenerico){
@@ -28,12 +32,20 @@ export class EndpointsService {
     await this.endpointDatabase.crearEndpointPantalla(endpoint)
   }
 
+  async crearVisualPantalla(visual:ComponenteVisual){
+    await this.endpointDatabase.crearVisualPantalla(visual)
+  }
+
   async obtenerEndpointGenericoPorId(id:string){
     return await this.endpointDatabase.obtenerGenericoPorId(id)
   }
 
   async obtenerEndpointPantallaPorId(id:string){
     return await this.endpointDatabase.obtenerPantallaPorId(id)
+  }
+
+  async obtenerVisualPorId(id:string){
+    return await this.endpointDatabase.obtenerVisualPorId(id)
   }
 
   async actualizarGenerico(id:string, endpoint:EndpointGenerico){
@@ -44,11 +56,19 @@ export class EndpointsService {
     await this.endpointDatabase.actualizarEndpointPantalla(id, endpoint)
   }
 
+  async actualizarVisual(id:string, visual:ComponenteVisual){
+    await this.endpointDatabase.actualizarVisualPantalla(id, visual)
+  }
+
   async eliminarEndpointGenerico(id:string){
     await this.endpointDatabase.eliminarEndpointGenerico(id)
   }
 
   async eliminarEndpointPantalla(id:string){
     await this.endpointDatabase.eliminarEndpointPantalla(id)
+  }
+
+  async eliminarVisualPantalla(id:string){
+    await this.endpointDatabase.eliminarVisualPantalla(id)
   }
 }

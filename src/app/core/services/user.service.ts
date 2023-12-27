@@ -126,6 +126,8 @@ export class UserService {
 
       guardarUsuarioStorage(usuario);
 
+      await this.inicializarUsuario()
+
       this.toast.success(
         'Sesión iniciada',
         'La sesión se ha iniciado con éxito'
@@ -192,6 +194,8 @@ export class UserService {
 
         guardarUsuarioStorage(userCreate);
 
+        await this.inicializarUsuario()
+
         this.toast.success(
           'Sesión iniciada',
           'La sesión se ha iniciado con éxito'
@@ -203,6 +207,8 @@ export class UserService {
       this.setUser(usuario);
 
       guardarUsuarioStorage(usuario);
+
+      await this.inicializarUsuario()
 
       this.toast.success(
         'Sesión iniciada',

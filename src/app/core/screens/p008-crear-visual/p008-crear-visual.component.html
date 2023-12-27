@@ -1,1 +1,56 @@
-<p>p008-crear-visual works!</p>
+<app-header></app-header>
+<section *ngIf="!loading">
+    <div class="subHeader">
+        <mat-icon [routerLink]="'/proyecto/'+ idProyecto">arrow_back</mat-icon>
+        <h3 *ngIf="!editar">Nuevo Componente Visual</h3>
+        <h3 *ngIf="editar">Editar Componente Visual {{visual.nombre}}</h3>
+    </div>
+
+    <form [formGroup]="visualForm">
+
+        <div class="inputTextContainer">
+            <label for="nombre">Nombre del Componente Visual *</label>
+            <app-input-text
+                [placeholder]="'Nombre'"
+                [control]="'nombre'"
+                [group]="visualForm"
+            ><mat-icon>edit</mat-icon>
+            </app-input-text>
+        </div>
+
+        <h4>Componentes</h4>
+        <div formArrayName="componentes">
+            <div *ngFor="let c of componentesFormArray.controls; let i = index">
+                <label for="descipcion">Descripción de la Imagen</label>
+                <app-input-textarea
+                    [placeholder]="'Descripción de la imagen'"
+                    [control]="'descripcion'"
+                    [group]="getComponenteFormGroup(i)"
+                ><mat-icon>edit</mat-icon>
+                </app-input-textarea>
+
+                <form [formGroup]="getComponenteFormGroup(i)">
+                    <div formArrayName="llamadas">
+                        <div *ngFor="let c of getLlamadasFormArray(i).controls; let o = index">
+                            a
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+  
+        
+        <div class="flexRight">
+            <button (click)="aniadirComponenteVisual()">
+                <mat-icon>upload</mat-icon>
+                {{editar? 'ACTUALIZAR COMPONENTE VISUAL' : 'AÑADIR COMPONENTE VISUAL'}}
+            </button>
+        </div>
+    </form>
+</section>
+
+<section class="loaderContainer" *ngIf="loading">
+    <app-loader></app-loader>
+    <h2 *ngIf="!editar">Publicando componente visual ...</h2>
+</section>
+

@@ -24,6 +24,24 @@ export interface EndpointPantalla {
     descripcion?:string
 }
 
+export interface ComponenteVisual {
+    id?:string
+    idProyecto:string
+    nombre:string
+    componentes: Visual[]
+}
+
+export interface Visual {
+    image:string,
+    descripcion?:string,
+    llamadas: LlamadaEndpoint[]
+}
+
+export interface LlamadaEndpoint {
+    nombre:string,
+    idEndpoint:string,
+}
+
 export type RequestBody = ObjectCell[]
 export type EndpointResponse = ObjectCell[]
 

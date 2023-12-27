@@ -12,7 +12,7 @@ import {
   where,
 } from '@angular/fire/firestore';
 import { deleteDoc } from 'firebase/firestore';
-import { EndpointGenerico, EndpointPantalla } from 'src/app/core/models/endpoint.model';
+import { ComponenteVisual, EndpointGenerico, EndpointPantalla } from 'src/app/core/models/endpoint.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,7 @@ import { EndpointGenerico, EndpointPantalla } from 'src/app/core/models/endpoint
 export class EndpointsDatabaseService {
   genericosCollection = 'EndpointsGenericos'
   pantallasCollection = 'EndpointsPantallas'
+  visualesCollection = 'ComponentesVisuales'
 
   constructor(private firestore: Firestore) {}
 
@@ -42,6 +43,18 @@ export class EndpointsDatabaseService {
         ...querySnapshot.data(), 
         id:querySnapshot.id
       } as EndpointPantalla;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async obtenerVisualPorId(id:string){
+    try {
+      const querySnapshot = await getDoc(doc(this.firestore, this.visualesCollection, id));
+      return {
+        ...querySnapshot.data(), 
+        id:querySnapshot.id
+      } as ComponenteVisual;
     } catch (error) {
       return null;
     }
@@ -90,6 +103,27 @@ export class EndpointsDatabaseService {
     }
   }
 
+  async obtenerVisualesProyecto(idProyecto: string) {
+    try {
+      const querySnapshot = await getDocs(
+        query(collection(this.firestore, this.visualesCollection), where('idProyecto', '==', idProyecto))
+      );
+
+      if (querySnapshot.docs.length === 0) return []
+
+      const endpoints = querySnapshot.docs.map(e => { 
+        return {
+          ...e.data(), 
+          id: e.id
+        }
+      })
+      
+      return endpoints as ComponenteVisual[];
+    } catch (error) {
+      return null;
+    }
+  }
+
   async obtenerNumeroGenericosProyecto(idProyecto: string) {
     try {
       const querySnapshot = await getDocs(
@@ -127,6 +161,12 @@ export class EndpointsDatabaseService {
     } catch (error) {}
   }
 
+  async crearVisualPantalla(visual: ComponenteVisual) {
+    try {
+      await addDoc(collection(this.firestore, this.visualesCollection), visual);
+    } catch (error) {}
+  }
+
   async actualizarEndpointGenerico(id:string, endpoint:EndpointGenerico){
     await updateDoc(doc(this.firestore, this.genericosCollection, id), {...endpoint});
   }
@@ -135,11 +175,19 @@ export class EndpointsDatabaseService {
     await updateDoc(doc(this.firestore, this.pantallasCollection, id), {...endpoint});
   }
 
+  async actualizarVisualPantalla(id:string, visual:ComponenteVisual){
+    await updateDoc(doc(this.firestore, this.visualesCollection, id), {...visual});
+  }
+
   async eliminarEndpointGenerico(id:string){
     await deleteDoc(doc(this.firestore, this.genericosCollection, id));
   }
 
   async eliminarEndpointPantalla(id:string){
     await deleteDoc(doc(this.firestore, this.pantallasCollection, id));
+  }
+
+  async eliminarVisualPantalla(id:string){
+    await deleteDoc(doc(this.firestore, this.visualesCollection, id));
   }
 }
