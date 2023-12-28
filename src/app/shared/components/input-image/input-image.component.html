@@ -1,0 +1,13 @@
+<form [formGroup]="group">
+    <input [id]="id" type="file" accept="image/*" (input)="onFileSelected($event)" />
+    
+    <label *ngIf="!image" [for]="id">
+        <mat-icon>add_photo_alternate</mat-icon>
+        <h4>Añade una imagen</h4>
+    </label>
+
+    <div *ngIf="image" class="imageContainer">
+        <mat-icon (click)="eliminarImagen()">delete</mat-icon>
+        <img [src]="image" alt="Imagen del componente">
+    </div>
+</form>
