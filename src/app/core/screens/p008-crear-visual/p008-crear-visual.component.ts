@@ -56,7 +56,6 @@ export class P008CrearVisualComponent implements OnInit{
 
     } else {
       this.aniadirComponenteFormArray()
-      this.aniadirLlamadaFormArray(0)
       this.idProyecto = this.aRouter.snapshot.params['id']
     }
 
@@ -98,6 +97,7 @@ export class P008CrearVisualComponent implements OnInit{
     })
 
     this.componentesFormArray.push(componente)
+    this.aniadirLlamadaFormArray(this.componentesFormArray.length - 1)
   }
 
   aniadirLlamadaFormArray(i:number){
@@ -119,6 +119,10 @@ export class P008CrearVisualComponent implements OnInit{
 
   obtenerFormGroupComponentes(i:number){
     return this.componentesFormArray.at(i) as FormGroup
+  }
+
+  obtenerFormGroupLlamada(iComponente:number, iLlamada:number) {
+    return this.getLlamadasFormArray(iComponente).controls[iLlamada] as FormGroup
   }
 
   async aniadirComponenteVisual(){

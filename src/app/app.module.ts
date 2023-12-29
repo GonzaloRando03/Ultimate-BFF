@@ -34,6 +34,7 @@ import { P011VerVisualComponent } from './core/screens/p011-ver-visual/p011-ver-
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import hljs  from 'highlight.js';
 import { CodeComponent } from './shared/components/code/code.component';
+import { InputImageComponent } from './shared/components/input-image/input-image.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { CodeComponent } from './shared/components/code/code.component';
     P010VerPantallaComponent,
     P011VerVisualComponent,
     CodeComponent,
+    InputImageComponent,
   ],
   imports: [
     BrowserModule,

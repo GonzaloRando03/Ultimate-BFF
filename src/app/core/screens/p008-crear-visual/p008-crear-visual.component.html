@@ -6,7 +6,7 @@
         <h3 *ngIf="editar">Editar Componente Visual {{visual.nombre}}</h3>
     </div>
 
-    <form [formGroup]="visualForm">
+    <form [formGroup]="visualForm" class="formularioPrincipal">
 
         <div class="inputTextContainer">
             <label for="nombre">Nombre del Componente Visual *</label>
@@ -20,7 +20,12 @@
 
         <h4>Componentes</h4>
         <div formArrayName="componentes">
-            <div *ngFor="let c of componentesFormArray.controls; let i = index">
+            <div class="componenteOne" *ngFor="let c of componentesFormArray.controls; let i = index">
+                <app-input-image
+                    [group]="getComponenteFormGroup(i)"
+                    [control]="'image'"
+                    [id]="'imagenComponente'+i"
+                ></app-input-image>
                 <label for="descipcion">Descripción de la Imagen</label>
                 <app-input-textarea
                     [placeholder]="'Descripción de la imagen'"
@@ -31,12 +36,51 @@
 
                 <form [formGroup]="getComponenteFormGroup(i)">
                     <div formArrayName="llamadas">
-                        <div *ngFor="let c of getLlamadasFormArray(i).controls; let o = index">
-                            a
+                        <div class="llamadaOne" *ngFor="let c of getLlamadasFormArray(i).controls; let o = index">
+                            <label for="nombre">Titulo :</label>
+                            <app-input-text
+                                [placeholder]="'Titulo'"
+                                [control]="'nombre'"
+                                [group]="obtenerFormGroupLlamada(i, o)"
+                            ><mat-icon>edit</mat-icon>
+                            </app-input-text>
+
+                            <label>Endpoint de Pantalla :</label>
+                            <app-input-select
+                                [group]="obtenerFormGroupLlamada(i, o)"
+                                [control]="'idEndpoint'"
+                                [values]="pantallasValues"
+                            ></app-input-select>
+
+                            <button 
+                                (click)="eliminarLlamada(i,o)" 
+                                class="delete"
+                                *ngIf="getLlamadasFormArray(i).controls.length > 1"
+                            >
+                                <mat-icon>delete</mat-icon>
+                            </button>
                         </div>
                     </div>
+                
+                    <button (click)="aniadirLlamadaFormArray(i)">
+                        <mat-icon>add</mat-icon>
+                        AÑADIR LLAMADA A ENDPOINT
+                    </button>
                 </form>
+                <button 
+                    (click)="eliminarComponente(i)" 
+                    class="delete"
+                    *ngIf="componentesFormArray.controls.length > 1"
+                >
+                    <mat-icon>delete</mat-icon>
+                    ELIMINAR COMPONENTE
+                </button>
+                <div class="sombraLuz"></div>
             </div>
+            <button (click)="aniadirComponenteFormArray()">
+                <mat-icon>add</mat-icon>
+                AÑADIR COMPONENTE
+            </button>
         </div>
   
         
