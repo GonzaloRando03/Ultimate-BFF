@@ -8,6 +8,7 @@ import { Usuario } from '../../models/usuario.model';
 import { EndpointsService } from '../../services/endpoints.service';
 import { ComponenteVisual, EndpointGenerico, EndpointPantalla } from '../../models/endpoint.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { generarBFFtoPDF } from 'src/app/shared/utils/pdfGenerator';
 
 @Component({
   selector: 'app-p005-proyecto',
@@ -118,6 +119,10 @@ export class P005ProyectoComponent implements OnInit{
         link: '/visual/' + p.id
       }
     })
+  }
+
+  exportarPDF(){
+    generarBFFtoPDF(this.proyecto!,this.genericos,this.pantallas,this.visuales)
   }
 
   async aniadirUsuario(){
