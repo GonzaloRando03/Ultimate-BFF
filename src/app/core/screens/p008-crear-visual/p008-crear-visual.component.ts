@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ComponenteVisual, EndpointPantalla, ObjectCell } from '../../models/endpoint.model';
+import { ComponenteVisual, Visual } from '../../models/endpoint.model';
 import { Usuario } from '../../models/usuario.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../services/toast.service';
 import { EndpointsService } from '../../services/endpoints.service';
 import { UserService } from '../../services/user.service';
 import { ProyectoService } from '../../services/proyecto.service';
-import { obtenerObjetoFormGroup, obtenerParamsFormGroup } from 'src/app/shared/utils/codeFormater';
+import { FireStorageService } from '../../services/fire-storage.service';
 
 @Component({
   selector: 'app-p008-crear-visual',
@@ -31,6 +31,7 @@ export class P008CrearVisualComponent implements OnInit{
     private endpointService:EndpointsService,
     private usuarioService:UserService,
     private proyectoService:ProyectoService,
+    private fireStorageService:FireStorageService,
     private router:Router
   ){
     this.visualForm = this.fb.group({
@@ -134,85 +135,78 @@ export class P008CrearVisualComponent implements OnInit{
 
       this.loading = true
   
-      const endpoint: EndpointPantalla = {
+      const componenteVisual: ComponenteVisual = {
         idProyecto: this.idProyecto,
         nombre: this.visualForm.get('nombre')!.value,
-        url: this.visualForm.get('url')!.value,
-        metodo: this.visualForm.get('metodo')!.value,
-        descripcion: this.visualForm.get('descipcion')!.value,
-        idEndpointGenerico: this.visualForm.get('generico')!.value,
-        requestBody: obtenerObjetoFormGroup(this.visualForm, 'body'),
-        response: obtenerObjetoFormGroup(this.visualForm, 'response'),
-        requestParams: obtenerParamsFormGroup(this.visualForm, 'params')
+        componentes: await this.obtenerComponentesFormGroup()
       }
   
       if (this.editar){
-        await this.endpointService.actualizarPantalla(this.idVisual, endpoint)
-        this.toast.success('Endpoint actualizado', 'El endpoint se ha actualizado correctamente')
+        await this.endpointService.actualizarVisual(this.idVisual, componenteVisual)
+        this.toast.success('Componente visual actualizado', 'El componente visual se ha actualizado correctamente')
       
       } else {
-        await this.endpointService.crearEndpointPantalla(endpoint)
-        this.toast.success('Endpoint añadido', 'El endpoint se ha añadido correctamente')
+        await this.endpointService.crearVisualPantalla(componenteVisual)
+        this.toast.success('Componente visual añadido', 'El componente visual se ha añadido correctamente')
       }
   
       this.loading = false
       this.router.navigate(['/proyecto/' + this.idProyecto])
 
     } catch (error) {
-      this.toast.error('Error inesperado', 'Ha ocurrido un error al añadir el endpoint')
+      this.toast.error('Error inesperado', 'Ha ocurrido un error al añadir el componente')
       this.loading = false
     }
   }
 
   async rellenarFormulario(){
-    
-  }
+    this.visualForm.get('nombre')!.setValue(this.visual.nombre)
 
-  rellenarBody(cells:ObjectCell[], fArray:FormArray, fArrayName:string){
-    cells.forEach(c => {
-      const fGroup:any = {
-        nombre: new FormControl(c.nombre),
-        type: new FormControl(c.type),
+    this.visual.componentes.forEach(c => {
+      const formComponente:any = {
+        image: new FormControl(c.image),
+        descripcion: new FormControl(c.descripcion),
       }
 
-      fGroup[fArrayName] = this.fb.array([])
+      formComponente.llamadas = this.fb.array([])
 
-      if (c.type === 'Array' && c.content && typeof c.content === 'string'){
-        fGroup.arrayValue = new FormControl(c.content)
-      
-      } else if (c.type === 'Array' && c.content && typeof c.content !== 'string'){
-        fGroup.arrayValue = new FormControl('Object')
-        this.rellenarBody(c.content, fGroup[fArrayName], fArrayName)
-      
-      } else if (c.type === 'Object' && c.content && typeof c.content !== 'string'){
-        fGroup.arrayValue = new FormControl('')
-        this.rellenarBody(c.content, fGroup[fArrayName], fArrayName)
-      
-      } else fGroup.arrayValue = new FormControl('')
-
-      const body = this.fb.group(fGroup)
-
-      fArray.push(body)
-    })
-  }
-
-
-  eliminarCamposInecesarios(fArray:FormArray, fArrayName:string){
-    setTimeout(() => {
-      fArray.controls.forEach(c => {
-        const fArrayChild = c.get(fArrayName) as FormArray
-        console.log('mondongo: ', fArrayChild.controls.length)
-        if (fArrayChild.controls.length > 1) this.eliminarUltimoFormArray(fArrayChild, fArrayName)
+      c.llamadas.forEach(l => {
+        formComponente.llamadas.push(
+          this.fb.group({
+            nombre: new FormControl(l.nombre),
+            idEndpoint: new FormControl(l.idEndpoint),
+          })
+        )
       })
-    }, 1000)
+
+      const componentFormGroup = this.fb.group(formComponente)
+
+      this.componentesFormArray.push(componentFormGroup)
+    })
   }
 
-  eliminarUltimoFormArray(fArray:FormArray, fArrayName:string){
-    fArray.removeAt(fArray.length - 1);
+ 
+  async obtenerComponentesFormGroup(){
+    const objectsPromises: Promise<Visual>[] = this.componentesFormArray.controls.map( async (c, i) => {
+      const llamadasFormArray = this.getLlamadasFormArray(i)
 
-    fArray.controls.forEach(c => {
-      const fArrayChild = c.get(fArrayName) as FormArray
-      if (fArrayChild.controls.length > 1) this.eliminarUltimoFormArray(fArrayChild, fArrayName)
+      const imageUrl = await this.fireStorageService.uploadImage(c.get('image')!.value, this.idProyecto)
+
+      const objectCell:Visual = {
+        image: imageUrl,
+        descripcion: c.get('descripcion')!.value,
+        llamadas: llamadasFormArray.controls.map(l => {
+          return {
+            idEndpoint: l.get('idEndpoint')!.value,
+            nombre: l.get('nombre')!.value,
+          }
+        })
+      }
+      return objectCell
     })
+
+    const objectsCells = await Promise.all(objectsPromises)
+  
+    return objectsCells
   }
 }

@@ -35,6 +35,7 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import hljs  from 'highlight.js';
 import { CodeComponent } from './shared/components/code/code.component';
 import { InputImageComponent } from './shared/components/input-image/input-image.component';
+import { AngularFireModule } from "@angular/fire/compat";
 
 @NgModule({
   declarations: [
@@ -73,6 +74,8 @@ import { InputImageComponent } from './shared/components/input-image/input-image
     MatSelectModule,
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore(initializeApp(firebaseConfig))),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule,
     BrowserAnimationsModule,
     HighlightModule
   ],

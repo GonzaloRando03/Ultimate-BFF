@@ -6,7 +6,7 @@ import { ToastService } from '../../services/toast.service';
 import { UserService } from '../../services/user.service';
 import { Usuario } from '../../models/usuario.model';
 import { EndpointsService } from '../../services/endpoints.service';
-import { EndpointGenerico, EndpointPantalla } from '../../models/endpoint.model';
+import { ComponenteVisual, EndpointGenerico, EndpointPantalla } from '../../models/endpoint.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -20,6 +20,7 @@ export class P005ProyectoComponent implements OnInit{
   usuario!:Usuario 
   genericos:EndpointGenerico[] = []
   pantallas:EndpointPantalla[] = []
+  visuales:ComponenteVisual[] = []
   mostrarParticipantes:boolean = false
   participantes:Usuario[] = []
   participantesForm:FormGroup
@@ -73,10 +74,20 @@ export class P005ProyectoComponent implements OnInit{
   }
 
   async getEndpoints(){
-    this.genericos = await this.endpointService
-      .obtenerGenericosProyecto(this.idProyecto) as EndpointGenerico[]
-    this.pantallas = await this.endpointService
-      .obtenerPantallasProyecto(this.idProyecto) as EndpointPantalla[]
+    await Promise.all([
+      this.endpointService.obtenerGenericosProyecto(this.idProyecto)
+        .then((genericos: EndpointGenerico[] | null) => {
+          this.genericos = genericos as EndpointGenerico[];
+        }),
+      this.endpointService.obtenerPantallasProyecto(this.idProyecto)
+        .then((pantallas: EndpointPantalla[] | null) => {
+          this.pantallas = pantallas as EndpointPantalla[];
+        }),
+      this.endpointService.obtenerVisualesProyecto(this.idProyecto)
+        .then((visuales: ComponenteVisual[] | null) => {
+          this.visuales = visuales as ComponenteVisual[];
+        })
+    ]);
   }
 
   getGenericoDropDown(){
@@ -95,6 +106,16 @@ export class P005ProyectoComponent implements OnInit{
         titulo: p.metodo + ' - ' + p.nombre,
         hasLink:  true,
         link: '/pantalla/' + p.id
+      }
+    })
+  }
+
+  getVisualDropDown(){
+    return this.visuales.map(p => {
+      return {
+        titulo: p.nombre,
+        hasLink:  true,
+        link: '/visual/' + p.id
       }
     })
   }

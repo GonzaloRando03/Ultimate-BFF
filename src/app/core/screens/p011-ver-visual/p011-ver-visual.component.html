@@ -1,1 +1,51 @@
-<p>p010-ver-visual works!</p>
+<app-header></app-header>
+<section *ngIf="!loading">
+    <div class="subHeader">
+        <mat-icon [routerLink]="'/proyecto/'+ idProyecto">arrow_back</mat-icon>
+        <h2>Componente Visual : {{visual.nombre}}</h2>
+    </div>
+
+    <div class="endpointContainer">
+        <div class="botonera">
+            <button [routerLink]="'/editarVisual/' + idVisual">
+                <mat-icon>edit</mat-icon>
+                EDITAR COMPONENTE VISUAL
+            </button>
+            <button (click)="mostrarEliminar = true">
+                <mat-icon>delete</mat-icon>
+                ELIMINAR COMPONENTE VISUAL
+            </button>
+        </div>
+
+        <div *ngFor="let c of visual.componentes" class="componenteOne">
+            <div *ngIf="c.descripcion">
+                <b>Descripción </b> 
+                <p>{{c.descripcion}}</p>
+            </div>
+            <img [src]="c.image" alt="Imagen del componente">
+            <div *ngFor="let l of c.llamadas">
+                <p><b>{{l.nombre}} : </b> {{obtenerEndpointLlamada(l.idEndpoint)?.metodo}} {{obtenerEndpointLlamada(l.idEndpoint)?.nombre}}</p>
+            </div>
+            <div class="sombraLuz"></div>
+        </div>
+        
+    </div>
+</section>
+
+<section class="loaderContainer" *ngIf="loading">
+    <app-loader></app-loader>
+</section>
+
+<app-modal
+    *ngIf="mostrarEliminar"
+    [titulo]="'Eliminar Componente Visual'" 
+    (cerrarModal)="mostrarEliminar = false"
+>
+    <h4>¿Estás seguro que quieres eliminar el componente visual?</h4>
+    <div class="flexRight">
+        <button class="delete" (click)="eliminarEndpoint()">
+            <mat-icon>delete</mat-icon>
+            ELIMINAR COMPONENTE
+        </button>
+    </div>
+</app-modal>

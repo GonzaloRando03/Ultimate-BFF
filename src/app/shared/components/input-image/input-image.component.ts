@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,11 +6,19 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './input-image.component.html',
   styleUrls: ['./input-image.component.scss']
 })
-export class InputImageComponent {
+export class InputImageComponent implements OnInit{
   @Input() control: string = '';
   @Input() id: string = '';
   @Input() group!: FormGroup;
+  @Input() reload: boolean = false;
   image:string | null = null
+
+  ngOnInit(): void {
+    const imagenSubida = this.group.get('image')!.value
+    if (this.reload && imagenSubida.length > 5){
+      this.image = imagenSubida
+    }
+  }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
