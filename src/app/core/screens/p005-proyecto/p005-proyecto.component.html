@@ -51,6 +51,8 @@
     </div>
 </section>
 
+<app-footer *ngIf="proyecto !== null"></app-footer>
+
 <div class="loaderContainer" *ngIf="proyecto === null">
     <app-loader></app-loader>
 </div>

@@ -36,6 +36,7 @@ import hljs  from 'highlight.js';
 import { CodeComponent } from './shared/components/code/code.component';
 import { InputImageComponent } from './shared/components/input-image/input-image.component';
 import { AngularFireModule } from "@angular/fire/compat";
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { AngularFireModule } from "@angular/fire/compat";
     P011VerVisualComponent,
     CodeComponent,
     InputImageComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -110,6 +110,11 @@ export async function generarBFFtoPDF(
         addMethod(pdf, '2.' + contadorPantalla + '.2 - Método:', g.metodo, siguienteLinea)
         siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
 
+        addh4(pdf, '2.' + contadorPantalla + '.3 - Endpoint Genérico', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        addText(pdf, g.nombre + ' usa el endpoint genérico: ' + getGenerico(g.idEndpointGenerico,genericos)?.nombre, siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
         addh4(pdf, '2.' + contadorPantalla + '.3 - Descripción', siguienteLinea)
         siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
         if (g.descripcion){
