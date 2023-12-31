@@ -2,7 +2,8 @@ import jsPDF from "jspdf";
 import { 
     ComponenteVisual, 
     EndpointGenerico, 
-    EndpointPantalla 
+    EndpointPantalla, 
+    ObjectCell
 } from "src/app/core/models/endpoint.model";
 import { Proyecto } from "src/app/core/models/proyecto.model";
 
@@ -37,29 +38,104 @@ export function generarBFFtoPDF(
 
     // Título principal
     addh1(pdf, 'Documentación BFF de ' + proyecto.nombre, siguienteLinea)
-    siguienteLinea = saltoDeLinea(siguienteLinea)
+    siguienteLinea = saltoDeLinea(pdf, siguienteLinea)
 
     //Endpoints genéricos
     addh2(pdf, '1 - Endpoints Genéricos', siguienteLinea)
-    siguienteLinea = pasarDeLinea(siguienteLinea)
+    siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
 
     let contadorGenericos = 1
     genericos.forEach(g => {
         addh3(pdf, '1.' + contadorGenericos + ' - ' + g.nombre, siguienteLinea)
-        siguienteLinea = pasarDeLinea(siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
 
-        addMethod(pdf, '1.' + contadorGenericos + '.1 - Método:', g.metodo, siguienteLinea)
-        siguienteLinea = pasarDeLinea(siguienteLinea)
+        addh4(pdf, '1.' + contadorGenericos + '.1 - Ruta', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        addText(pdf, g.url, siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
 
+        addMethod(pdf, '1.' + contadorGenericos + '.2 - Método:', g.metodo, siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
+        addh4(pdf, '1.' + contadorGenericos + '.3 - Descripción', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
         if (g.descripcion){
-            addh4(pdf, '1.' + contadorGenericos + '.2 - Descripción', siguienteLinea)
-            siguienteLinea = pasarDeLinea(siguienteLinea)
             siguienteLinea = addTextLong(pdf, g.descripcion, siguienteLinea)
-            siguienteLinea = pasarDeLinea(siguienteLinea)
+            siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
         }
         
-        addText(pdf, 'Texto de prueba', siguienteLinea)
+        addh4(pdf, '1.' + contadorGenericos + '.4 - Request params', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        if (g.requestParams){
+            siguienteLinea = addObjectPDF(pdf, g.requestParams, siguienteLinea, 20)
+        }
+
+        addh4(pdf, '1.' + contadorGenericos + '.5 - Request body', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        if (g.requestBody){
+            siguienteLinea = addObjectPDF(pdf, g.requestBody, siguienteLinea, 20)
+        }
+
+        addh4(pdf, '1.' + contadorGenericos + '.6 - Response', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        siguienteLinea = addObjectPDF(pdf, g.response, siguienteLinea, 20)
+        
+        addh4(pdf, '1.' + contadorGenericos + '.7 - Consulta de base de datos', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        if (g.consultaDB){
+            siguienteLinea = addTextLong(pdf, g.consultaDB, siguienteLinea)
+            siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        }
+
+        contadorGenericos++
     })
+
+    siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
+    //Endpoints de pantalla
+    addh2(pdf, '2 - Endpoints de Pantalla', siguienteLinea)
+    siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
+    let contadorPantalla = 1
+    pantallas.forEach(g => {
+        addh3(pdf, '2.' + contadorPantalla + ' - ' + g.nombre, siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
+        addh4(pdf, '2.' + contadorPantalla + '.1 - Ruta', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        addText(pdf, g.url, siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
+        addMethod(pdf, '2.' + contadorPantalla + '.2 - Método:', g.metodo, siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
+        addh4(pdf, '2.' + contadorPantalla + '.3 - Descripción', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        if (g.descripcion){
+            siguienteLinea = addTextLong(pdf, g.descripcion, siguienteLinea)
+            siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        }
+        
+        addh4(pdf, '2.' + contadorPantalla + '.4 - Request params', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        if (g.requestParams){
+            siguienteLinea = addObjectPDF(pdf, g.requestParams, siguienteLinea, 20)
+        }
+
+        addh4(pdf, '2.' + contadorPantalla + '.5 - Request body', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        if (g.requestBody){
+            siguienteLinea = addObjectPDF(pdf, g.requestBody, siguienteLinea, 20)
+        }
+
+        addh4(pdf, '2.' + contadorPantalla + '.6 - Response', siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+        siguienteLinea = addObjectPDF(pdf, g.response, siguienteLinea, 20)
+
+        contadorPantalla++
+    })
+
+    siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
 
     pdf.save('DocumentaciónBFF_' + proyecto.nombre + '.pdf')
 }
@@ -114,10 +190,50 @@ function addTextLong(pdf:jsPDF, text:string, siguienteLinea:number){
     // Agrega cada línea al PDF
     textLines.forEach((line:any) => {
         pdf.text(line, 20, yPosition);
-        yPosition += 7;
+        yPosition = saltoObjeto(pdf, yPosition)
     });
     
     return yPosition
+}
+
+function addObjectPDF(pdf:jsPDF, objects:ObjectCell[], siguienteLinea:number, positionLeft:number){
+    pdf.setFontSize(NORMALSIZE);
+    pdf.setTextColor(NORMALCOLOR.r, NORMALCOLOR.g, NORMALCOLOR.b)
+    pdf.text('{', positionLeft, siguienteLinea);
+    siguienteLinea = saltoObjeto(pdf, siguienteLinea)
+    siguienteLinea = addObjectValuesPDF(pdf, objects, siguienteLinea, positionLeft + 5)
+    pdf.text('}', positionLeft, siguienteLinea);
+    siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+    return siguienteLinea
+}
+
+function addObjectValuesPDF(pdf:jsPDF, objects:ObjectCell[], siguienteLinea:number, positionLeft:number){
+    objects.forEach(o => {
+        if (o.type === 'Object'){
+            pdf.text(o.nombre + ': {', positionLeft, siguienteLinea);
+            siguienteLinea = saltoObjeto(pdf, siguienteLinea)
+            siguienteLinea = addObjectValuesPDF(pdf, o.content as ObjectCell[], siguienteLinea, positionLeft + 5)
+            pdf.text('}', positionLeft, siguienteLinea);
+            siguienteLinea = saltoObjeto(pdf, siguienteLinea)
+        
+        } else if (o.type === 'Array' && typeof o.content !== 'string'){
+            pdf.text(o.nombre + ': [{', positionLeft, siguienteLinea);
+            siguienteLinea = saltoObjeto(pdf, siguienteLinea)
+            siguienteLinea = addObjectValuesPDF(pdf, o.content as ObjectCell[], siguienteLinea, positionLeft + 5)
+            pdf.text('}]', positionLeft, siguienteLinea);
+            siguienteLinea = saltoObjeto(pdf, siguienteLinea)
+        
+        } else if (o.type === 'Array' && typeof o.content === 'string'){
+            pdf.text(o.nombre + ': ' + o.content + '[ ]', positionLeft, siguienteLinea);
+            siguienteLinea = saltoObjeto(pdf, siguienteLinea)
+        
+        } else {
+            pdf.text(o.nombre + ': ' + o.type, positionLeft, siguienteLinea);
+            siguienteLinea = saltoObjeto(pdf, siguienteLinea)
+        }
+    })
+
+    return siguienteLinea
 }
 
 function addMethod(pdf:jsPDF, text:string, metodo:string, siguienteLinea:number){
@@ -129,10 +245,38 @@ function addMethod(pdf:jsPDF, text:string, metodo:string, siguienteLinea:number)
     pdf.text(metodo, 55, siguienteLinea)
 }
 
-function pasarDeLinea(l:number){
-    return l + 10
+function saltoObjeto(pdf:jsPDF, l:number){
+    l += 7
+    const pageHeight = pdf.internal.pageSize.height - 20;
+    if (l >= pageHeight){
+        pdf.addPage()
+        l = 20
+        return l
+    }
+
+    return l
 }
 
-function saltoDeLinea(l:number){
-    return l + 15
+function pasarDeLinea(pdf:jsPDF, l:number){
+    l += 10
+    const pageHeight = pdf.internal.pageSize.height - 20;
+    if (l >= pageHeight){
+        pdf.addPage()
+        l = 20
+        return l
+    }
+
+    return l
+}
+
+function saltoDeLinea(pdf:jsPDF, l:number){
+    l += 15
+    const pageHeight = pdf.internal.pageSize.height - 20;
+    if (l >= pageHeight){
+        pdf.addPage()
+        l = 20
+        return l
+    }
+
+    return l
 }
