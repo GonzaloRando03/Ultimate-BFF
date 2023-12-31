@@ -7,6 +7,7 @@ import {
 } from "src/app/core/models/endpoint.model";
 import { Proyecto } from "src/app/core/models/proyecto.model";
 
+
 const H1SIZE = 20
 const H2SIZE = 18
 const H3SIZE = 16
@@ -26,7 +27,7 @@ const PRIMARYCOLOR = {
     b: 197
 }
 
-export function generarBFFtoPDF(
+export async function generarBFFtoPDF(
     proyecto:Proyecto,
     genericos:EndpointGenerico[], 
     pantallas:EndpointPantalla[], 
@@ -137,6 +138,38 @@ export function generarBFFtoPDF(
 
     siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
 
+    //Componentes Visuales
+    addh2(pdf, '3 - Componentes Visuales', siguienteLinea)
+    siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
+    let contadorVisuales = 1
+
+
+    for (let g of visuales){
+        addh3(pdf, '3.' + contadorVisuales + ' - ' + g.nombre, siguienteLinea)
+        siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
+        for (let c of g.componentes){
+            siguienteLinea = await addImage(pdf, c.image, siguienteLinea)
+            siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+
+            addh4(pdf, 'Descripción', siguienteLinea)
+            siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+            if (c.descripcion){
+                siguienteLinea = addTextLong(pdf, c.descripcion, siguienteLinea)
+                siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+            }
+            addh4(pdf, 'Llamadas', siguienteLinea)
+            siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+            c.llamadas.forEach(l => {
+                addText(pdf,l.nombre + ': ' + getPantallas(l.idEndpoint, pantallas)!.nombre, siguienteLinea)
+                siguienteLinea = pasarDeLinea(pdf, siguienteLinea)
+            })
+        }
+
+        contadorVisuales++
+    }
+
     pdf.save('DocumentaciónBFF_' + proyecto.nombre + '.pdf')
 }
 
@@ -176,6 +209,11 @@ function addText(pdf:jsPDF, text:string, siguienteLinea:number){
     pdf.text(text, 20, siguienteLinea);
 }
 
+function nuevaPagina(pdf:jsPDF){
+    pdf.addPage()
+    return 20
+}
+
 function addTextLong(pdf:jsPDF, text:string, siguienteLinea:number){
     pdf.setFontSize(NORMALSIZE);
     pdf.setTextColor(NORMALCOLOR.r, NORMALCOLOR.g, NORMALCOLOR.b)
@@ -193,7 +231,7 @@ function addTextLong(pdf:jsPDF, text:string, siguienteLinea:number){
         yPosition = saltoObjeto(pdf, yPosition)
     });
     
-    return yPosition
+    return yPosition - 5
 }
 
 function addObjectPDF(pdf:jsPDF, objects:ObjectCell[], siguienteLinea:number, positionLeft:number){
@@ -234,6 +272,29 @@ function addObjectValuesPDF(pdf:jsPDF, objects:ObjectCell[], siguienteLinea:numb
     })
 
     return siguienteLinea
+}
+
+async function addImage(pdf:jsPDF, uri:string, siguienteLinea:number){
+    const blob = await urlToBlob(uri)
+    const imagen = await blobToBase64(blob) as string
+
+    const imagenSrc = imagen.split('base64,')[1];
+    const uriArray = uri.split('?')[0].split('.')
+    const imageFormat = uriArray[uriArray.length - 1].toLocaleUpperCase()
+    // Añade la imagen al PDF
+    const imageProperties = pdf.getImageProperties(imagenSrc);
+    const scale = 150 / imageProperties.width;
+    const imageWidth = imageProperties.width * scale;
+    const imageHeight = imageProperties.height * scale;
+
+    const pageHeight = pdf.internal.pageSize.height - 20;
+    if (siguienteLinea + imageHeight >= pageHeight){
+        pdf.addPage()
+        siguienteLinea = 20
+    }
+    pdf.addImage(imagenSrc, imageFormat!,20, siguienteLinea, imageWidth, imageHeight);          
+
+    return siguienteLinea + imageHeight
 }
 
 function addMethod(pdf:jsPDF, text:string, metodo:string, siguienteLinea:number){
@@ -280,3 +341,41 @@ function saltoDeLinea(pdf:jsPDF, l:number){
 
     return l
 }
+
+function getGenerico(id:string, genericos:EndpointGenerico[]){
+    return genericos.find(g => g.id === id)
+}
+
+function getPantallas(id:string, pantallas:EndpointPantalla[]){
+    return pantallas.find(g => g.id === id)
+}
+  
+
+function urlToBlob(url:string) {
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onerror = reject;
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                const blobVariable = xhr.response;
+                resolve(blobVariable);
+            }
+        };
+
+        xhr.open('GET', url);
+        xhr.responseType = 'blob'; // convert type
+        xhr.send();
+    });
+}
+
+
+const blobToBase64 = (blob:any) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };

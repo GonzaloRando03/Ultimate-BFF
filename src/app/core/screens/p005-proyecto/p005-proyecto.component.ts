@@ -121,8 +121,8 @@ export class P005ProyectoComponent implements OnInit{
     })
   }
 
-  exportarPDF(){
-    generarBFFtoPDF(this.proyecto!,this.genericos,this.pantallas,this.visuales)
+  async exportarPDF(){
+    await generarBFFtoPDF(this.proyecto!,this.genericos,this.pantallas,this.visuales)
   }
 
   async aniadirUsuario(){
