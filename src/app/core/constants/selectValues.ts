@@ -50,6 +50,10 @@ export const OBJECT_TYPES = [
         name:'Null',
         value:'Null'
     },
+    {
+        name:'Date',
+        value:'Date'
+    },
 ]
 
 export const PARAM_TYPES = [
@@ -68,6 +72,10 @@ export const PARAM_TYPES = [
     {
         name:'Null',
         value:'Null'
+    },
+    {
+        name:'Date',
+        value:'Date'
     },
 ]
 
@@ -91,5 +99,9 @@ export const ARRAY_TYPES = [
     {
         name:'Object',
         value:'Object'
+    },
+    {
+        name:'Date',
+        value:'Date'
     },
 ]

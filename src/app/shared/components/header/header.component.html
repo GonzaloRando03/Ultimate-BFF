@@ -7,8 +7,8 @@
   <div>
     <ul>
       <li routerLink="/">Inicio</li>
-      <li>Ayuda</li>
-      <li>Docs</li>
+      <li routerLink="/docs">Ayuda</li>
+      <li routerLink="/docs">Docs</li>
       <li *ngIf="login" routerLink="/dashboard">Dashboard</li>
     </ul>
     <mat-icon *ngIf="!login" routerLink="/login">person</mat-icon>

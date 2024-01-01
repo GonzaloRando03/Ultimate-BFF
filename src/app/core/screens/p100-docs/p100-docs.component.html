@@ -1,0 +1,113 @@
+<app-header [header1]="false"></app-header>
+<div class="contenedorPrincipal">
+  <div class="bg-primary">
+    <div class="fondoDegradado">
+      <h1>Ultimate BFF Docs</h1>
+    </div>
+  
+    <div class="textoHome">
+      <h2>Ultimate BFF: Plataforma de Gestión Avanzada para Documentación BFF en Proyectos</h2>
+      <div class="sombraLuz"></div>
+      <p>
+        Ultimate BFF se presenta como una herramienta avanzada diseñada para facilitar la gestión 
+        de la documentación BFF en proyectos. Ofrece una plataforma completa que permite documentar 
+        de manera sistemática los endpoints genéricos, de pantalla y los componentes visuales asociados 
+        a cada proyecto, destacando por su enfoque en la organización y presentación estructurada de esta información.
+      </p>
+    </div>
+
+    <div class="textoHome">
+        <h2>Arquitectura y Funcionamiento de Ultimate BFF</h2>
+        <div class="sombraLuz"></div>
+        <p>
+            La arquitectura de Ultimate BFF se basa en tres elementos esenciales:
+        </p>
+        <ul>
+            <li><b>Endpoints Genéricos: </b>Funciones y operaciones centrales que no son accedidas directamente por el cliente.</li>
+            <li><b>Endpoints de Pantalla: </b>Diseñados para atender a una pantalla específica del cliente, realizando llamadas a endpoints genéricos.</li>
+            <li><b>Componentes Visuales: </b>Imágenes que representan los componentes de la aplicación, estableciendo una relación entre cada componente funcional y el endpoint al cual realiza la llamada.</li>
+        </ul>
+        <p>
+            Esta arquitectura simplifica la organización del código y permite realizar llamadas más específicas 
+            para los clientes, facilitando la reutilización de endpoints genéricos en diversas pantallas sin 
+            incurrir en prácticas indebidas.
+        </p>
+      </div>
+  
+    <div class="infoContainer">
+      <section>
+        <div class="tituloInfo">
+          <h2>Cómo Utilizar Ultimate BFF</h2>
+          <div class="sombraLuz"></div>
+        </div>
+
+        <ol>
+            <h3><li>Dashboard</li></h3>
+            <p>
+                Después de iniciar sesión, accede al dashboard que ofrece un menú lateral con información detallada del usuario. 
+                Permite acciones como cerrar sesión o crear un nuevo proyecto. En la sección derecha, se despliegan los proyectos 
+                a los cuales el usuario pertenece, proporcionando detalles clave como fecha de creación, nombre, cantidad de usuarios 
+                asociados, número de endpoints de pantalla y número de endpoints genéricos. Al hacer clic en un proyecto, serás redirigido 
+                a la pantalla correspondiente.
+            </p>
+
+            <h3><li>Proyecto</li></h3>
+            <p>En la pantalla de un proyecto, encuentras cinco botones principales:</p>
+            <ul>
+                <li><b>Participantes: </b>Permite ver y gestionar los participantes del proyecto.</li>
+                <li><b>Nuevo Endpoint Genérico: </b>Redirige al formulario para crear un nuevo endpoint genérico.</li>
+                <li><b>Nuevo Endpoint de Pantalla: </b>Redirige al formulario para crear un nuevo endpoint de pantalla.</li>
+                <li><b>Nuevo Componente Visual: </b>Redirige al formulario para crear nuevos componentes visuales.</li>
+                <li><b>Exportar a PDF: </b>Genera un documento PDF organizado con la documentación BFF actual del proyecto. </li>
+            </ul>
+            <p>Debajo de estos botones, hay tres desplegables para visualizar los distintos endpoints genéricos, de pantalla y componentes visuales del proyecto.</p>
+        
+            <h3><li>Formulario de Creación Endpoint Genérico</li></h3>
+            <p>
+                Permite la creación de un nuevo endpoint genérico, donde debes especificar información como el método del endpoint, 
+                nombre, ruta de la petición, descripción, request params y request body si es necesario, además del objeto que devuelve 
+                el endpoint. También puedes especificar la consulta de base de datos necesaria para el funcionamiento del endpoint.
+            </p>
+            <p>
+                La creación de objetos, request params, request body y response consta de un formulario "campo, valor" donde añades 
+                el nombre del campo y el tipo de dato del mismo. Este formulario puede variar desde un JSON simple hasta una estructura más compleja.
+            </p>
+
+            <h3><li>Formulario de Creación Endpoint de Pantalla</li></h3>
+            <p>
+                Permite la creación de un nuevo endpoint de pantalla, donde debes especificar información como el método del endpoint, 
+                nombre, ruta de la petición, enpoint genérico al que realiza la petición, descripción, request params y request body si es 
+                necesario, además del objeto que devuelve el endpoint.
+            </p>
+            <p>
+                La creación de objetos, request params, request body y response consta de un formulario "campo, valor" donde añades 
+                el nombre del campo y el tipo de dato del mismo. Este formulario puede variar desde un JSON simple hasta una estructura más compleja.
+            </p>
+
+            <h3><li>Formulario de Creación Componente Visual</li></h3>
+            <p>
+                Permite la creación de un nuevo componente visual, donde debes especificar información como el nombre del componente o pantalla, 
+                distintas imágenes del componente con su descripción y una asociación entre las distintas partes del componente y el endpoint de 
+                pantalla al que realizan la petición. Puedes añadir tantas imágenes y llamadas como sea necesario.
+            </p>
+
+            <h3><li>Visualización de Endpoints y Componentes</li></h3>
+            <p>
+                Estas pantallas permiten la visualización ordenada de la información de los endpoints genéricos, de pantalla y componentes visuales. 
+                Cuentan con dos botones superiores, uno para eliminar el endpoint o componente y otro para su edición, que redirigirá al usuario al 
+                formulario citado anteriormente con los datos rellenos con la información del endpoint o componente deseado, permitiendo la edición del mismo.
+            </p>
+
+            <h3><li>Generación de Documento PDF</li></h3>
+            <p>
+                Al exportar nuestro BFF obtenemos un documento PDF con toda la información del proyecto ordenada, perfecto para entregar documentaciones.
+            </p>
+        </ol>
+      </section>
+    </div>
+  </div>
+  <div class="footer">
+    <app-footer></app-footer>
+  </div>
+</div>
+

@@ -37,6 +37,7 @@ import { CodeComponent } from './shared/components/code/code.component';
 import { InputImageComponent } from './shared/components/input-image/input-image.component';
 import { AngularFireModule } from "@angular/fire/compat";
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { P100DocsComponent } from './core/screens/p100-docs/p100-docs.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     CodeComponent,
     InputImageComponent,
     FooterComponent,
+    P100DocsComponent,
   ],
   imports: [
     BrowserModule,

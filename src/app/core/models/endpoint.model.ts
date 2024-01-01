@@ -46,12 +46,12 @@ export type RequestBody = ObjectCell[]
 export type EndpointResponse = ObjectCell[]
 
 export interface ObjectCell {
-    type: 'String' | 'Number' | 'Boolean' | 'Null' | 'Object' | 'Array'
+    type: 'String' | 'Number' | 'Boolean' | 'Null' | 'Object' | 'Array' | 'Date'
     nombre: string
     content?: string | ObjectCell[]
 }
 
 export interface RequestParam {
-    type: 'String' | 'Number' | 'Boolean' | 'Null' 
+    type: 'String' | 'Number' | 'Boolean' | 'Null' | 'Date'
     nombre: string
 }

@@ -13,6 +13,7 @@ import { P008CrearVisualComponent } from './core/screens/p008-crear-visual/p008-
 import { P009VerGenericoComponent } from './core/screens/p009-ver-generico/p009-ver-generico.component';
 import { P010VerPantallaComponent } from './core/screens/p010-ver-pantalla/p010-ver-pantalla.component';
 import { P011VerVisualComponent } from './core/screens/p011-ver-visual/p011-ver-visual.component';
+import { P100DocsComponent } from './core/screens/p100-docs/p100-docs.component';
 
 const routes: Routes = [
   { path: '', component: P001HomeComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'generico/:id', component: P009VerGenericoComponent, canActivate: [CanActivateUser] },
   { path: 'pantalla/:id', component: P010VerPantallaComponent, canActivate: [CanActivateUser] },
   { path: 'visual/:id', component: P011VerVisualComponent, canActivate: [CanActivateUser] },
+  { path: 'docs', component: P100DocsComponent },
   { path: '**', component: P001HomeComponent },
 ];
 
