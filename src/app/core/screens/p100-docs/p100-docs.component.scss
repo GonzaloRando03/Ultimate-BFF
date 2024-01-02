@@ -52,7 +52,7 @@
     width: 40%;
     margin-left: 30%;
     margin-bottom: 7rem;
-    color: var(--texto-oscuro);
+    color: rgb(214, 214, 214);
   }
   
   .textoHome h2 {
@@ -83,7 +83,7 @@
     transform: skewy(3deg);
     padding: 6rem 0;
     position: a;
-    color: var(--texto-oscuro);
+    color: rgb(214, 214, 214);
   }
   
   .infoContainer section {
@@ -139,7 +139,15 @@
 
   .infoContainer h3, .infoContainer h2 {
     color: white;
-    margin-top: 4rem;
+    margin-top: 5rem;
+  }
+
+  img {
+    width: 80%;
+    border-radius: 14px;
+    margin: 1rem 0rem;
+    margin-left: 10%;
+    border: 1px solid var(--color-primario-hover);
   }
 
  
