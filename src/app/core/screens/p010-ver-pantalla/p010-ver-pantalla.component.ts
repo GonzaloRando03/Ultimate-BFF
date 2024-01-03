@@ -74,4 +74,13 @@ export class P010VerPantallaComponent {
       this.toast.error('Error inesperado', 'Ha ocurrido un error al eliminar el endpoint')
     }
   }
+
+  getRevisar(){
+    const revision = this.endpoint.revisores?.find(r => r.uid === this.usuario!.uid)
+    return revision && !revision.revisado
+  }
+  
+  async revisarEndpoint(){
+    await this.endpointService.revisarEndpointPantalla(this.idEndpoint, this.usuario!.uid)
+  }
 }

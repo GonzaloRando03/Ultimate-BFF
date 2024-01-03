@@ -9,6 +9,7 @@ export interface EndpointGenerico {
     consultaDB:string
     response: EndpointResponse
     descripcion?:string
+    revisores?:Revisores[]
 }
 
 export interface EndpointPantalla {
@@ -22,6 +23,7 @@ export interface EndpointPantalla {
     response: EndpointResponse
     idEndpointGenerico: string
     descripcion?:string
+    revisores?:Revisores[]
 }
 
 export interface ComponenteVisual {
@@ -54,4 +56,14 @@ export interface ObjectCell {
 export interface RequestParam {
     type: 'String' | 'Number' | 'Boolean' | 'Null' | 'Date'
     nombre: string
+}
+
+export interface Revisores {
+    uid: string,
+    revisado: boolean
+}
+
+export interface RevisorValue {
+    name: string,
+    value: string
 }

@@ -96,7 +96,9 @@ export class P005ProyectoComponent implements OnInit{
       return {
         titulo: g.metodo + ' - ' +g.nombre,
         hasLink:  true,
-        link: '/generico/' + g.id
+        link: '/generico/' + g.id,
+        ready: this.getReadyForDev(g),
+        revisar: this.getRevisar(g)
       }
     })
   }
@@ -106,7 +108,9 @@ export class P005ProyectoComponent implements OnInit{
       return {
         titulo: p.metodo + ' - ' + p.nombre,
         hasLink:  true,
-        link: '/pantalla/' + p.id
+        link: '/pantalla/' + p.id,
+        ready: this.getReadyForDev(p),
+        revisar: this.getRevisar(p)
       }
     })
   }
@@ -119,6 +123,21 @@ export class P005ProyectoComponent implements OnInit{
         link: '/visual/' + p.id
       }
     })
+  }
+
+  getReadyForDev(p: EndpointGenerico | EndpointPantalla){
+    let ready = true
+    p.revisores?.forEach(r => {
+      if (!r.revisado){
+        ready = false
+      }
+    })
+    return ready
+  }
+
+  getRevisar(p: EndpointGenerico | EndpointPantalla){
+    const revision = p.revisores?.find(r => r.uid === this.usuario.uid)
+    return revision && !revision.revisado
   }
 
   async exportarPDF(){

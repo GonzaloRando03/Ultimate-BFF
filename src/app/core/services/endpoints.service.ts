@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { EndpointsDatabaseService } from 'src/app/server/endpoints/endpoints-database.service';
 import { ComponenteVisual, EndpointGenerico, EndpointPantalla } from '../models/endpoint.model';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EndpointsService {
 
-  constructor(private endpointDatabase:EndpointsDatabaseService) { }
+  constructor(private endpointDatabase:EndpointsDatabaseService, private toast:ToastService) { }
 
   async obtenerGenericosProyecto(idProyecto: string) {
     const genericos = await this.endpointDatabase.obtenerGenericosProyecto(idProyecto)
@@ -70,5 +71,23 @@ export class EndpointsService {
 
   async eliminarVisualPantalla(id:string){
     await this.endpointDatabase.eliminarVisualPantalla(id)
+  }
+
+  async revisarEndpointPantalla(id:string, uid:string){
+    try {
+      await this.endpointDatabase.revisarEndpointPantalla(id, uid)
+      this.toast.success('Endpoint Validado', 'Has validado el endpoint')
+    } catch (error) {
+      this.toast.error('Error inesperado', 'Ha ocurrido un error al validar el endpoint')
+    }
+  }
+
+  async revisarEndpointGenerico(id:string, uid:string){
+    try {
+      await this.endpointDatabase.revisarEndpointGenerico(id, uid)
+      this.toast.success('Endpoint Validado', 'Has validado el endpoint')
+    } catch (error) {
+      this.toast.error('Error inesperado', 'Ha ocurrido un error al validar el endpoint')
+    }
   }
 }

@@ -79,6 +79,26 @@
         ><mat-icon>edit</mat-icon>
         </app-input-textarea>
 
+        <label>Revisores</label>
+        <p class="revisionText">Añade revisores para tus endpoints</p>
+        <div formArrayName="revisores">
+            <div class="revisor" *ngFor="let r of revisoresFormArray.controls; let i = index">
+                <label>Revisor:</label>
+                <app-input-select
+                    [group]="getRevisoresFormGroup(i)"
+                    [control]="'uid'"
+                    [values]="revisoresValues"
+                ></app-input-select>
+                <button class="eliminar" (click)="eliminarRevisor(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+            <button (click)="aniadirRevisorFormArray()">
+                <mat-icon>add</mat-icon>
+                AÑADIR REVISOR
+            </button>
+        </div>
+
         <div class="flexRight">
             <button (click)="aniadirEndpointGenerico()">
                 <mat-icon>upload</mat-icon>
@@ -87,7 +107,7 @@
         </div>
     </form>
 </section>
-<app-footer></app-footer>
+<app-footer *ngIf="!loading"></app-footer>
 
 <section class="loaderContainer" *ngIf="loading">
     <app-loader></app-loader>

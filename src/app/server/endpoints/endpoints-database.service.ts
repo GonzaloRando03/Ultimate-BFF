@@ -190,4 +190,26 @@ export class EndpointsDatabaseService {
   async eliminarVisualPantalla(id:string){
     await deleteDoc(doc(this.firestore, this.visualesCollection, id));
   }
+
+  async revisarEndpointGenerico(id:string, uid:string){
+    const generico = await this.obtenerGenericoPorId(id) as EndpointGenerico
+    generico!.revisores = generico!.revisores!.map(r => {
+      if (r.uid === uid){
+        r.revisado = true
+      }
+      return r
+    })
+    await this.actualizarEndpointGenerico(id, generico)
+  }
+
+  async revisarEndpointPantalla(id:string, uid:string){
+    const pantalla = await this.obtenerPantallaPorId(id) as EndpointPantalla
+    pantalla!.revisores = pantalla!.revisores!.map(r => {
+      if (r.uid === uid){
+        r.revisado = true
+      }
+      return r
+    })
+    await this.actualizarEndpointPantalla(id, pantalla)
+  }
 }

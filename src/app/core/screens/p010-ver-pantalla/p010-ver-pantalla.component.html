@@ -7,6 +7,10 @@
 
     <div class="endpointContainer">
         <div class="botonera">
+            <button *ngIf="getRevisar()" (click)="revisarEndpoint()">
+                <mat-icon>check</mat-icon>
+                VALIDAR ENDPOINT
+            </button>
             <button [routerLink]="'/editarPantalla/' + idEndpoint">
                 <mat-icon>edit</mat-icon>
                 EDITAR ENDPOINT

@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { METHODS } from '../../constants/selectValues';
 import { ToastService } from '../../services/toast.service';
-import { EndpointGenerico, ObjectCell } from '../../models/endpoint.model';
+import { EndpointGenerico, ObjectCell, RevisorValue } from '../../models/endpoint.model';
 import { EndpointsService } from '../../services/endpoints.service';
 import { UserService } from '../../services/user.service';
 import { Usuario } from '../../models/usuario.model';
@@ -20,6 +20,7 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
   idEndpoint:string = ''
   genericoForm:FormGroup
   methodsValues = METHODS
+  revisoresValues: RevisorValue[] = []
   loading:boolean = false
   editar:boolean = false
   endpoint!:EndpointGenerico
@@ -43,6 +44,7 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
       body: this.fb.array([]),
       params: this.fb.array([]),
       response: this.fb.array([]),
+      revisores: this.fb.array([]),
     })
   }
 
@@ -65,6 +67,8 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
     } else {
       this.idProyecto = this.aRouter.snapshot.params['id']
     }
+
+    this.revisoresValues = await this.proyectoService.obtenerUsuariosRevisores(this.idProyecto)
 
     const permisos = 
       await this.proyectoService.getPermisosProyecto(this.usuario?.uid!, this.idProyecto)
@@ -97,6 +101,7 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
       }
 
       this.loading = true
+
   
       const endpoint: EndpointGenerico = {
         idProyecto: this.idProyecto,
@@ -107,7 +112,13 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
         consultaDB: this.genericoForm.get('consulta')!.value,
         requestBody: obtenerObjetoFormGroup(this.genericoForm, 'body'),
         response: obtenerObjetoFormGroup(this.genericoForm, 'response'),
-        requestParams: obtenerParamsFormGroup(this.genericoForm, 'params')
+        requestParams: obtenerParamsFormGroup(this.genericoForm, 'params'),
+        revisores: this.revisoresFormArray.controls.map(c => {
+          return {
+            uid: c.get('uid')!.value,
+            revisado: false
+          }
+        })
       }
   
       if (this.editar){
@@ -151,6 +162,14 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
 
     const responseFormArray = this.genericoForm.get('response') as FormArray
     this.rellenarBody(this.endpoint.response, responseFormArray, 'response')
+
+    this.endpoint.revisores?.forEach(r => {
+      const fGroup = this.fb.group({
+        uid: [r.uid, Validators.required]
+      })
+
+      this.revisoresFormArray.push(fGroup)
+    })
   }
 
   rellenarBody(cells:ObjectCell[], fArray:FormArray, fArrayName:string){
@@ -199,6 +218,26 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
       const fArrayChild = c.get(fArrayName) as FormArray
       if (fArrayChild.controls.length > 1) this.eliminarUltimoFormArray(fArrayChild, fArrayName)
     })
+  }
+
+  get revisoresFormArray(): FormArray {
+    return this.genericoForm.get('revisores') as FormArray
+  }
+
+  getRevisoresFormGroup(i:number){
+    return this.revisoresFormArray.controls[i] as FormGroup
+  }
+
+  aniadirRevisorFormArray() {
+    const componente = this.fb.group({
+      uid: ['', Validators.required],
+    })
+
+    this.revisoresFormArray.push(componente)
+  }
+
+  eliminarRevisor(i:number) {
+    this.revisoresFormArray.controls.splice(i, 1)
   }
 
 }

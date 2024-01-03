@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { METHODS } from '../../constants/selectValues';
-import { EndpointGenerico, EndpointPantalla, ObjectCell } from '../../models/endpoint.model';
+import { EndpointGenerico, EndpointPantalla, ObjectCell, RevisorValue } from '../../models/endpoint.model';
 import { Usuario } from '../../models/usuario.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../services/toast.service';
@@ -25,6 +25,7 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
   editar:boolean = false
   endpoint!:EndpointPantalla
   usuario:Usuario | null = null
+  revisoresValues: RevisorValue[] = []
 
   constructor(
     private aRouter:ActivatedRoute,
@@ -45,6 +46,7 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
       body: this.fb.array([]),
       params: this.fb.array([]),
       response: this.fb.array([]),
+      revisores: this.fb.array([]),
     })
   }
 
@@ -74,6 +76,8 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
         value: g.id
       }
     })
+
+    this.revisoresValues = await this.proyectoService.obtenerUsuariosRevisores(this.idProyecto)
 
     const permisos = 
       await this.proyectoService.getPermisosProyecto(this.usuario?.uid!, this.idProyecto)
@@ -117,7 +121,13 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
         idEndpointGenerico: this.pantallaForm.get('generico')!.value,
         requestBody: obtenerObjetoFormGroup(this.pantallaForm, 'body'),
         response: obtenerObjetoFormGroup(this.pantallaForm, 'response'),
-        requestParams: obtenerParamsFormGroup(this.pantallaForm, 'params')
+        requestParams: obtenerParamsFormGroup(this.pantallaForm, 'params'),
+        revisores: this.revisoresFormArray.controls.map(c => {
+          return {
+            uid: c.get('uid')!.value,
+            revisado: false
+          }
+        })
       }
   
       if (this.editar){
@@ -161,6 +171,14 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
 
     const responseFormArray = this.pantallaForm.get('response') as FormArray
     this.rellenarBody(this.endpoint.response, responseFormArray, 'response')
+
+    this.endpoint.revisores?.forEach(r => {
+      const fGroup = this.fb.group({
+        uid: [r.uid, Validators.required]
+      })
+
+      this.revisoresFormArray.push(fGroup)
+    })
   }
 
   rellenarBody(cells:ObjectCell[], fArray:FormArray, fArrayName:string){
@@ -211,4 +229,23 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
     })
   }
 
+  get revisoresFormArray(): FormArray {
+    return this.pantallaForm.get('revisores') as FormArray
+  }
+
+  getRevisoresFormGroup(i:number){
+    return this.revisoresFormArray.controls[i] as FormGroup
+  }
+
+  aniadirRevisorFormArray() {
+    const componente = this.fb.group({
+      uid: ['', Validators.required],
+    })
+
+    this.revisoresFormArray.push(componente)
+  }
+
+  eliminarRevisor(i:number) {
+    this.revisoresFormArray.controls.splice(i, 1)
+  }
 }

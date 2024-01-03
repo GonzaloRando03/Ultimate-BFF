@@ -72,4 +72,14 @@ export class ProyectoService {
   async aniadirUsuario(idProyecto:string, mail:string){
     await this.proyectoDatabase.aniadirUsuarioProyecto(idProyecto, mail)
   }
+
+  async obtenerUsuariosRevisores(pId:string){
+    const usuarios = await this.proyectoDatabase.obtenerUsuariosProyecto(pId)
+    return usuarios.map(u => {
+      return {
+        name: u.nombre + ' ' + u.apellidos,
+        value: u.uid
+      }
+    })
+  }
 }

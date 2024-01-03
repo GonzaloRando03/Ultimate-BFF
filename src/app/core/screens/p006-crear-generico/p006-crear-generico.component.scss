@@ -65,3 +65,28 @@ section{
     justify-content: center;
     height: 70vh;
 }
+
+.revisor{
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+}
+
+.revisor app-input-select{
+    width: 60%;
+}
+
+.revisor label {
+    translate: 0rem 1rem;
+}
+
+.revisionText {
+    color: var(--texto-oscuro);
+    margin-top: .5rem;
+}
+
+.eliminar{
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    margin-left: 1rem;
+}

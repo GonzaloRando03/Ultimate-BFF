@@ -15,6 +15,7 @@ import { Proyecto } from 'src/app/core/models/proyecto.model';
 import { EndpointsDatabaseService } from '../endpoints/endpoints-database.service';
 import { UserDatabaseService } from '../user/user-database.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { Usuario } from 'src/app/core/models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -98,5 +99,15 @@ export class ProjectDatabaseService {
 
     proyecto?.usuarios.push(usuario?.uid!)
     await updateDoc(doc(this.firestore, this.proyectosCollection, idProyecto), {...proyecto});
+  }
+
+  async obtenerUsuariosProyecto(proyectoId:string){
+    const proyecto = await this.obtenerProyecto(proyectoId) as Proyecto
+    const usuariosPromise = proyecto.usuarios.map(async u => {
+      const usuario = await this.userDatabase.obtenerUsuario(u)
+      return usuario as Usuario
+    })
+    const usuarios = await Promise.all(usuariosPromise)
+    return usuarios
   }
 }

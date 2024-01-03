@@ -15,4 +15,6 @@ export interface DropDownElement {
   titulo:string
   hasLink:boolean
   link?:string
+  ready?:boolean
+  revisar?: boolean
 }
