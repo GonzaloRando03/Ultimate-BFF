@@ -7,6 +7,8 @@ import { EndpointsService } from '../../services/endpoints.service';
 import { EndpointGenerico } from '../../models/endpoint.model';
 import { ToastService } from '../../services/toast.service';
 import { getObjectFromObjectCell, getObjectFromParams } from 'src/app/shared/utils/codeFormater';
+import { generarGenericoToPDF } from 'src/app/shared/utils/pdf/pdfGenerator';
+import { generarCSV } from 'src/app/shared/utils/csvGenerator';
 
 @Component({
   selector: 'app-p009-ver-generico',
@@ -78,5 +80,19 @@ export class P009VerGenericoComponent implements OnInit{
 
   async revisarEndpoint(){
     await this.endpointService.revisarEndpointGenerico(this.idEndpoint, this.usuario!.uid)
+  }
+
+  async descargarPDF(){
+    await generarGenericoToPDF(this.endpoint)
+  }
+
+  descargarTareas(){
+    const tarea1 = {
+      asunto: this.endpoint.nombre,
+      descripcion: 'Desarrollo del endpoint de genérico ' + this.endpoint.nombre,
+      asignado: '',
+    }
+
+    generarCSV('Tareas_' + this.endpoint.nombre, [tarea1])
   }
 }

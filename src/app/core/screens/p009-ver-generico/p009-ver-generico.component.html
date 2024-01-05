@@ -15,6 +15,14 @@
                 <mat-icon>edit</mat-icon>
                 EDITAR ENDPOINT
             </button>
+            <button *ngIf="!getRevisar()" (click)="descargarPDF()">
+                <mat-icon>picture_as_pdf</mat-icon>
+                EXPORTAR A PDF
+            </button>
+            <button *ngIf="!getRevisar()" (click)="descargarTareas()">
+                <mat-icon>receipt_long</mat-icon>
+                CREAR TAREAS
+            </button>
             <button (click)="mostrarEliminar = true">
                 <mat-icon>delete</mat-icon>
                 ELIMINAR ENDPOINT

@@ -7,6 +7,8 @@ import { EndpointsService } from '../../services/endpoints.service';
 import { UserService } from '../../services/user.service';
 import { ProyectoService } from '../../services/proyecto.service';
 import { Usuario } from '../../models/usuario.model';
+import { generarPantallaToPDF } from 'src/app/shared/utils/pdf/pdfGenerator';
+import { generarCSV } from 'src/app/shared/utils/csvGenerator';
 
 @Component({
   selector: 'app-p010-ver-pantalla',
@@ -82,5 +84,19 @@ export class P010VerPantallaComponent {
   
   async revisarEndpoint(){
     await this.endpointService.revisarEndpointPantalla(this.idEndpoint, this.usuario!.uid)
+  }
+
+  async descargarPDF(){
+    await generarPantallaToPDF(this.endpoint)
+  }
+
+  descargarTareas(){
+    const tarea1 = {
+      asunto: this.endpoint.nombre,
+      descripcion: 'Desarrollo del endpoint de pantalla' + this.endpoint.nombre,
+      asignado: '',
+    }
+
+    generarCSV('Tareas_' + this.endpoint.nombre, [tarea1])
   }
 }

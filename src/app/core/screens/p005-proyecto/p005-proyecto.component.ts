@@ -8,7 +8,7 @@ import { Usuario } from '../../models/usuario.model';
 import { EndpointsService } from '../../services/endpoints.service';
 import { ComponenteVisual, EndpointGenerico, EndpointPantalla } from '../../models/endpoint.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { generarBFFtoPDF } from 'src/app/shared/utils/pdfGenerator';
+import { generarBFFtoPDF } from 'src/app/shared/utils/pdf/pdfGenerator';
 
 @Component({
   selector: 'app-p005-proyecto',
