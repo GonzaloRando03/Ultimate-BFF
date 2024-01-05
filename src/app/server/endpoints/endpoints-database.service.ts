@@ -151,14 +151,16 @@ export class EndpointsDatabaseService {
 
   async crearEndpointGenerico(endpoint: EndpointGenerico) {
     try {
-      await addDoc(collection(this.firestore, this.genericosCollection), endpoint);
-    } catch (error) {}
+      const doc = await addDoc(collection(this.firestore, this.genericosCollection), endpoint);
+      return doc.id
+    } catch (error) {return null}
   }
 
   async crearEndpointPantalla(endpoint: EndpointPantalla) {
     try {
-      await addDoc(collection(this.firestore, this.pantallasCollection), endpoint);
-    } catch (error) {}
+      const doc = await addDoc(collection(this.firestore, this.pantallasCollection), endpoint);
+      return doc.id
+    } catch (error) {return null}
   }
 
   async crearVisualPantalla(visual: ComponenteVisual) {

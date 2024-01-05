@@ -4,6 +4,8 @@ import { ToastService } from './toast.service';
 import { Router } from '@angular/router';
 import { Proyecto } from '../models/proyecto.model';
 import { Observable, Subject } from 'rxjs';
+import { CarpetaService } from './carpeta.service';
+import { CarpetasDatabaseService } from 'src/app/server/carpetas/carpetas-database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,7 @@ export class ProyectoService {
 
   constructor(
     private proyectoDatabase: ProjectDatabaseService,
+    private carpetaService:CarpetasDatabaseService,
     private toast: ToastService,
     private router: Router
   ) { }
@@ -40,6 +43,8 @@ export class ProyectoService {
       const proyectosArray = [...this.proyectos]
       proyectosArray.push({...proyecto, id:proyectId, numeroGenericos: 0, numeroPantallas: 0})
       this.setProyectos(proyectosArray)
+
+      await this.carpetaService.crearCarpetasIniciales(proyectId)
 
       this.toast.success('Proyecto creado', 'El proyecto ' + proyecto.nombre + ' se ha creado correctamente')
 

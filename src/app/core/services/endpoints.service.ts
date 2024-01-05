@@ -26,11 +26,11 @@ export class EndpointsService {
   }
 
   async crearEndpointGenerico(endpoint:EndpointGenerico){
-    await this.endpointDatabase.crearEndpointGenerico(endpoint)
+    return await this.endpointDatabase.crearEndpointGenerico(endpoint)
   }
 
   async crearEndpointPantalla(endpoint:EndpointPantalla){
-    await this.endpointDatabase.crearEndpointPantalla(endpoint)
+    return await this.endpointDatabase.crearEndpointPantalla(endpoint)
   }
 
   async crearVisualPantalla(visual:ComponenteVisual){

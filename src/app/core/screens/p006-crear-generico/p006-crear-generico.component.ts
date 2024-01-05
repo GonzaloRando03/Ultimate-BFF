@@ -9,6 +9,8 @@ import { UserService } from '../../services/user.service';
 import { Usuario } from '../../models/usuario.model';
 import { ProyectoService } from '../../services/proyecto.service';
 import { obtenerObjetoFormGroup, obtenerParamsFormGroup } from 'src/app/shared/utils/codeFormater';
+import { Carpeta, CarpetaValue } from '../../models/carpeta.model';
+import { CarpetaService } from '../../services/carpeta.service';
 
 @Component({
   selector: 'app-p006-crear-generico',
@@ -25,6 +27,7 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
   editar:boolean = false
   endpoint!:EndpointGenerico
   usuario:Usuario | null = null
+  carpetasValues:CarpetaValue[] = []
 
   constructor(
     private aRouter:ActivatedRoute,
@@ -33,9 +36,11 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
     private endpointService:EndpointsService,
     private usuarioService:UserService,
     private proyectoService:ProyectoService,
+    private carpetaService:CarpetaService,
     private router:Router
   ){
     this.genericoForm = this.fb.group({
+      carpeta: ['', Validators.required],
       metodo: ['', Validators.required],
       url: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -69,6 +74,13 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
     }
 
     this.revisoresValues = await this.proyectoService.obtenerUsuariosRevisores(this.idProyecto)
+    const carpetas = await this.carpetaService.obtenerCarpetasGenericasProyecto(this.idProyecto) as Carpeta[]
+    this.carpetasValues = carpetas.map(c => {
+      return {
+        name: c.nombre,
+        value: c.id!
+      }
+    })
 
     const permisos = 
       await this.proyectoService.getPermisosProyecto(this.usuario?.uid!, this.idProyecto)
@@ -101,7 +113,6 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
       }
 
       this.loading = true
-
   
       const endpoint: EndpointGenerico = {
         idProyecto: this.idProyecto,
@@ -120,15 +131,21 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
           }
         })
       }
+
   
       if (this.editar){
         await this.endpointService.actualizarGenerico(this.idEndpoint, endpoint)
         this.toast.success('Endpoint actualizado', 'El endpoint se ha actualizado correctamente')
       
       } else {
-        await this.endpointService.crearEndpointGenerico(endpoint)
+        this.idEndpoint = await this.endpointService.crearEndpointGenerico(endpoint) as string
         this.toast.success('Endpoint añadido', 'El endpoint se ha añadido correctamente')
       }
+
+      await this.carpetaService.aniadirEndpointACarpetaGenerica(
+        this.genericoForm.get('carpeta')!.value,
+        this.idEndpoint 
+      )
   
       this.loading = false
       this.router.navigate(['/proyecto/' + this.idProyecto])

@@ -86,13 +86,32 @@ export class P009VerGenericoComponent implements OnInit{
     await generarGenericoToPDF(this.endpoint)
   }
 
-  descargarTareas(){
-    const tarea1 = {
-      asunto: this.endpoint.nombre,
-      descripcion: 'Desarrollo del endpoint de genérico ' + this.endpoint.nombre,
+  async descargarTareas(){
+    const tareas = []
+    tareas.push({
+      asunto: 'Creación BFF ' + this.endpoint.nombre,
+      descripcion: 'Creación del BFF para el endpoint ' + this.endpoint.nombre,
       asignado: '',
+    }) 
+
+    tareas.push({
+      asunto: 'Desarrollo ' + this.endpoint.nombre,
+      descripcion: 'Desarrollo del endpoint genérico ' + this.endpoint.nombre,
+      asignado: '',
+    })
+
+    if (this.endpoint.revisores) {
+      const revisionesPromise = this.endpoint.revisores.map(async r => {
+        const usuario = await this.usuarioService.obtenerUsuarioPorId(r.uid)
+        tareas.push({
+          asunto: 'Validación BFF endpoint ' + this.endpoint.nombre +  ', ' + this.usuario?.nombre,
+          descripcion: 'Validación del documento BFF del endpoint genérico ' + this.endpoint.nombre,
+          asignado: usuario.nombre + ' ' + usuario.apellidos,
+        })
+      })
+      await Promise.all(revisionesPromise)
     }
 
-    generarCSV('Tareas_' + this.endpoint.nombre, [tarea1])
+    generarCSV('Tareas_' + this.endpoint.nombre, tareas)
   }
 }

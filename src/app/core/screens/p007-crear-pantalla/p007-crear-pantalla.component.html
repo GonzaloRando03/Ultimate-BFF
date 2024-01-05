@@ -8,6 +8,15 @@
 
     <form [formGroup]="pantallaForm">
         <div class="methodContainer">
+            <label>Carpeta * :</label>
+            <app-input-select
+                [group]="pantallaForm"
+                [control]="'carpeta'"
+                [values]="carpetasValues"
+            ></app-input-select>
+        </div>
+
+        <div class="methodContainer">
             <label>Método * :</label>
             <app-input-select
                 [group]="pantallaForm"

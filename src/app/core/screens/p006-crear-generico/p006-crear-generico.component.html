@@ -8,6 +8,15 @@
 
     <form [formGroup]="genericoForm">
         <div class="methodContainer">
+            <label>Carpeta * :</label>
+            <app-input-select
+                [group]="genericoForm"
+                [control]="'carpeta'"
+                [values]="carpetasValues"
+            ></app-input-select>
+        </div>
+
+        <div class="methodContainer">
             <label>Método * :</label>
             <app-input-select
                 [group]="genericoForm"

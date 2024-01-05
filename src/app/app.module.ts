@@ -38,6 +38,7 @@ import { InputImageComponent } from './shared/components/input-image/input-image
 import { AngularFireModule } from "@angular/fire/compat";
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { P100DocsComponent } from './core/screens/p100-docs/p100-docs.component';
+import { TabsComponent } from './shared/components/tabs/tabs.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { P100DocsComponent } from './core/screens/p100-docs/p100-docs.component'
     InputImageComponent,
     FooterComponent,
     P100DocsComponent,
+    TabsComponent,
   ],
   imports: [
     BrowserModule,

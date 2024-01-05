@@ -9,6 +9,8 @@ import { EndpointsService } from '../../services/endpoints.service';
 import { UserService } from '../../services/user.service';
 import { ProyectoService } from '../../services/proyecto.service';
 import { obtenerObjetoFormGroup, obtenerParamsFormGroup } from 'src/app/shared/utils/codeFormater';
+import { Carpeta, CarpetaValue } from '../../models/carpeta.model';
+import { CarpetaService } from '../../services/carpeta.service';
 
 @Component({
   selector: 'app-p007-crear-pantalla',
@@ -26,6 +28,7 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
   endpoint!:EndpointPantalla
   usuario:Usuario | null = null
   revisoresValues: RevisorValue[] = []
+  carpetasValues:CarpetaValue[] = []
 
   constructor(
     private aRouter:ActivatedRoute,
@@ -34,9 +37,11 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
     private endpointService:EndpointsService,
     private usuarioService:UserService,
     private proyectoService:ProyectoService,
+    private carpetaService:CarpetaService,
     private router:Router
   ){
     this.pantallaForm = this.fb.group({
+      carpeta: ['', Validators.required],
       metodo: ['', Validators.required],
       url: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -78,6 +83,13 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
     })
 
     this.revisoresValues = await this.proyectoService.obtenerUsuariosRevisores(this.idProyecto)
+    const carpetas = await this.carpetaService.obtenerCarpetasPantallaProyecto(this.idProyecto) as Carpeta[]
+    this.carpetasValues = carpetas.map(c => {
+      return {
+        name: c.nombre,
+        value: c.id!
+      }
+    })
 
     const permisos = 
       await this.proyectoService.getPermisosProyecto(this.usuario?.uid!, this.idProyecto)
@@ -135,9 +147,14 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
         this.toast.success('Endpoint actualizado', 'El endpoint se ha actualizado correctamente')
       
       } else {
-        await this.endpointService.crearEndpointPantalla(endpoint)
+        this.idEndpoint = await this.endpointService.crearEndpointPantalla(endpoint) as string
         this.toast.success('Endpoint añadido', 'El endpoint se ha añadido correctamente')
       }
+
+      await this.carpetaService.aniadirEndpointACarpetaPantalla(
+        this.pantallaForm.get('carpeta')!.value,
+        this.idEndpoint 
+      )
   
       this.loading = false
       this.router.navigate(['/proyecto/' + this.idProyecto])
