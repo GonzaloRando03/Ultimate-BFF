@@ -1,0 +1,28 @@
+<div class="participantesContainer">
+    <h3>Participantes del Proyecto</h3>
+    <div *ngFor="let p of participantes" class="participante">
+        <div>
+            <p><b>Nombre: </b> {{p.nombre}} {{p.apellidos}}</p>
+            <p><b>Email: </b> {{p.mail}}</p>
+        </div>
+        <button>
+            <mat-icon>delete</mat-icon>
+            ELIMINAR DEL PROYECTO
+        </button>
+    </div>    
+</div>
+<form [formGroup]="participantesForm">
+    <h3>Añadir participante</h3>
+    <div class="formulario">
+        <app-input-text
+            [placeholder]="'Email nuevo Usuario'"
+            [control]="'mail'"
+            [group]="participantesForm"
+        ><mat-icon>mail</mat-icon>
+        </app-input-text>
+        <button (click)="aniadirUsuario()">
+            <mat-icon>add</mat-icon>
+            AÑADIR PARTICIPANTE
+        </button>
+    </div>
+</form>

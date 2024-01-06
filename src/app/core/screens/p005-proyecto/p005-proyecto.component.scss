@@ -7,8 +7,24 @@ section{
 
 .subHeader{
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.subHeader div {
+    display: flex;
     align-items: center;
+}
+
+.subHeader button {
+    margin-top: 1.5rem;
+    color: var(--rojo-neon);
+    border-color: var(--rojo-neon);
+}
+
+
+.subHeader button:hover{
+    box-shadow: 1px 1px 7px var(--rojo-neon);
 }
 
 .subHeader mat-icon{

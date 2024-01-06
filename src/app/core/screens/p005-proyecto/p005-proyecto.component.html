@@ -1,8 +1,14 @@
 <app-header></app-header>
 <section *ngIf="proyecto !== null">
     <div class="subHeader">
-        <mat-icon routerLink="/dashboard">arrow_back</mat-icon>
-        <h3>{{proyecto.nombre}}</h3>
+        <div>
+            <mat-icon routerLink="/dashboard">arrow_back</mat-icon>
+            <h3>{{proyecto.nombre}}</h3>
+        </div>
+        <button (click)="exportarPDF()">
+            <mat-icon>download</mat-icon> 
+            EXPORTAR PDF
+        </button>
     </div>
 
     <div class="proyectoBody">
@@ -30,17 +36,37 @@
         </div>
 
         <div class="contentContainer">
-            <app-drop-down
-                [titulo]="'Endpoints de Pantallas'"
-                [elements]="getPantallaDropDown()"
-                [id]="'endpointPantallaDropDown'"
-            ></app-drop-down>
-
-            <app-drop-down
-                [titulo]="'Endpoints Genéricos'"
-                [elements]="getGenericoDropDown()"
-                [id]="'endpointGenericoDropDown'"
-            ></app-drop-down>
+            <app-tabs
+                [options]="[
+                    'Endpoints Genéricos',
+                    'Endpoints de Pantalla',
+                    'Componentes Visuales',
+                    'Participantes'
+                ]"
+                [optionSelected]="selectedOption"
+                (selectOption)="selectOption($event)"
+            ></app-tabs>
+            <app-endpoints-genericos
+                *ngIf="selectedOption === 0"  
+                [carpetas]="genericos"  
+                [idProyecto]="idProyecto"
+            ></app-endpoints-genericos>
+            <app-endpoints-pantalla
+                *ngIf="selectedOption === 1"  
+                [carpetas]="pantallas"  
+                [idProyecto]="idProyecto"
+            ></app-endpoints-pantalla>
+            <app-componentes-visuales
+                *ngIf="selectedOption === 2"  
+                [elements]="getVisualDropDown()"
+                [idProyecto]="idProyecto"
+            ></app-componentes-visuales>
+            <app-participantes
+                *ngIf="selectedOption === 3"  
+                [participantes]="participantes"
+                [idProyecto]="idProyecto"
+                (recargar)="cargarProyecto()"
+            ></app-participantes>
 
             <app-drop-down
                 [titulo]="'Componentes Visuales'"
@@ -57,7 +83,7 @@
     <app-loader></app-loader>
 </div>
 
-<app-modal
+<!-- <app-modal
     *ngIf="mostrarParticipantes"
     [titulo]="'Participantes de ' + proyecto?.nombre" 
     (cerrarModal)="mostrarParticipantes = false"
@@ -84,4 +110,4 @@
             </button>
         </div>
     </form>
-</app-modal>
+</app-modal> -->

@@ -1,0 +1,64 @@
+p {
+    padding: 1rem;
+    background-color: var(--bg-color-element);
+    border: 1px solid var(--negro50);
+    border-radius: 14px;
+    margin-left: 10%;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.readyText{
+color: var(--color-success);
+}
+
+.revision{
+color: var(--color-primario-hover);
+}
+
+.botonera {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.botonera button mat-icon{
+    margin-right: 1rem;
+}
+
+.botonera div button {
+    margin-left: 1rem;
+}
+
+.botonera button:first-child{
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.botonera button:first-child:hover{
+    box-shadow: 1px 1px 7px var(--color-success);
+}
+
+.botonera div button:last-child{
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.botonera div button:last-child:hover{
+    box-shadow: 1px 1px 7px var(--color-success);
+}
+
+.botonera div button {
+    border: 1px solid var(--color-primario);
+    color: var(--color-primario-hover);
+}
+
+.botonera div button:hover{
+    box-shadow: 1px 1px 7px var(--color-primario);
+}
+
+form {
+    width: 30rem;
+}

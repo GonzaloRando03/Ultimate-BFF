@@ -9,6 +9,8 @@ import { EndpointsService } from '../../services/endpoints.service';
 import { ComponenteVisual, EndpointGenerico, EndpointPantalla } from '../../models/endpoint.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { generarBFFtoPDF } from 'src/app/shared/utils/pdf/pdfGenerator';
+import { CarpetaConEndpoints } from '../../models/carpeta.model';
+import { CarpetaService } from '../../services/carpeta.service';
 
 @Component({
   selector: 'app-p005-proyecto',
@@ -19,12 +21,13 @@ export class P005ProyectoComponent implements OnInit{
   idProyecto:string = ''
   proyecto:Proyecto | null = null
   usuario!:Usuario 
-  genericos:EndpointGenerico[] = []
-  pantallas:EndpointPantalla[] = []
+  genericos:CarpetaConEndpoints[] = []
+  pantallas:CarpetaConEndpoints[] = []
   visuales:ComponenteVisual[] = []
   mostrarParticipantes:boolean = false
   participantes:Usuario[] = []
   participantesForm:FormGroup
+  selectedOption:number = 0
 
   constructor(
     private aRouter:ActivatedRoute,
@@ -32,6 +35,7 @@ export class P005ProyectoComponent implements OnInit{
     private toast:ToastService,
     private usuarioService:UserService,
     private endpointService:EndpointsService,
+    private carpetaService:CarpetaService,
     private fb:FormBuilder
   ){
     this.usuario = this.usuarioService.getUserValue() as Usuario
@@ -76,43 +80,19 @@ export class P005ProyectoComponent implements OnInit{
 
   async getEndpoints(){
     await Promise.all([
-      this.endpointService.obtenerGenericosProyecto(this.idProyecto)
-        .then((genericos: EndpointGenerico[] | null) => {
-          this.genericos = genericos as EndpointGenerico[];
+      this.carpetaService.obtenerCarpetaEndpointsGenericoProyecto(this.idProyecto)
+        .then((genericos: CarpetaConEndpoints[]) => {
+          this.genericos = genericos;
         }),
-      this.endpointService.obtenerPantallasProyecto(this.idProyecto)
-        .then((pantallas: EndpointPantalla[] | null) => {
-          this.pantallas = pantallas as EndpointPantalla[];
+      this.carpetaService.obtenerCarpetaEndpointsPantallaProyecto(this.idProyecto)
+        .then((pantallas: CarpetaConEndpoints[]) => {
+          this.pantallas = pantallas;
         }),
       this.endpointService.obtenerVisualesProyecto(this.idProyecto)
         .then((visuales: ComponenteVisual[] | null) => {
           this.visuales = visuales as ComponenteVisual[];
         })
     ]);
-  }
-
-  getGenericoDropDown(){
-    return this.genericos.map(g => {
-      return {
-        titulo: g.metodo + ' - ' +g.nombre,
-        hasLink:  true,
-        link: '/generico/' + g.id,
-        ready: this.getReadyForDev(g),
-        revisar: this.getRevisar(g)
-      }
-    })
-  }
-
-  getPantallaDropDown(){
-    return this.pantallas.map(p => {
-      return {
-        titulo: p.metodo + ' - ' + p.nombre,
-        hasLink:  true,
-        link: '/pantalla/' + p.id,
-        ready: this.getReadyForDev(p),
-        revisar: this.getRevisar(p)
-      }
-    })
   }
 
   getVisualDropDown(){
@@ -125,38 +105,13 @@ export class P005ProyectoComponent implements OnInit{
     })
   }
 
-  getReadyForDev(p: EndpointGenerico | EndpointPantalla){
-    let ready = true
-    p.revisores?.forEach(r => {
-      if (!r.revisado){
-        ready = false
-      }
-    })
-    return ready
-  }
-
-  getRevisar(p: EndpointGenerico | EndpointPantalla){
-    const revision = p.revisores?.find(r => r.uid === this.usuario.uid)
-    return revision && !revision.revisado
-  }
-
   async exportarPDF(){
-    await generarBFFtoPDF(this.proyecto!,this.genericos,this.pantallas,this.visuales)
+    const genericos = await this.endpointService.obtenerGenericosProyecto(this.idProyecto) as EndpointGenerico[]
+    const pantallas = await this.endpointService.obtenerPantallasProyecto(this.idProyecto) as EndpointPantalla[]
+    await generarBFFtoPDF(this.proyecto!,genericos,pantallas,this.visuales)
   }
 
-  async aniadirUsuario(){
-    try {
-      if (!this.participantesForm.valid){
-        this.toast.info('Email no introducido', 'No has introducido un Email')
-        return
-      }
-      await this.proyectoService.aniadirUsuario(this.idProyecto, this.participantesForm.get('mail')!.value)
-      this.toast.success('Usuario añadido', 'El usuario se ha añadido con éxito')
-      this.participantesForm.get('mail')!.setValue('')
-      await this.cargarProyecto()
-
-    } catch (error) {
-      this.toast.error('Error inesperado', 'Ha ocurrido un error al añadir al usuario')
-    }
+  selectOption(i:number){
+    this.selectedOption = i
   }
 }

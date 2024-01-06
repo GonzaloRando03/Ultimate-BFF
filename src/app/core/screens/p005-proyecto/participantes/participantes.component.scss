@@ -1,0 +1,46 @@
+.formulario {
+    display: flex;
+    justify-content: space-between;
+}
+
+.formulario app-input-text {
+    width: 70%;
+}
+
+.participante{
+    border-bottom: 1px solid gray;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.participante p{
+    margin: 0px;
+    margin-bottom: 5px;
+    color: var(--texto-oscuro);
+}
+
+b{
+    color: white;
+}
+
+.participante span {
+    cursor: pointer;
+    color: var(--color-error);
+}
+
+.participante button{
+    margin-top: 1.5rem;
+    color: var(--rojo-neon);
+    border-color: var(--rojo-neon);
+}
+
+
+.participante button:hover{
+    box-shadow: 1px 1px 7px var(--rojo-neon);
+}
+
+h3 {
+   color: white;
+}

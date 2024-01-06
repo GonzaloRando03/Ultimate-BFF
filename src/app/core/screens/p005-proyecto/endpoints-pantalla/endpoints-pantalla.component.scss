@@ -1,0 +1,19 @@
+p {
+    padding: 1rem;
+    background-color: var(--bg-color-element);
+    border: 1px solid var(--negro50);
+    border-radius: 14px;
+    margin-left: 10%;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.readyText{
+color: var(--color-success);
+}
+
+.revision{
+color: var(--color-primario-hover);
+}

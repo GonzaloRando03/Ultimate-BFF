@@ -1,0 +1,25 @@
+<section>
+    <div *ngFor="let c of carpetas">
+        <div *ngIf="c.nombre === '/'">
+            <div *ngFor="let e of getDropDown(c)" >
+                <p  *ngIf="e.link" [routerLink]="e.link">
+                    <span>{{e.titulo}}</span> 
+                    <span class="readyText" *ngIf="e.ready">Listo para desarrollo</span>
+                    <span class="revision" *ngIf="e.revisar">Pendiente de tu revisión</span>
+                </p>
+                <p  *ngIf="!e.link">
+                    <span>{{e.titulo}}</span> 
+                    <span class="readyText" *ngIf="e.ready">Listo para desarrollo</span>
+                    <span class="revision" *ngIf="e.revisar">Pendiente de tu revisión</span>
+                </p>
+            </div>
+        </div>
+
+        <app-drop-down
+            *ngIf="c.nombre !== '/'"
+            [titulo]="c.nombre"
+            [elements]="getDropDown(c)"
+            [id]="c.nombre +'PantallaDropDown'"
+        ></app-drop-down>
+    </div>
+</section>

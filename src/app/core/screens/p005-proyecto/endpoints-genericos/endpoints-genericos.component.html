@@ -1,0 +1,65 @@
+<section>
+    <div class="botonera">
+        <button [routerLink]="'/nuevoGenerico/' + idProyecto">
+            <mat-icon>dns</mat-icon> 
+            NUEVO EP.GENÉRICO
+        </button>
+        <div class="flex">
+            <button>
+                <mat-icon>drive_file_move</mat-icon>
+                MOVER ENDPOINTS
+            </button>
+            <button (click)="mostrarCrearCarpeta = true">
+                <mat-icon>create_new_folder</mat-icon>
+                CREAR CARPETA
+            </button>
+        </div>
+    </div>
+
+    <div *ngFor="let c of carpetas">
+        <div *ngIf="c.nombre === '/'">
+            <div *ngFor="let e of getDropDown(c)" >
+                <p  *ngIf="e.link" [routerLink]="e.link">
+                    <span>{{e.titulo}}</span> 
+                    <span class="readyText" *ngIf="e.ready">Listo para desarrollo</span>
+                    <span class="revision" *ngIf="e.revisar">Pendiente de tu revisión</span>
+                </p>
+                <p  *ngIf="!e.link">
+                    <span>{{e.titulo}}</span> 
+                    <span class="readyText" *ngIf="e.ready">Listo para desarrollo</span>
+                    <span class="revision" *ngIf="e.revisar">Pendiente de tu revisión</span>
+                </p>
+            </div>
+        </div>
+
+        <app-drop-down
+            *ngIf="c.nombre !== '/'"
+            [titulo]="c.nombre"
+            [elements]="getDropDown(c)"
+            [id]="c.nombre +'GenericoDropDown'"
+        ></app-drop-down>
+    </div>
+</section>
+
+
+<app-modal
+    *ngIf="mostrarCrearCarpeta"
+    [titulo]="'Crear Nueva Carpeta'" 
+    (cerrarModal)="mostrarCrearCarpeta = false"
+>
+    <form [formGroup]="carpetaForm">
+        <app-input-text
+            [placeholder]="'Nombre de la nueva carpeta'"
+            [control]="'nombre'"
+            [group]="carpetaForm"
+        >
+            <mat-icon>edit</mat-icon>
+        </app-input-text>
+        <div class="flexRight">
+            <button>
+                <mat-icon>add</mat-icon>
+                CREAR CARPETA
+            </button>
+        </div>
+    </form>
+</app-modal>

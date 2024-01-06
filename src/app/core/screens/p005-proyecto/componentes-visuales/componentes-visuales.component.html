@@ -1,0 +1,12 @@
+<div *ngFor="let e of elements" >
+    <p  *ngIf="e.link" [routerLink]="e.link">
+        <span>{{e.titulo}}</span> 
+        <span class="readyText" *ngIf="e.ready">Listo para desarrollo</span>
+        <span class="revision" *ngIf="e.revisar">Pendiente de tu revisión</span>
+    </p>
+    <p  *ngIf="!e.link">
+        <span>{{e.titulo}}</span> 
+        <span class="readyText" *ngIf="e.ready">Listo para desarrollo</span>
+        <span class="revision" *ngIf="e.revisar">Pendiente de tu revisión</span>
+    </p>
+</div>

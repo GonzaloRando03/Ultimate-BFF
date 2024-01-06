@@ -39,6 +39,10 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { P100DocsComponent } from './core/screens/p100-docs/p100-docs.component';
 import { TabsComponent } from './shared/components/tabs/tabs.component';
+import { EndpointsGenericosComponent } from './core/screens/p005-proyecto/endpoints-genericos/endpoints-genericos.component';
+import { EndpointsPantallaComponent } from './core/screens/p005-proyecto/endpoints-pantalla/endpoints-pantalla.component';
+import { ComponentesVisualesComponent } from './core/screens/p005-proyecto/componentes-visuales/componentes-visuales.component';
+import { ParticipantesComponent } from './core/screens/p005-proyecto/participantes/participantes.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +74,10 @@ import { TabsComponent } from './shared/components/tabs/tabs.component';
     FooterComponent,
     P100DocsComponent,
     TabsComponent,
+    EndpointsGenericosComponent,
+    EndpointsPantallaComponent,
+    ComponentesVisualesComponent,
+    ParticipantesComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CarpetasDatabaseService } from 'src/app/server/carpetas/carpetas-database.service';
 import { ToastService } from './toast.service';
-import { Carpeta } from '../models/carpeta.model';
+import { Carpeta, CarpetaConEndpoints, EndpointCarpeta } from '../models/carpeta.model';
+import { EndpointsService } from './endpoints.service';
+import { EndpointGenerico, EndpointPantalla } from '../models/endpoint.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarpetaService {
 
-  constructor(private carpetaDatabase:CarpetasDatabaseService, private toast:ToastService) { }
+  constructor(
+      private carpetaDatabase:CarpetasDatabaseService, 
+      private toast:ToastService,
+      private endpointService:EndpointsService
+  ) { }
 
   async crearCarpetasIniciales(idProyecto:string){
     await this.carpetaDatabase.crearCarpetasIniciales(idProyecto)
@@ -70,6 +76,58 @@ export class CarpetaService {
     const carpeta = await this.carpetaDatabase.obtenerCarpetaPantallaPorId(idCarpeta) as Carpeta
     carpeta.endpoints.push(idEndpoint)
     await this.carpetaDatabase.actualizarCarpetaPantalla(idCarpeta, carpeta)
+  }
+
+  async obtenerCarpetaEndpointsGenericoProyecto(idProyecto:string){
+    const carpetas = await this.carpetaDatabase.obtenerCarpetasGenericasProyecto(idProyecto) as Carpeta[]
+    const carpetasEndpointPromise = carpetas.map(async c => {
+      const endpointsPromise = c.endpoints.map(async e => {
+        const endpoint = await this.endpointService.obtenerEndpointGenericoPorId(e) as EndpointGenerico
+        return {
+          id:endpoint.id!,
+          idProyecto: endpoint.idProyecto,
+          metodo: endpoint.metodo,
+          nombre: endpoint.nombre,
+          revisores: endpoint.revisores
+        } as EndpointCarpeta
+      })
+
+      const endpoints = await Promise.all(endpointsPromise)
+
+      return {
+        ...c,
+        id: c.id!,
+        endpoints: endpoints
+      } as CarpetaConEndpoints
+    })
+
+    return await Promise.all(carpetasEndpointPromise)
+  }
+
+  async obtenerCarpetaEndpointsPantallaProyecto(idProyecto:string){
+    const carpetas = await this.carpetaDatabase.obtenerCarpetasPantallaProyecto(idProyecto) as Carpeta[]
+    const carpetasEndpointPromise = carpetas.map(async c => {
+      const endpointsPromise = c.endpoints.map(async e => {
+        const endpoint = await this.endpointService.obtenerEndpointPantallaPorId(e) as EndpointPantalla
+        return {
+          id:endpoint.id!,
+          idProyecto: endpoint.idProyecto,
+          metodo: endpoint.metodo,
+          nombre: endpoint.nombre,
+          revisores: endpoint.revisores
+        } as EndpointCarpeta
+      })
+
+      const endpoints = await Promise.all(endpointsPromise)
+
+      return {
+        ...c,
+        id: c.id!,
+        endpoints: endpoints
+      } as CarpetaConEndpoints
+    })
+
+    return await Promise.all(carpetasEndpointPromise)
   }
 }
 
