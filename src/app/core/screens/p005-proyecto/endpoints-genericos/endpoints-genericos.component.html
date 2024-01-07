@@ -5,7 +5,7 @@
             NUEVO EP.GENÉRICO
         </button>
         <div class="flex">
-            <button>
+            <button (click)="mostrarMoverEndpoint = true">
                 <mat-icon>drive_file_move</mat-icon>
                 MOVER ENDPOINTS
             </button>
@@ -56,10 +56,28 @@
             <mat-icon>edit</mat-icon>
         </app-input-text>
         <div class="flexRight">
-            <button>
+            <button (click)="crearCarpeta()">
                 <mat-icon>add</mat-icon>
                 CREAR CARPETA
             </button>
         </div>
     </form>
+</app-modal>
+
+<app-modal
+    *ngIf="mostrarMoverEndpoint"
+    [titulo]="'Mover Endpoints de Carpeta'" 
+    (cerrarModal)="mostrarMoverEndpoint = false"
+>
+    <form [formGroup]="moverForm">
+        <app-input-select
+            [group]="moverForm"
+            [control]="'carpeta'"
+            [values]="carpetasValues"
+        ></app-input-select>
+    </form>
+    <div *ngFor="let e of checkOptions; let i = index">
+        <input type="checkbox" (input)="selectCheck($event)" [(ngModel)]="checkOptions[i].checked">
+        {{e.nombre}}
+    </div>
 </app-modal>

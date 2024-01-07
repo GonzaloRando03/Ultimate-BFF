@@ -11,11 +11,13 @@ import {
   query,
   updateDoc,
   where,
+  orderBy
 } from '@angular/fire/firestore';
 import { EndpointsDatabaseService } from '../endpoints/endpoints-database.service';
 import { UserDatabaseService } from '../user/user-database.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Carpeta } from 'src/app/core/models/carpeta.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +61,9 @@ export class CarpetasDatabaseService {
   async obtenerCarpetasGenericasProyecto(idProyecto:string){
     try {
       const querySnapshot = await getDocs(
-        query(collection(this.firestore, this.carpetasGenericos), where('idProyecto', '==', idProyecto))
+        query(collection(this.firestore, this.carpetasGenericos), 
+          where('idProyecto', '==', idProyecto),
+          orderBy('nombre', 'desc'))
       );
 
       if (querySnapshot.docs.length === 0) return []
@@ -80,7 +84,9 @@ export class CarpetasDatabaseService {
   async obtenerCarpetasPantallaProyecto(idProyecto:string){
     try {
       const querySnapshot = await getDocs(
-        query(collection(this.firestore, this.carpetasPantalla), where('idProyecto', '==', idProyecto))
+        query(collection(this.firestore, this.carpetasPantalla), 
+          where('idProyecto', '==', idProyecto),
+          orderBy('nombre', 'desc'))
       );
 
       if (querySnapshot.docs.length === 0) return []

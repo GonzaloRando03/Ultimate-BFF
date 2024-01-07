@@ -104,7 +104,7 @@ export class P009VerGenericoComponent implements OnInit{
       const revisionesPromise = this.endpoint.revisores.map(async r => {
         const usuario = await this.usuarioService.obtenerUsuarioPorId(r.uid)
         tareas.push({
-          asunto: 'Validación BFF endpoint ' + this.endpoint.nombre +  ', ' + this.usuario?.nombre,
+          asunto: 'Validación BFF endpoint ' + this.endpoint.nombre +  ' - ' + this.usuario?.nombre,
           descripcion: 'Validación del documento BFF del endpoint genérico ' + this.endpoint.nombre,
           asignado: usuario.nombre + ' ' + usuario.apellidos,
         })

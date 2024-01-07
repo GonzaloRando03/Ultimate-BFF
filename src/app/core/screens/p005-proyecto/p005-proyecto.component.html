@@ -50,6 +50,7 @@
                 *ngIf="selectedOption === 0"  
                 [carpetas]="genericos"  
                 [idProyecto]="idProyecto"
+                (recargar)="cargarProyecto()"
             ></app-endpoints-genericos>
             <app-endpoints-pantalla
                 *ngIf="selectedOption === 1"  
