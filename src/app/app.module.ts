@@ -43,6 +43,7 @@ import { EndpointsGenericosComponent } from './core/screens/p005-proyecto/endpoi
 import { EndpointsPantallaComponent } from './core/screens/p005-proyecto/endpoints-pantalla/endpoints-pantalla.component';
 import { ComponentesVisualesComponent } from './core/screens/p005-proyecto/componentes-visuales/componentes-visuales.component';
 import { ParticipantesComponent } from './core/screens/p005-proyecto/participantes/participantes.component';
+import { InputCheckComponent } from './shared/components/input-check/input-check.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ParticipantesComponent } from './core/screens/p005-proyecto/participant
     EndpointsPantallaComponent,
     ComponentesVisualesComponent,
     ParticipantesComponent,
+    InputCheckComponent,
   ],
   imports: [
     BrowserModule,

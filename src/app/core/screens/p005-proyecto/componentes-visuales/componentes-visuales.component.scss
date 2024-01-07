@@ -3,7 +3,6 @@ p {
   background-color: var(--bg-color-element);
   border: 1px solid var(--color-primario);
   border-radius: 14px;
-  margin-left: 1%;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -16,4 +15,18 @@ p {
 
   .revision{
     color: var(--color-primario-hover);
+  }
+
+  button {
+    margin-top: 2rem;
+    color: var(--color-success);
+    border: 1px solid var(--color-success);
+  }
+
+  button mat-icon{
+    margin-right: 1rem;
+  }
+
+  button:hover{
+    box-shadow: 1px 1px 7px var(--color-success);
   }

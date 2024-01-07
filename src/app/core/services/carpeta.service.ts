@@ -61,6 +61,14 @@ export class CarpetaService {
     await this.carpetaDatabase.actualizarCarpetaGenerica(idCarpeta, carpeta)
   }
 
+  async obtenerCarpetasEndpointGenerico(idEndpoint:string){
+    return await this.carpetaDatabase.obtenerCarpetasEndpointGenerico(idEndpoint)
+  }
+
+  async obtenerCarpetasEndpointPantalla(idEndpoint:string){
+    return await this.carpetaDatabase.obtenerCarpetasEndpointPantalla(idEndpoint)
+  }
+
   async aniadirEndpointACarpetaPantalla(idCarpeta:string, idEndpoint:string){
     const carpetas = await this.carpetaDatabase.obtenerCarpetasEndpointPantalla(idEndpoint)
 

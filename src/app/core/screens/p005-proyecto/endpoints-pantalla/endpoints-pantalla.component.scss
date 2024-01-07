@@ -17,3 +17,76 @@ color: var(--color-success);
 .revision{
 color: var(--color-primario-hover);
 }
+
+.botonera {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.botonera button mat-icon{
+    margin-right: 1rem;
+}
+
+.botonera div button {
+    margin-left: 1rem;
+}
+
+.botonera button:first-child{
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.botonera button:first-child:hover{
+    box-shadow: 1px 1px 7px var(--color-success);
+}
+
+.botonera div button:last-child{
+    color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.botonera div button:last-child:hover{
+    box-shadow: 1px 1px 7px var(--color-success);
+}
+
+.botonera div button {
+    border: 1px solid var(--color-primario);
+    color: var(--color-primario-hover);
+}
+
+.botonera div button:hover{
+    box-shadow: 1px 1px 7px var(--color-primario);
+}
+
+form {
+    width: 30rem;
+}
+
+.add-carpeta{
+   display: flex;
+    width: 40rem;
+    align-items: center;
+}
+
+.add-carpeta label{
+    margin-bottom: .5rem;
+    margin-right: 1rem;
+}
+
+.add-carpeta app-input-select{
+    width: 40%;
+}
+
+.checkContainer{
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.button-mover{
+    margin-top: 1rem;
+}
+
+.button-mover mat-icon{
+    margin-right: 1rem;
+}

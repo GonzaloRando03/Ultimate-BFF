@@ -172,6 +172,9 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
     this.pantallaForm.get('descipcion')!.setValue(this.endpoint.descripcion)    
     this.pantallaForm.get('generico')!.setValue(this.endpoint.idEndpointGenerico)
 
+    const carpeta = await this.carpetaService.obtenerCarpetasEndpointPantalla(this.idEndpoint) as Carpeta[]
+    this.pantallaForm.get('carpeta')!.setValue(carpeta[0].id)
+
     const paramsFormArray = this.pantallaForm.get('params') as FormArray
 
     this.endpoint.requestParams.forEach(p => {

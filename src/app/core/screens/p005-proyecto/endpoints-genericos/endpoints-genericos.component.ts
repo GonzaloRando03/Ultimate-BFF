@@ -107,12 +107,38 @@ export class EndpointsGenericosComponent  implements OnInit{
   }
 
   async recargarComponente(){
+    this.checkOptions = []
     await this.pedirCarpetas()
+    await this.pedirEndpoints()
     this.recargar.emit()
   }
 
   selectCheck(e:any){
     console.log(this.checkOptions)
+  }
+
+  cambiarCheck(i:number, b:any){
+    console.log(b)
+    this.checkOptions[i].checked = b
+  }
+
+  async moverEndpoints(){
+    if (this.moverForm.valid){
+      const endpointsPromise = this.checkOptions.map(async c => {
+        if (c.checked){
+          await this.carpetaService.aniadirEndpointACarpetaGenerica(
+            this.moverForm.get('carpeta')!.value,
+            c.id
+          )
+        }
+      })
+
+      await Promise.all(endpointsPromise)
+      await this.recargarComponente()
+
+      this.mostrarMoverEndpoint = false
+
+    }else this.toast.info('Datos insuficientes', 'Debes rellenar los campos obligatorios')
   }
 }
 

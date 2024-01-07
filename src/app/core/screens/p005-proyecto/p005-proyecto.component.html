@@ -12,28 +12,6 @@
     </div>
 
     <div class="proyectoBody">
-        <div class="botoneraTop">
-            <button (click)="mostrarParticipantes = true">
-                <mat-icon>person</mat-icon> 
-                PARTICIPANTES
-            </button>
-            <button [routerLink]="'/nuevoGenerico/' + idProyecto">
-                <mat-icon>dns</mat-icon> 
-                NUEVO EP.GENÉRICO
-            </button>
-            <button [routerLink]="'/nuevaPantalla/' + idProyecto">
-                <mat-icon>desktop_windows</mat-icon> 
-                NUEVO EP.PANTALLA
-            </button>
-            <button [routerLink]="'/nuevoVisual/' + idProyecto">
-                <mat-icon>preview</mat-icon> 
-                NUEVO C.VISUAL
-            </button>
-            <button (click)="exportarPDF()">
-                <mat-icon>download</mat-icon> 
-                EXPORTAR PDF
-            </button>
-        </div>
 
         <div class="contentContainer">
             <app-tabs
@@ -56,6 +34,7 @@
                 *ngIf="selectedOption === 1"  
                 [carpetas]="pantallas"  
                 [idProyecto]="idProyecto"
+                (recargar)="cargarProyecto()"
             ></app-endpoints-pantalla>
             <app-componentes-visuales
                 *ngIf="selectedOption === 2"  
@@ -69,11 +48,6 @@
                 (recargar)="cargarProyecto()"
             ></app-participantes>
 
-            <app-drop-down
-                [titulo]="'Componentes Visuales'"
-                [elements]="getVisualDropDown()"
-                [id]="'componentesVisualesDropDown'"
-            ></app-drop-down>
         </div>
     </div>
 </section>

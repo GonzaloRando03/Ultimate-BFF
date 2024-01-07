@@ -1,0 +1,28 @@
+
+input[type="checkbox"]{
+    -webkit-appearance: none;
+    appearance: none;
+    width: .8rem;
+    height: .8rem;
+    background-color: var(--bg-color-element);
+    border-radius: 4px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--color-primario);
+}
+
+.input-check {
+    border: 1px solid var(--color-primario);
+    border-radius: 4px;
+    width: 1.4rem;
+    height: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.check-container {
+    display: flex;
+}

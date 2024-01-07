@@ -62,3 +62,31 @@ color: var(--color-primario-hover);
 form {
     width: 30rem;
 }
+
+.add-carpeta{
+   display: flex;
+    width: 40rem;
+    align-items: center;
+}
+
+.add-carpeta label{
+    margin-bottom: .5rem;
+    margin-right: 1rem;
+}
+
+.add-carpeta app-input-select{
+    width: 40%;
+}
+
+.checkContainer{
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.button-mover{
+    margin-top: 1rem;
+}
+
+.button-mover mat-icon{
+    margin-right: 1rem;
+}

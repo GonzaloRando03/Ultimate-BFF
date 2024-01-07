@@ -66,7 +66,7 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
 
       this.idProyecto = this.endpoint.idProyecto
     
-      this.rellenarFormulario()
+      await this.rellenarFormulario()
       this.loading = false
 
     } else {
@@ -156,12 +156,15 @@ export class P006CrearGenericoComponent implements OnInit, AfterViewInit{
     }
   }
 
-  rellenarFormulario(){
+  async rellenarFormulario(){
     this.genericoForm.get('metodo')!.setValue(this.endpoint.metodo)
     this.genericoForm.get('nombre')!.setValue(this.endpoint.nombre)
     this.genericoForm.get('url')!.setValue(this.endpoint.url)
     this.genericoForm.get('consulta')!.setValue(this.endpoint.consultaDB)
     this.genericoForm.get('descipcion')!.setValue(this.endpoint.descripcion)
+
+    const carpeta = await this.carpetaService.obtenerCarpetasEndpointGenerico(this.idEndpoint) as Carpeta[]
+    this.genericoForm.get('carpeta')!.setValue(carpeta[0].id)
 
     const paramsFormArray = this.genericoForm.get('params') as FormArray
 

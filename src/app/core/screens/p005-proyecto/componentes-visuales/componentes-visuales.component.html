@@ -1,3 +1,7 @@
+<button [routerLink]="'/nuevoVisual/' + idProyecto">
+    <mat-icon>preview</mat-icon> 
+    NUEVO C.VISUAL
+</button>
 <div *ngFor="let e of elements" >
     <p  *ngIf="e.link" [routerLink]="e.link">
         <span>{{e.titulo}}</span> 
@@ -9,4 +13,8 @@
         <span class="readyText" *ngIf="e.ready">Listo para desarrollo</span>
         <span class="revision" *ngIf="e.revisar">Pendiente de tu revisión</span>
     </p>
+</div>
+
+<div class="center" *ngIf="elements.length === 0">
+    <h2>No has creado ningún componente visual</h2>
 </div>
