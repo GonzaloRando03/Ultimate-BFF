@@ -1,5 +1,5 @@
 <app-header></app-header>
-<section *ngIf="proyecto !== null">
+<section *ngIf="!loading && proyecto !== null">
     <div class="subHeader">
         <div>
             <mat-icon routerLink="/dashboard">arrow_back</mat-icon>
@@ -52,9 +52,9 @@
     </div>
 </section>
 
-<app-footer *ngIf="proyecto !== null"></app-footer>
+<app-footer *ngIf="proyecto !== null && !loading"></app-footer>
 
-<div class="loaderContainer" *ngIf="proyecto === null">
+<div class="loaderContainer" *ngIf="loading">
     <app-loader></app-loader>
 </div>
 

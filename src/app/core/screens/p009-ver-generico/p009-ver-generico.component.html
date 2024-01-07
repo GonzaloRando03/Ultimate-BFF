@@ -65,7 +65,7 @@
         </div>
     </div>
 </section>
-<app-footer></app-footer>
+<app-footer *ngIf="!loading"></app-footer>
 
 <section class="loaderContainer" *ngIf="loading">
     <app-loader></app-loader>

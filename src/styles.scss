@@ -245,6 +245,25 @@ button:hover{
   align-items: center;
 }
 
+.side-left{
+  animation-name: sideLeft;
+  animation-duration: .5s;
+}
+
+.side-right{
+  animation-name: sideRight;
+  animation-duration: .5s;
+}
+
+.side-down{
+  animation-name: sideDown;
+  animation-duration: .5s;
+}
+
+.desvanecer{
+  animation-name: desvanecer;
+  animation-duration: .5s;
+}
 
 @keyframes desvanecer {
   from {
@@ -253,5 +272,35 @@ button:hover{
 
   to {
     opacity: 0.5;
+  }
+}
+
+@keyframes sideLeft {
+  from {
+    translate: 3rem;
+  }
+
+  to {
+    translate: 0rem;
+  }
+}
+
+@keyframes sideRight {
+  from {
+    translate: -3rem;
+  }
+
+  to {
+    translate: 0rem;
+  }
+}
+
+@keyframes sideDown {
+  from {
+    translate: 0rem -5rem;
+  }
+
+  to {
+    translate: 0rem 0rem;
   }
 }

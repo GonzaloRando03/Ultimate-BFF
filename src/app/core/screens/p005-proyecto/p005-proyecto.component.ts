@@ -19,6 +19,7 @@ import { CarpetaService } from '../../services/carpeta.service';
 })
 export class P005ProyectoComponent implements OnInit{
   idProyecto:string = ''
+  loading:boolean = false
   proyecto:Proyecto | null = null
   usuario!:Usuario 
   genericos:CarpetaConEndpoints[] = []
@@ -45,8 +46,10 @@ export class P005ProyectoComponent implements OnInit{
   }
 
   async ngOnInit(): Promise<void> {
+    this.loading = true
     this.idProyecto = this.aRouter.snapshot.params['id']
     await this.cargarProyecto()
+    this.loading = false
   }
 
   async cargarProyecto() {

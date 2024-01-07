@@ -18,7 +18,7 @@
 
     <div *ngFor="let c of carpetas">
         <div *ngIf="c.nombre === '/'">
-            <div class="center" *ngIf="getDropDown(c).length === 0">
+            <div class="center" *ngIf="getDropDown(c).length === 0 && carpetas.length === 1">
                 <h2>No has creado ningún endpoint de pantalla</h2>
             </div>
             <div *ngFor="let e of getDropDown(c)" >
