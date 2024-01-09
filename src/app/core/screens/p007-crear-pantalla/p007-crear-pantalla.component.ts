@@ -29,6 +29,7 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
   usuario:Usuario | null = null
   revisoresValues: RevisorValue[] = []
   carpetasValues:CarpetaValue[] = []
+  carpetasGenericosValues:CarpetaValue[] = []
 
   constructor(
     private aRouter:ActivatedRoute,
@@ -85,6 +86,14 @@ export class P007CrearPantallaComponent implements OnInit, AfterViewInit{
     this.revisoresValues = await this.proyectoService.obtenerUsuariosRevisores(this.idProyecto)
     const carpetas = await this.carpetaService.obtenerCarpetasPantallaProyecto(this.idProyecto) as Carpeta[]
     this.carpetasValues = carpetas.map(c => {
+      return {
+        name: c.nombre,
+        value: c.id!
+      }
+    })
+
+    const carpetasGenericos = await this.carpetaService.obtenerCarpetasGenericasProyecto(this.idProyecto) as Carpeta[]
+    this.carpetasGenericosValues = carpetasGenericos.map(c => {
       return {
         name: c.nombre,
         value: c.id!

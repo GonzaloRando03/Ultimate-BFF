@@ -10,4 +10,12 @@ export class InputTextareaComponent {
   @Input() control: string = '';
   @Input() placeholder: string = '';
   @Input() group!: FormGroup;
+
+  
+  autoExpand(event: any): void {
+    const textarea = event.target;
+  
+    textarea.style.height = 'auto'; // Restablece la altura a auto para obtener la altura deseada
+    textarea.style.height = `${textarea.scrollHeight}px`; // Establece la altura según el contenido
+  }
 }

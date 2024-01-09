@@ -3,7 +3,8 @@
       <textarea 
         [id]="control"
         [formControlName]="control"
-        [placeholder]="placeholder">
+        [placeholder]="placeholder"
+        (input)="autoExpand($event)">
       </textarea>
       <ng-content></ng-content>
     </div>

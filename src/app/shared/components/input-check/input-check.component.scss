@@ -6,6 +6,7 @@ input[type="checkbox"]{
     height: .8rem;
     background-color: var(--bg-color-element);
     border-radius: 4px;
+    transition: .2s;
 }
 
 input[type="checkbox"]:checked {

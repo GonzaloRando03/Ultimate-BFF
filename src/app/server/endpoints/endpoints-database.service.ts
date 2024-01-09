@@ -11,7 +11,7 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { deleteDoc } from 'firebase/firestore';
+import { deleteDoc, orderBy } from 'firebase/firestore';
 import { ComponenteVisual, EndpointGenerico, EndpointPantalla } from 'src/app/core/models/endpoint.model';
 
 @Injectable({
@@ -63,7 +63,10 @@ export class EndpointsDatabaseService {
   async obtenerGenericosProyecto(idProyecto: string) {
     try {
       const querySnapshot = await getDocs(
-        query(collection(this.firestore, this.genericosCollection), where('idProyecto', '==', idProyecto))
+        query(
+          collection(this.firestore, this.genericosCollection), 
+          where('idProyecto', '==', idProyecto),
+          orderBy('nombre'))
       );
 
       if (querySnapshot.docs.length === 0) return []
@@ -85,7 +88,11 @@ export class EndpointsDatabaseService {
   async obtenerPantallasProyecto(idProyecto: string) {
     try {
       const querySnapshot = await getDocs(
-        query(collection(this.firestore, this.pantallasCollection), where('idProyecto', '==', idProyecto))
+        query(
+          collection(this.firestore, this.pantallasCollection), 
+          where('idProyecto', '==', idProyecto),
+          orderBy('nombre')
+        )
       );
 
       if (querySnapshot.docs.length === 0) return []

@@ -4,20 +4,20 @@
 
 details {
     box-sizing: border-box;
-    transition: max-height 300ms ease-out;
+    transition: max-height 500ms ease-out;
     max-height: 5.2rem; /* Set a max-height value just enough to show the summary content */
     overflow: hidden; /* Hide the rest of the content */
   }
 
   summary {
-    display: block; /* This hides the summary's ::marker pseudo-element */
+    display: block; 
   }
 
   input {
-    display: none; /* Hide the checkbox element */
+    display: none; 
   }
 
-  /* <label> element to check the checkbox */
+
   label {
     position: relative;
     display: flex;
@@ -56,7 +56,7 @@ details {
 
   input:checked + details,
   details:has(input:checked) {
-    max-height: 800px; /* Set a max-height value enough to show all the content */
+    max-height: 1600px;  //NOTA DE GONZALO: ESTA ES LA ALTURA DEL CONTENIDO DESPLEGADO.
     border-bottom: none;
   }
 

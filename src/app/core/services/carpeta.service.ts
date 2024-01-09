@@ -101,6 +101,7 @@ export class CarpetaService {
       })
 
       const endpoints = await Promise.all(endpointsPromise)
+      endpoints.sort((a, b) => b.nombre.localeCompare(a.nombre));
 
       return {
         ...c,
@@ -127,6 +128,7 @@ export class CarpetaService {
       })
 
       const endpoints = await Promise.all(endpointsPromise)
+      endpoints.sort((a, b) => b.nombre.localeCompare(a.nombre));
 
       return {
         ...c,
